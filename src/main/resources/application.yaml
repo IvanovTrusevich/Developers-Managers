@@ -1,0 +1,62 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    show-sql: true
+    generate-ddl: true
+  jmx:
+    enabled: false
+  hibernate:
+    max_fetch_depth: 3
+    jdbc:
+      fetch_size: 50
+      batch_size: 10
+logging:
+  file: logs/devman.log
+by.itransition:
+      service:
+        user:
+          credential:
+            alwaysGenerateOnRegistration: false
+            defaultPasswordGeneratorName: by.itransition.service.user.RandomPasswordGenerator
+          defaultAuthority: ROLE_USER
+---
+spring:
+  profiles: dev
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: H2
+  datasource:
+    url: jdbc:h2:mem:notes_db;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+logging:
+  level:
+    org.hibernate: info
+    javafx.*: info
+    org.springframework: info
+    org.jboss.logging: info
+    org.apache.commons: info
+    .: debug
+---
+spring:
+  profiles: prod
+  jpa:
+      hibernate:
+        ddl-auto: update
+      database: MYSQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/notes
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+logging:
+  level:
+    org.hibernate: warn
+    javafx.*: warn
+    org.springframework: warn
+    org.jboss.logging: warn
+    org.apache.commons: warn
+    .: info
