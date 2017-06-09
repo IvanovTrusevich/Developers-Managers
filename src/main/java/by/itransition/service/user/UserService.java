@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * @author Ilya Ivanov
  */
-@Service
+@Service("userService")
 public class UserService implements RegistrationService, UserDetailsService {
     private final UserRepository userRepository;
 
