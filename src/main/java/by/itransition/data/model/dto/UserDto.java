@@ -12,14 +12,23 @@ import javax.validation.constraints.Size;
 public class UserDto {
     public static final UserDto PLACEHOLDER = new UserDto("", "", "");
 
-    @ValidEmail
-    private String email;
+//    @Size(min = 2, max = 30, message = "{firstName.size}")
+//    private String firstName;
+//
+//    @Size(min = 2, max = 30, message = "{lastName.size}")
+//    private String lastName;
+//
+//    @Size(min = 2, max = 30)
+//    private String username;
 
     @Size(min = 5, max = 25)
     private String password;
 
-    @Size(min = 5, max = 25)
+    @Size(min = 5, max = 25, message = "{password.matching}")
     private String matchingPassword;
+
+    @ValidEmail(message = "{email.valid}")
+    private String email;
 
     private UserDto() {
     }

@@ -24,7 +24,7 @@
                         <div class="clearfix">
                             <div class="input-text">
                                 <label for="username" >
-                                    <s:message code="login.username" /></label>
+                                    <s:message code="login.email" /></label>
                                 <input type="text" id="username" name="username" placeholder="Username" />
                             </div>
                             <div class="input-text">

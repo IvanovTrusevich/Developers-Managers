@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.CacheControl;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Ilya Ivanov
@@ -31,6 +33,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".jsp");
 
         resolver.setViewClass(JstlView.class);
+        // let you to expose all spring beans in jstl
         resolver.setExposeContextBeansAsAttributes(true);
         return resolver;
     }
@@ -56,7 +59,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public CookieLocaleResolver localeResolver(){
         CookieLocaleResolver localeResolver = new CookieLocaleResolver();
         localeResolver.setDefaultLocale(Locale.ENGLISH);
-        localeResolver.setCookieName("my-locale-cookie");
+        localeResolver.setCookieName("locale-cookie");
         localeResolver.setCookieMaxAge(3600);
         return localeResolver;
     }
@@ -73,13 +76,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(localeInterceptor());
     }
 
-    @Bean(name = "validator")
-    public LocalValidatorFactoryBean validator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-        return bean;
-    }
-
     @Bean
     public FilterRegistrationBean registerOpenEntityManagerInViewFilterBean() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
@@ -90,8 +86,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/res/**").addResourceLocations("/resources/");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/res/**")
+                .addResourceLocations("/resources/")
+                .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS));
     }
 
     @Override
