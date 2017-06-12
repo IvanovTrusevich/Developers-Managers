@@ -5,8 +5,6 @@ import by.itransition.data.model.dto.UserDto;
 import by.itransition.service.user.exception.UserExistsException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.Optional;
-
 /**
  * @author Ilya Ivanov
  */

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
   jpa:
     show-sql: true
     generate-ddl: true
@@ -45,10 +45,10 @@ spring:
   profiles: prod
   jpa:
       hibernate:
-        ddl-auto: update
+        ddl-auto: create
       database: MYSQL
   datasource:
-    url: jdbc:mysql://localhost:3306/notes
+    url: jdbc:mysql://localhost:3306/devman
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
