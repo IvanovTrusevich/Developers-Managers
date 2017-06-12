@@ -48,8 +48,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.addBasenames(
-                "/resources/messages/messages");
+        messageSource.addBasenames("/resources/messages/messages");
         messageSource.setCacheSeconds(10);
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
@@ -80,6 +79,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public FilterRegistrationBean registerOpenEntityManagerInViewFilterBean() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         OpenEntityManagerInViewFilter filter = new OpenEntityManagerInViewFilter();
+        // TODO add reasonable url patterns to filter
+        registrationBean.addUrlPatterns("/**");
         registrationBean.setFilter(filter);
         registrationBean.setOrder(5);
         return registrationBean;

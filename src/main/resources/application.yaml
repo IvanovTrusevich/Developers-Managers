@@ -13,6 +13,9 @@ spring:
       batch_size: 10
 logging:
   file: logs/devman.log
+lombok:
+  getter:
+    noIsPrefix: false
 by.itransition:
       service:
         user:

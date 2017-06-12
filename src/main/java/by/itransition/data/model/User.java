@@ -1,6 +1,9 @@
 package by.itransition.data.model;
 
 import com.google.common.collect.Lists;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,15 +22,21 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "users")
-//@PersistenceContext(type = PersistenceContextType.EXTENDED)
+@ToString(of = {"id", "email", "username", "password", "enabled", "authorities"}, doNotUseGetters = true)
+@EqualsAndHashCode(of = {"id", "email", "username"})
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Getter
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "username", unique = true)
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -44,9 +53,6 @@ public class User implements UserDetails {
     @Column(name = "authorities")
     private List<String> authorities = new ArrayList<>();
 
-    private User() {
-    }
-
     public User(String email, String password) {
         this(email, password, Lists.newArrayList());
     }
@@ -58,32 +64,11 @@ public class User implements UserDetails {
     public User(String email, String password, List<? extends GrantedAuthority> authorities) {
         this.email = email;
         this.password = password;
-        this.enabled = true;
+        this.enabled = false;
         this.projects = new HashSet<>();
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
-            this.addAllAuthority(authorities);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
+            this.addAllAuthorities(authorities);
     }
 
     @Override
@@ -106,24 +91,7 @@ public class User implements UserDetails {
         return enabled;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void addNote(Project project) {
-        this.projects.remove(project);
+    public void addProject(Project project) {
         this.projects.add(project);
         if (project.getOwner() != this) {
             project.setOwner(this);
@@ -137,25 +105,14 @@ public class User implements UserDetails {
 
     public void setAuthorities(List<GrantedAuthority> authorities) {
         this.authorities.clear();
-        this.addAllAuthority(authorities);
+        this.addAllAuthorities(authorities);
     }
 
     public <T extends GrantedAuthority> void addAuthority(T authority) {
         this.authorities.add(authority.getAuthority());
     }
 
-    public void addAllAuthority(List<? extends GrantedAuthority> authorities) {
+    public void addAllAuthorities(List<? extends GrantedAuthority> authorities) {
         this.authorities.addAll(authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", authorities=" + authorities +
-                '}';
     }
 }

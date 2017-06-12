@@ -1,5 +1,7 @@
 package by.itransition.data.model;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 
 /**
@@ -7,6 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "projects")
+@Getter
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,15 +20,10 @@ public class Project {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    public Long getId() {
-        return id;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
     public void setOwner(User owner) {
         this.owner = owner;
+        if (!owner.getProjects().contains(this)) {
+            owner.addProject(this);
+        }
     }
 }

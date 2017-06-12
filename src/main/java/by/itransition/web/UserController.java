@@ -4,6 +4,8 @@ import by.itransition.data.model.User;
 import by.itransition.data.model.dto.UserDto;
 import by.itransition.service.user.UserService;
 import by.itransition.service.user.exception.UserExistsException;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +24,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @Controller
 @RequestMapping(value = {"/"})
+@Log4j
 public class UserController {
-    private static final Logger log = Logger.getLogger(UserController.class);
-
     private final UserService service;
 
     @Autowired
@@ -34,7 +35,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = GET)
     public String register(Model model) {
-        model.addAttribute("user", UserDto.PLACEHOLDER);
+        model.addAttribute("user", UserDto.getPlaceholder());
         return "registration";
     }
 
