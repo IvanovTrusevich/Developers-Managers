@@ -1,37 +1,85 @@
 package by.itransition.data.model.dto;
 
+import lombok.*;
 import by.itransition.data.constraints.annotation.PasswordMatches;
 import by.itransition.data.constraints.annotation.ValidEmail;
+import lombok.experimental.FieldDefaults;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * @author Ilya Ivanov
  */
-@PasswordMatches
+@PasswordMatches(message = "{password.matching}")
+//@Data
+//@AllArgsConstructor
 public class UserDto {
-    public static final UserDto PLACEHOLDER = new UserDto("", "", "");
+    @NotNull
+    @Size(min = 2, max = 30, message = "{firstName.size}")
+    private String firstName;
 
-    @ValidEmail
+    @NotNull
+    @Size(min = 2, max = 30, message = "{lastName.size}")
+    private String lastName;
+
+    @Size(min = 2, max = 30, message = "{lastName.size}")
+    private String middleName;
+
+    @NotNull
+    @ValidEmail(message = "{email.valid}")
     private String email;
 
-    @Size(min = 5, max = 25)
+    @NotNull
+    @Size(min = 2, max = 30)
+    private String username;
+
+    @NotNull
+    @Size(min = 8, max = 25, message = "{password.size}")
     private String password;
 
-    @Size(min = 5, max = 25)
+    @NotNull
+    @Size(min = 8, max = 25, message = "{password.size}")
     private String matchingPassword;
 
-    private UserDto() {
-    }
-
-    public UserDto(String email, String password, String matchingPassword) {
+    public UserDto(String firstName, String lastName, String middleName, String email, String username, String password, String matchingPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
         this.email = email;
+        this.username = username;
         this.password = password;
         this.matchingPassword = matchingPassword;
     }
 
-    public static UserDto getPLACEHOLDER() {
-        return PLACEHOLDER;
+    public static UserDto getPlaceholder() {
+        return new UserDto("", "", "", "", "", "", "");
+    }
+
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public String getEmail() {
@@ -40,6 +88,14 @@ public class UserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

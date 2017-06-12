@@ -1,14 +1,24 @@
 package by.itransition.data.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Created by ilya on 5/29/17.
+ */
 @Entity
 @Table(name = "projects")
+//@Getter
+//@Setter
+//@EqualsAndHashCode
+//@ToString(of = {"id", "projectName", "gitRepoName", "gitRepoUrl", "gitLastSHA", "gitReadme"})
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "project_id")
+//    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -43,16 +53,28 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<GitFile> gitFiles;
 
+    private Project() {
+    }
+
+    public Project(String projectName, String gitRepoName, List<User> managers) {
+        this.projectName = projectName;
+        this.gitRepoName = gitRepoName;
+        this.managers = managers;
+    }
+
+    public Project(List<User> developers, List<User> managers, String projectName, String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme, List<GitFile> gitFiles) {
+        this.developers = developers;
+        this.managers = managers;
+        this.projectName = projectName;
+        this.gitRepoName = gitRepoName;
+        this.gitRepoUrl = gitRepoUrl;
+        this.gitLastSHA = gitLastSHA;
+        this.gitReadme = gitReadme;
+        this.gitFiles = gitFiles;
+    }
+
     public Long getId() {
         return id;
-    }
-
-    public List<User> getManagers() {
-        return managers;
-    }
-
-    public void setManagers(List<User> managers) {
-        this.managers = managers;
     }
 
     public List<User> getDevelopers() {
@@ -61,6 +83,14 @@ public class Project {
 
     public void setDevelopers(List<User> developers) {
         this.developers = developers;
+    }
+
+    public List<User> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(List<User> managers) {
+        this.managers = managers;
     }
 
     public String getProjectName() {
@@ -77,6 +107,14 @@ public class Project {
 
     public void setGitRepoName(String gitRepoName) {
         this.gitRepoName = gitRepoName;
+    }
+
+    public String getGitRepoUrl() {
+        return gitRepoUrl;
+    }
+
+    public void setGitRepoUrl(String gitRepoUrl) {
+        this.gitRepoUrl = gitRepoUrl;
     }
 
     public String getGitLastSHA() {
@@ -103,25 +141,35 @@ public class Project {
         this.gitFiles = gitFiles;
     }
 
-    public Project() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Project project = (Project) o;
+
+        if (id != null ? !id.equals(project.id) : project.id != null) return false;
+        if (gitRepoName != null ? !gitRepoName.equals(project.gitRepoName) : project.gitRepoName != null) return false;
+        return gitRepoUrl != null ? gitRepoUrl.equals(project.gitRepoUrl) : project.gitRepoUrl == null;
     }
 
-    public Project(List<User> managers,List<User> developers, String projectName,
-                   String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme,
-                   List<GitFile> gitFiles) {
-        this.developers = developers;
-        this.projectName = projectName;
-        this.gitRepoName = gitRepoName;
-        this.gitRepoUrl = gitRepoUrl;
-        this.gitLastSHA = gitLastSHA;
-        this.gitReadme = gitReadme;
-        this.gitFiles = gitFiles;
-        this.managers = managers;
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (gitRepoName != null ? gitRepoName.hashCode() : 0);
+        result = 31 * result + (gitRepoUrl != null ? gitRepoUrl.hashCode() : 0);
+        return result;
     }
 
-    public Project(String projectName, String gitRepoName, List<User> managers) {
-        this.projectName = projectName;
-        this.gitRepoName = gitRepoName;
-        this.managers = managers;
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", projectName='" + projectName + '\'' +
+                ", gitRepoName='" + gitRepoName + '\'' +
+                ", gitRepoUrl='" + gitRepoUrl + '\'' +
+                ", gitLastSHA='" + gitLastSHA + '\'' +
+                ", gitReadme='" + gitReadme + '\'' +
+                '}';
     }
 }

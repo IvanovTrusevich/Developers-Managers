@@ -13,5 +13,5 @@ import java.util.Map;
 public interface GitFileRepository extends JpaRepository<GitFile, Long> {
     List<GitFile> findByProject(Project project);
     GitFile findByProjectAndFileName(Project project, String fileName);
-    void deleteByProject(Project project);
+    void deleteAllByProject(Project project);
 }

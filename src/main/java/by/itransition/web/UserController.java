@@ -2,8 +2,9 @@ package by.itransition.web;
 
 import by.itransition.data.model.User;
 import by.itransition.data.model.dto.UserDto;
-import by.itransition.service.user.UserService;
-import by.itransition.service.user.exception.UserExistsException;
+import by.itransition.service.user.impl.UserService;
+import by.itransition.service.user.exception.AlreadyExistsException;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = GET)
     public String register(Model model) {
-        model.addAttribute("user", UserDto.PLACEHOLDER);
+        model.addAttribute("user", UserDto.getPlaceholder());
         return "registration";
     }
 
@@ -56,7 +57,7 @@ public class UserController {
     private User createUserAccount(UserDto accountDto, BindingResult result) {
         try {
             return service.registerNewUserAccount(accountDto);
-        } catch (UserExistsException e) {
+        } catch (AlreadyExistsException e) {
             result.rejectValue("email", "Already exists");
             return null;
         } catch (IllegalAccessException | InstantiationException e) {

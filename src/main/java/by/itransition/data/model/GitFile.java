@@ -48,12 +48,12 @@ public class GitFile {
         this.project = project;
     }
 
+    public GitFile() {
+    }
+
     public GitFile(String fileName, String fileContent, Project project) {
         this.fileName = fileName;
         this.fileContent = fileContent;
         this.project = project;
-    }
-
-    public GitFile() {
     }
 }

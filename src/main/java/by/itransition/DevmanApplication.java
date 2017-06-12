@@ -13,6 +13,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,14 +31,13 @@ public class DevmanApplication {
 	}
 
 	@Bean
-	//@Profile("dev")
+	@Profile({"dev"})
 	@Transactional
 	public CommandLineRunner dev(GitFileRepository gitFileRepository,
                                  ProjectRepository projectRepository,
                                  UserRepository userRepository,
                                  PasswordEncoder passwordEncoder) {
 		return (args) -> {
-
 			String encodedPassword = passwordEncoder.encode("ilya");
 			User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, "Ivanov",
 					"Ilya","illya","Ilya1vanov","photo");

@@ -3,8 +3,6 @@ package by.itransition.tools.github;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import by.itransition.data.model.GitFile;
 import by.itransition.data.model.Project;
@@ -27,21 +25,10 @@ public class GitHubImpl {
     private ProjectRepository projectRepository;
     private GitFileRepository gitFileRepository;
 
-	public static void main(String[] argc) {
-		String repoName = "Socket";
-		//String branchName = "master";
-		//System.out.println(new GitHubImpl().getFullFiles(repoName, branchName).size());
-        //System.out.println(new GitHubImpl().createRepo(repoName));
-        System.out.println(new GitHubImpl().getHtmlUrl(repoName));
-
-	}
-
     public GitHubImpl() {
-
     }
 
-    public GitHubImpl(ProjectRepository projectRepository,
-                      GitFileRepository gitFileRepository) {
+    public GitHubImpl(ProjectRepository projectRepository, GitFileRepository gitFileRepository) {
         this.projectRepository = projectRepository;
         this.gitFileRepository = gitFileRepository;
     }
@@ -78,7 +65,7 @@ public class GitHubImpl {
 	public List<Pair<String,String>> getFiles(String repoName) {
 
         if(isLastCommitCashed(repoName)){
-            return getFilesFromCashe(repoName);
+            return getFilesFromCache(repoName);
         }
         List<Pair<String,String>> files = loadFilesFromGithub(repoName);
         cacheFiles(files, repoName);
@@ -93,7 +80,7 @@ public class GitHubImpl {
         return getRepo(repoName).getHtmlUrl().toString();
     }
 
-    @SuppressWarnings("deprecation")
+//    @SuppressWarnings("deprecation")
 	public String getReadMe(String repoName) {
         try {
             return getRepo(repoName).getReadme().getContent();
@@ -102,10 +89,9 @@ public class GitHubImpl {
         }
     }
 
-	private GHRepository getRepo(String repoName){
-        GitHub github;
+	private GHRepository getRepo(String repoName) {
         try {
-            github = GitHub.connectUsingOAuth(oAuth);
+            GitHub github = GitHub.connectUsingOAuth(oAuth);
             GHOrganization organisation = github.getOrganization(orgName);
             return organisation.getRepository(repoName);
         } catch (IOException e) {
@@ -116,7 +102,7 @@ public class GitHubImpl {
     private boolean isLastCommitCashed(String repoName) {
         GHRepository repo = getRepo(repoName);
         String lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
-        String lastCommitSha = null;
+        String lastCommitSha;
         try {
             lastCommitSha = repo.getBranch(branchName).getSHA1();
         } catch (IOException e) {
@@ -127,7 +113,7 @@ public class GitHubImpl {
 
     @SuppressWarnings("deprecation")
     private List<Pair<String,String>> loadFilesFromGithub(String repoName) {
-        List<Pair<String,String>> files = new  ArrayList<Pair<String,String>>();
+        List<Pair<String,String>> files = new ArrayList<>();
         try {
             GHRepository repo = getRepo(repoName);
             GHTree tree = repo.getTreeRecursive(branchName, 1);
@@ -144,12 +130,11 @@ public class GitHubImpl {
         return files;
     }
 
-    private List<Pair<String,String>> getFilesFromCashe(String repoName) {
+    private List<Pair<String,String>> getFilesFromCache(String repoName) {
         List<GitFile> files = gitFileRepository.findAll();
         List<Pair<String,String>> formattedFiles = new ArrayList<>();
         for(GitFile file : files){
-            formattedFiles.add(new Pair<String, String>(
-                    file.getFileName(), file.getFileContent()));
+            formattedFiles.add(new Pair<>(file.getFileName(), file.getFileContent()));
         }
         return formattedFiles;
     }
@@ -157,7 +142,9 @@ public class GitHubImpl {
     @Transactional
     private void cacheFiles(List<Pair<String, String>> files, String repoName) {
 	    Project project = projectRepository.findByGitRepoName(repoName);
-        gitFileRepository.deleteByProject(project);
+	    project.getGitFiles().remove(2);
+	    projectRepository.save(project);
+        gitFileRepository.deleteAllByProject(project);
 	    for(Pair<String,String> file : files){
 	        GitFile gitFile = new GitFile();
 	        gitFile.setFileName(file.getKey());
