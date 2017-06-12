@@ -1,7 +1,7 @@
 package by.itransition.config;
 
 import by.itransition.data.repository.UserRepository;
-import by.itransition.service.user.UserService;
+import by.itransition.service.user.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

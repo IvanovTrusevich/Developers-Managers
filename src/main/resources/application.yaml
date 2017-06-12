@@ -13,15 +13,12 @@ spring:
       batch_size: 10
 logging:
   file: logs/devman.log
-lombok:
-  getter:
-    noIsPrefix: false
 by.itransition:
       service:
         user:
           credential:
             alwaysGenerateOnRegistration: false
-            defaultPasswordGeneratorName: by.itransition.service.user.RandomPasswordGenerator
+            defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_USER
 ---
 spring:

@@ -1,19 +1,21 @@
-package by.itransition.service.user;
+package by.itransition.service.user.impl;
 
 import by.itransition.data.model.User;
 import by.itransition.data.model.dto.UserDto;
 import by.itransition.data.repository.UserRepository;
-import by.itransition.service.user.exception.UserExistsException;
+import by.itransition.service.user.AuthorityPolicy;
+import by.itransition.service.user.CredentialsPolicy;
+import by.itransition.service.user.PasswordGenerator;
+import by.itransition.service.user.RegistrationService;
+import by.itransition.service.user.exception.AlreadyExistsException;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * @author Ilya Ivanov
@@ -24,10 +26,13 @@ public class UserService implements RegistrationService, UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Setter
     private CredentialsPolicy credentialsPolicy;
 
+    @Setter
     private PasswordGenerator passwordGenerator;
 
+    @Setter
     private AuthorityPolicy authorityPolicy;
 
     @Autowired
@@ -39,10 +44,10 @@ public class UserService implements RegistrationService, UserDetailsService {
     }
 
     @Override
-    public User registerNewUserAccount(UserDto accountDto) throws UserExistsException, IllegalAccessException, InstantiationException {
+    public User registerNewUserAccount(UserDto accountDto) throws AlreadyExistsException, IllegalAccessException, InstantiationException {
         final String email = accountDto.getEmail();
         if (usernameExist(email)) {
-            throw new UserExistsException("There is an account with that username: + accountDto.getEmail()");
+            throw new AlreadyExistsException("There is an account with that username: + accountDto.getEmail()");
         }
 
         String password = accountDto.getPassword();
@@ -73,17 +78,5 @@ public class UserService implements RegistrationService, UserDetailsService {
         if (byEmail == null)
             throw new UsernameNotFoundException("User not found");
         return byEmail;
-    }
-
-    public void setAuthorityPolicy(AuthorityPolicy authorityPolicy) {
-        this.authorityPolicy = authorityPolicy;
-    }
-
-    public void setCredentialsPolicy(CredentialsPolicy credentialsPolicy) {
-        this.credentialsPolicy = credentialsPolicy;
-    }
-
-    public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
-        this.passwordGenerator = passwordGenerator;
     }
 }

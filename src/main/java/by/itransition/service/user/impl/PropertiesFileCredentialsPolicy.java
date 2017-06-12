@@ -1,5 +1,7 @@
-package by.itransition.service.user;
+package by.itransition.service.user.impl;
 
+import by.itransition.service.user.CredentialsPolicy;
+import by.itransition.service.user.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

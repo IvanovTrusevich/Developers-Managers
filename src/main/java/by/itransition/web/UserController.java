@@ -2,11 +2,9 @@ package by.itransition.web;
 
 import by.itransition.data.model.User;
 import by.itransition.data.model.dto.UserDto;
-import by.itransition.service.user.UserService;
-import by.itransition.service.user.exception.UserExistsException;
+import by.itransition.service.user.impl.UserService;
+import by.itransition.service.user.exception.AlreadyExistsException;
 import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +55,7 @@ public class UserController {
     private User createUserAccount(UserDto accountDto, BindingResult result) {
         try {
             return service.registerNewUserAccount(accountDto);
-        } catch (UserExistsException e) {
+        } catch (AlreadyExistsException e) {
             result.rejectValue("email", "Already exists");
             return null;
         } catch (IllegalAccessException | InstantiationException e) {

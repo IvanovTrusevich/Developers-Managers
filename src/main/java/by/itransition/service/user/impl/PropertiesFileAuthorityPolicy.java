@@ -1,5 +1,7 @@
-package by.itransition.service.user;
+package by.itransition.service.user.impl;
 
+import by.itransition.service.user.AuthorityPolicy;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,15 +12,11 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PropertiesFileAuthorityPolicy implements AuthorityPolicy {
-    private GrantedAuthority defaultAuthority;
+    @Getter
+    private GrantedAuthority defaultRegistrationAuthority;
 
     public PropertiesFileAuthorityPolicy(
             @Value("${by.itransition.service.user.defaultAuthority}") String defaultAuthority) {
-        this.defaultAuthority = new SimpleGrantedAuthority(defaultAuthority);
-    }
-
-    @Override
-    public GrantedAuthority getDefaultRegistrationAuthority() {
-        return defaultAuthority;
+        this.defaultRegistrationAuthority = new SimpleGrantedAuthority(defaultAuthority);
     }
 }

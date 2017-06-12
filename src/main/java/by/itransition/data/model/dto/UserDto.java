@@ -3,6 +3,7 @@ package by.itransition.data.model.dto;
 import lombok.*;
 import by.itransition.data.constraints.annotation.PasswordMatches;
 import by.itransition.data.constraints.annotation.ValidEmail;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Size;
  * @author Ilya Ivanov
  */
 @PasswordMatches(message = "{password.matching}")
-@Value
+@Data
 @AllArgsConstructor
 public class UserDto {
     @NotNull
