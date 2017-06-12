@@ -35,40 +35,71 @@ public class User implements UserDetails {
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "username", unique = true)
-    private String username;
-
     @Column(name = "password")
     private String password;
 
     @Column(name = "enabled")
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private Set<Project> projects = new HashSet<>();
-
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name="user_id"))
     @Column(name = "authorities")
     private List<String> authorities = new ArrayList<>();
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "nick_name", unique = true)
+    private String nickName;
+
+    @Column(name = "github_nick", unique = true)
+    private String githubNick;
+
+    @Column(name = "photo")
+    private String photo;
+
+    @ManyToMany(mappedBy = "developers")
+    private Set<Project> projects = new HashSet<>();
+
+    @ManyToMany(mappedBy = "managers")
+    private List<Project> managedProjects;
+
+    private User() {
+    }
 
     public User(String email, String password) {
-        this(email, password, Lists.newArrayList());
+        this(email, password, Lists.newArrayList(),null,null,
+                null,null,null);
     }
 
-    public User(String email, String password, GrantedAuthority authority) {
-        this(email, password, Lists.newArrayList(authority));
+    public User(String email, String password, String lastName,
+                String firstName, String nickName, String githubNick, String photo) {
+        this(email, password, Lists.newArrayList(), lastName,
+                firstName, nickName, githubNick, photo);
     }
 
-    public User(String email, String password, List<? extends GrantedAuthority> authorities) {
+    public User(String email, String password, GrantedAuthority authority, String lastName,
+                String firstName, String nickName, String githubNick, String photo) {
+        this(email, password, Lists.newArrayList(authority), lastName,
+                firstName, nickName, githubNick, photo);
+    }
+
+    public User(String email, String password, List<? extends GrantedAuthority> authorities, String lastName,
+                String firstName, String nickName, String githubNick, String photo) {
         this.email = email;
         this.password = password;
-        this.enabled = false;
-        this.projects = new HashSet<>();
+        this.enabled = true;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.githubNick = githubNick;
+        this.photo = photo;
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
-            this.addAllAuthorities(authorities);
+            this.addAllAuthority(authorities);
     }
 
     @Override
@@ -93,7 +124,7 @@ public class User implements UserDetails {
 
     public void addProject(Project project) {
         this.projects.add(project);
-        if (project.getOwner() != this) {
+        if (project.getManagers() != this) {
             project.setOwner(this);
         }
     }
@@ -105,14 +136,14 @@ public class User implements UserDetails {
 
     public void setAuthorities(List<GrantedAuthority> authorities) {
         this.authorities.clear();
-        this.addAllAuthorities(authorities);
+        this.addAllAuthority(authorities);
     }
 
     public <T extends GrantedAuthority> void addAuthority(T authority) {
         this.authorities.add(authority.getAuthority());
     }
 
-    public void addAllAuthorities(List<? extends GrantedAuthority> authorities) {
+    public void addAllAuthority(List<? extends GrantedAuthority> authorities) {
         this.authorities.addAll(authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
     }
 }

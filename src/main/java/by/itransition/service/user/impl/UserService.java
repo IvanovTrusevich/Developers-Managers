@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author Ilya Ivanov
  */
-@Service
+@Service("userService")
 public class UserService implements RegistrationService, UserDetailsService {
     private final UserRepository userRepository;
 
