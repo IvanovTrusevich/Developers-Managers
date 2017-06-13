@@ -13,7 +13,16 @@ function displayOrganisation(orgName, divId) {
     });
 }
 
-
+/////////////////////////////////////    HEADER    //////////////////////////////////////////
+$(function () {
+    // $('li a');
+    // var clauses = document.querySelector(".main-navigation").querySelectorAll("li");
+    // for (i = 0; i < clauses.length; i++) {
+    //     if (clauses[i].getElementsByTagName("a")[0].getAttribute('href') === "${requestScope['javax.servlet.forward.request_uri']}") {
+    //         clauses[i].classList.add("active")
+    //     }
+    // }
+});
 
 ///////////////////////////////////// REGISTRATION //////////////////////////////////////////
 $(function () {
@@ -44,7 +53,7 @@ $(function () {
             $messageId.fadeOut($messageAnimateTime, function () {
                 $(this).val($messageText).fadeIn($messageAnimateTime);
             });
-        }
+        };
 
         var animateModal = function ($oldForm, $newForm) {
             var $oldH = $oldForm.height();
@@ -57,7 +66,7 @@ $(function () {
                     $newForm.fadeToggle($animateModalTime);
                 });
             });
-        }
+        };
 
         this.changeMessage = function ($divTag, $iconTag, $textTag, $divClass, $iconClass, $messageText) {
             var $messageOld = $textTag.val();
@@ -124,15 +133,25 @@ $(function () {
 
     var $defaultSubmitting = {
         submitHandler: function (form) {
-            console.log(form);
             var $btn = $(form).find(':submit');
             $btn.button('loading');
-            console.log('Ajax sending....');
-            $modal.changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "OK");
-            //            changeMessage($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
-            //        $(form).ajaxSubmit();
-            //        $btn.button('reset');
-            //        return false;
+            form.ajaxForm({
+                beforeSubmit: function (xhr) {
+                    xhr.setRequestHeader("X-Ajax-call", "true");
+                },
+                success: function(data) {
+                    $modal.changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "OK");
+                    $btn.button('reset');
+                    $modal.modal('hide');
+                    $('#login-popup').css('display', 'none');
+                    $('#user-dropdown').css('display', 'block');
+                    $('#user-dropdown-username').text(data);
+                },
+                error: function(data) {
+                    changeMessage($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", data);
+                }
+            });
+            return false;
         }
     };
     var $tooltopValidation = {

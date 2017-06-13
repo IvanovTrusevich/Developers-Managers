@@ -31,27 +31,24 @@ public class DevmanApplication {
 	}
 
 	@Bean
+    @Profile("prod")
+    public CommandLineRunner prod(GitFileRepository gitFileRepository,
+                                 ProjectRepository projectRepository,
+                                 UserRepository userRepository,
+                                 PasswordEncoder passwordEncoder) {
+        return (args) -> {
+            addAdmins(userRepository, passwordEncoder);
+        };
+	}
+
+	@Bean
 	@Profile({"dev"})
-	@Transactional
 	public CommandLineRunner dev(GitFileRepository gitFileRepository,
                                  ProjectRepository projectRepository,
                                  UserRepository userRepository,
                                  PasswordEncoder passwordEncoder) {
 		return (args) -> {
-			String encodedPassword = passwordEncoder.encode("ilya");
-			User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, "Ivanov",
-					"Ilya","illya","Ilya1vanov","photo");
-			user.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
-			user.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
-			userRepository.save(user);
-
-            String encodedPassword2 = passwordEncoder.encode("valik");
-            User user2 = new User("vtrusevich@gmail.com", encodedPassword2, "aa",
-                    "aaa","aaa","vtrusevich","nnnn");
-            user.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            user.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
-            userRepository.save(user2);
-
+            addAdmins(userRepository, passwordEncoder);
 			final User one = userRepository.findOne(1L);
             final User two = userRepository.findOne(2L);
 			log.info(one);
@@ -82,4 +79,21 @@ public class DevmanApplication {
             log.info("size = " + ghi.getFiles("Socket").size());
 		};
 	}
+
+	private void addAdmins(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder) {
+        String encodedPassword = passwordEncoder.encode("Ilyailya1");
+        User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, "Ivanov",
+                "Ilya","illya","Ilya1vanov","photo");
+        user.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        user.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
+        userRepository.save(user);
+
+        String encodedPassword2 = passwordEncoder.encode("valik");
+        User user2 = new User("vtrusevich@gmail.com", encodedPassword2, "aa",
+                "aaa","aaa","vtrusevich","nnnn");
+        user.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        user.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
+        userRepository.save(user2);
+    }
 }

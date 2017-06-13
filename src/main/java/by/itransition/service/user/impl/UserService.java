@@ -71,10 +71,10 @@ public class UserService implements RegistrationService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        final User byEmail = userRepository.findByEmail(s);
-        if (byEmail == null)
+        final User byEmailOrUsername = userRepository.findByEmailOrUsername(s, s);
+        if (byEmailOrUsername == null)
             throw new UsernameNotFoundException("User not found");
-        return byEmail;
+        return byEmailOrUsername;
     }
 
     public void setCredentialsPolicy(CredentialsPolicy credentialsPolicy) {

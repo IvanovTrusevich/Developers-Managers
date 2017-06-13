@@ -43,20 +43,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .usernameParameter("username")
+//                    .loginProcessingUrl("/login-processing")
+                    .usernameParameter("credentials")
                     .passwordParameter("password")
+//                    .successForwardUrl("/index")
+//                    .failureForwardUrl("/project")
                     .permitAll()
                     .and()
                 .rememberMe()
                     .tokenValiditySeconds(3600)     // 1 hour
                     .and()
                 .logout()
+                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true)
                     .permitAll()
-                    .and()
-                .csrf()
-                    .disable();
+                    .and();
     }
 
     @Override

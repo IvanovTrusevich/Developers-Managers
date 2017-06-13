@@ -7,6 +7,9 @@ import by.itransition.service.user.exception.AlreadyExistsException;
 import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,17 +29,29 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class UserController {
     private static final Logger log = Logger.getLogger(UserController.class);
 
+    /**
+     * Spring Security center object "authentication manager"
+     */
+    final AuthenticationManager authenticationManager;
+
+
     private final UserService service;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, @Qualifier("authenticationManager") AuthenticationManager authenticationManager) {
         this.service = service;
+        this.authenticationManager = authenticationManager;
     }
 
     @RequestMapping(value = "/registration", method = GET)
     public String register(Model model) {
         model.addAttribute("user", UserDto.getPlaceholder());
         return "registration";
+    }
+
+    @RequestMapping(value = "/lost", method = POST)
+    public String lostPassword() {
+        return "";
     }
 
     @RequestMapping(value = "/registration", method = POST)

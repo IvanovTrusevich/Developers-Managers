@@ -13,41 +13,45 @@
 <c:set var="page" value="login"/>
 <!DOCTYPE html>
 <html>
-    <%@include file='components/head.jsp'%>
-    <body>
-        <%@include file='components/header.jsp'%>
+<head>
+    <%@include file='components/head.jsp' %>
+</head>
+<body>
+<%@include file='components/header.jsp' %>
 
-        <div class="inner-content">
-            <div class="modal-window">
-                <div class="modal-content">
-                    <form action="<c:url value="/login"/>" method="POST" onload='document.forms[0].username.focus();'>
-                        <div class="clearfix">
-                            <div class="input-text">
-                                <label for="username" >
-                                    <s:message code="login.email" /></label>
-                                <input type="text" id="username" name="username" placeholder="Username" />
-                            </div>
-                            <div class="input-text">
-                                <label for="password" >
-                                    <s:message code="login.password" /></label>
-                                <input type="password" id="password" name="password" placeholder="*****" />
-                            </div>
-                        </div>
-                        <input id="remember_me" name="remember-me" type="checkbox"/>
-                        <label for="remember_me" class="inline"><s:message code="login.rememberMe"/></label>
-                        <label><a href="<c:url value="/registration"/>" class=right><s:message code="login.registration"/></a></label>
-                        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                            <div style="color:red;margin-top:3px;">
-                                <s:message code="login.error"/>
-                            </div>
-                        </c:if>
-                        <input name="submit" type="submit" class="btn" value="<s:message code="login.login"/>"/>
-                        <button type="reset" class="btn btn-gray"><s:message code="login.erase"/></button>
-                    </form>
+<div class="inner-content">
+    <div class="modal-window">
+        <div class="modal-content">
+            <form action="<c:url value="/login"/>" method="post" onload='document.forms[0].username.focus();'>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <div class="clearfix">
+                    <div class="input-text">
+                        <label for="username">
+                            <s:message code="login.email"/></label>
+                        <input type="text" id="username" name="credentials" placeholder="Username"/>
+                    </div>
+                    <div class="input-text">
+                        <label for="password">
+                            <s:message code="login.password"/></label>
+                        <input type="password" id="password" name="password" placeholder="*****"/>
+                    </div>
                 </div>
-            </div>
+                <input id="remember_me" name="remember-me" type="checkbox"/>
+                <label for="remember_me" class="inline"><s:message code="login.rememberMe"/></label>
+                <label><a href="<c:url value="/registration"/>" class=right><s:message
+                        code="login.registration"/></a></label>
+                <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+                    <div style="color:red;margin-top:3px;">
+                        <s:message code="login.error"/>
+                    </div>
+                </c:if>
+                <input name="submit" type="submit" class="btn" value="<s:message code="login.login"/>"/>
+                <button type="reset" class="btn btn-gray"><s:message code="login.erase"/></button>
+            </form>
         </div>
+    </div>
+</div>
 
-        <%@include file='components/footer.jsp'%>
-    </body>
+<%@include file='components/footer.jsp' %>
+</body>
 </html>
