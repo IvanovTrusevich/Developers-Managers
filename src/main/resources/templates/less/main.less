@@ -1,0 +1,77 @@
+// out: ../css/main.min.css
+@import "../bootstrap/less/bootstrap.less";
+body {
+    position: relative;
+}
+
+.main-content {
+    .container();
+    margin-top: 80px;
+}
+
+.main-navigation {
+    .navbar();
+    .navbar-fixed-top();
+    .navbar-inverse();
+}
+
+.wrapper {
+    .make-row();
+}
+
+.component {
+    .make-md-column-offset(1);
+    .make-md-column(10, 55px);
+    .make-xs-column(12, 15px);
+    margin-top: 20px;
+     :first-child {
+        margin-top: 0px;
+    }
+}
+
+.border {
+    border: 1px black solid;
+}
+
+.error {
+    color: red;
+}
+
+#login-modal {
+    .title {
+        color: white;
+    }
+    .modal-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .state {
+        .form-group();
+        margin-bottom: 35px;
+        transition: all ease-in-out 500ms;
+        &.success {
+            border: 1px solid #68c3a3;
+            background-color: #c8f7c5;
+        }
+        &.error {
+            border: 1px solid #eb575b;
+            background-color: #ffcad1;
+        }
+        #modal-message-icon {
+            position: relative;
+            top: -.5px;
+            background-color: #dadfe1;
+            transition: all ease-in-out 500ms;
+            &.success {
+                background-color: #68c3a3 !important;
+            }
+            &.error {
+                background-color: #eb575b !important;
+            }
+        }
+    }
+    #img_logo {
+        max-height: 100px;
+        max-width: 100px;
+    }
+}

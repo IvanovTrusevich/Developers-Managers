@@ -18,7 +18,7 @@ by.itransition:
         user:
           credential:
             alwaysGenerateOnRegistration: false
-            defaultPasswordGeneratorName: by.itransition.service.user.RandomPasswordGenerator
+            defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_USER
 ---
 spring:

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" href="css/jquery-ui.min.css" />
+    <title>News</title>
+</head>
+
+<body>
+    <header class="main-navigation">
+        <nav class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="text-uppercase" href="#"><strong>Dashboard</strong></a></li>
+                    <li><a class="text-uppercase" href="#"><strong>Settings</strong></a></li>
+                    <li><a class="text-uppercase" href="#"><strong>Profile</strong></a></li>
+                    <li>
+                        <a href="#" class="text-uppercase" role="button" data-toggle="modal" data-target="#login-modal">Login/registrate</a>
+                    </li>
+                    <li>
+                        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input class="form-control" placeholder="Search..." type="text">
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <!-- BEGIN # MODAL LOGIN -->
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1 class="title text-uppercase">devman</h1>
+                    <hr/>
+                </div>
+            </div>
+            <div class="modal-content col-xs-12">
+                <div class="modal-header">
+                    <!--                    <img class="img-circle" id="img_logo" src="http://bootsnipp.com/img/logo.jpg">-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+                </div>
+
+                <div class="state" id="modal-message-block">
+                    <div class="input-group col-xs-12">
+                        <span id="modal-message-icon" class="input-group-addon glyphicon glyphicon-chevron-right"></span>
+                        <input type="text" class="form-control" id="modal-message-text" readonly value="Type your username and password.">
+                    </div>
+                </div>
+
+                <!-- Begin # DIV Form -->
+                <div id="div-forms">
+                    <!-- Begin # Login Form -->
+                    <form id="login-form" class="form-horizontal" data-default-message="Type your username and password.">
+                        <div class="modal-body">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-3 control-label">Username:</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                            <input type="text" class="form-control" id="login-credentials" name="credentials" placeholder="Username of email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-3 control-label">Password:</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                            <input type="password" class="form-control" id="login-password" name="password" placeholder="********" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <div class="col-xs-12">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="rememer-me">Remember me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Logging in...">Login</button>
+                            </div>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-link to-lost-btn">Lost Password?</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-link to-register-btn">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End # Login Form -->
+
+                    <!-- Begin | Lost Password Form -->
+                    <form id="lost-form" class="form-horizontal" style="display:none;" data-default-message="Type your username or e-mail.">
+                        <div class="modal-body">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-3 control-label">Username:</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                            <input type="text" class="form-control" id="lost-credentials" name="credentials" placeholder="Username or email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Send</button>
+                            </div>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-link to-login-btn" data-loading-text="Sending...">Send password to email</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-link to-register-btn">Register</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End | Lost Password Form -->
+
+                    <!-- Begin | Register Form -->
+                    <form id="register-form" class="form-horizontal" style="display:none;" enctype="multipart/form-data" method="post" data-default-message="Register an account.">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="firstName" class="col-sm-3 control-label">First name:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="John" required autofocus>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="col-sm-3 control-label">Last name:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Doe" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName" class="col-sm-3 control-label">Middle name:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="middleName" name="middleName" placeholder="Christopher">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-3 control-label">Email:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="john@doe.com" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Gender:</label>
+                                <div class="col-sm-9">
+                                    <div class="radio">
+                                        <label><input type="radio" name="gender" value="male" />Male</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" name="gender" value="female" /> Female</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" name="gender" value="other" checked/> Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-username" class="col-sm-3 control-label">Username:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="register-username" name="username" placeholder="JohnDoe" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password" class="col-sm-3 control-label">Password:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" id="register-password" name="password" placeholder="********" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="matchingPassword" class="col-sm-3 control-label">Password:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" id="matchingPassword" name="matchingPassword" placeholder="********" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="profileImage" class="col-sm-3 control-label">Profile image</label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="filestyle" id="profileImage" name="profileImage" accept=".png,.jpg,.jpeg,.gif" data-iconName="glyphicon glyphicon-inbox">
+                                    <p if="file-error" class="help-block">Max size is 2MB.</p>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Register</button>
+                            </div>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-link to-login-btn" to-login-btn>Log In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End | Register Form -->
+                </div>
+                <!-- End # DIV Form -->
+
+            </div>
+        </div>
+    </div>
+    <!-- END # MODAL LOGIN -->
+
+    <div class="container main-content">
+
+        <div class="row row-offcanvas row-offcanvas-right">
+
+            <div class="col-xs-12 col-sm-9">
+                <p class="pull-right visible-xs">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+                </p>
+                <div class="jumbotron">
+                    <h1>Hello, world!</h1>
+                    <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
+                </div>
+                <div class="row">
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                    <article class="col-xs-6 col-lg-4">
+                        <h2>Heading</h2>
+                        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+                        <p><a class="btn btn-default" href="#" role="button">View details »</a></p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                    <a href="#" class="list-group-item">Link</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer>
+            <p>© 2016 Company, Inc.</p>
+        </footer>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="offcanvas"]').click(function() {
+                $('.row-offcanvas').toggleClass('active')
+            });
+        });
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-filestyle.min.js"></script>
+
+    <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
