@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-/**
- * Created by ilya on 5/29/17.
- */
+
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
@@ -16,4 +14,5 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("SELECT p.gitLastSHA FROM Project p WHERE p.gitRepoName = :gitRepoName")
     String findGitLastSHAByGitRepoName(@Param("gitRepoName") String gitRepoName);
+
 }

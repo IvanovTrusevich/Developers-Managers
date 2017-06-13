@@ -13,7 +13,7 @@ public class GitFile {
     @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "file_content")
+    @Column(name = "file_content", length = 100000)
     private String fileContent;
 
     @ManyToOne(fetch=FetchType.LAZY)

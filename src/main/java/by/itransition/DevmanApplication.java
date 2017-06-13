@@ -7,7 +7,6 @@ import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.UserRepository;
 import by.itransition.data.model.Project;
 import by.itransition.tools.github.GitHubImpl;
-import javafx.util.Pair;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
