@@ -2,6 +2,7 @@ package by.itransition.data.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "projects")
@@ -16,14 +17,14 @@ public class Project {
             name = "developer_project",
             joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "developers", referencedColumnName = "user_id"))
-    private List<User> developers;
+    private Set<User> developers;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="manager_project",
             joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
             inverseJoinColumns=@JoinColumn(name="managers", referencedColumnName="user_id"))
-    private List<User> managers;
+    private Set<User> managers;
 
     @Column(name = "project_name")
     private String projectName;
@@ -41,25 +42,55 @@ public class Project {
     private String gitReadme;
 
     @OneToMany(mappedBy = "project")
-    private List<GitFile> gitFiles;
+    private Set<GitFile> gitFiles;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="project_tag",
+            joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
+            inverseJoinColumns=@JoinColumn(name="tags", referencedColumnName="tag_id"))
+    private Set<Tag> tags;
+
+    public Project() {
+    }
+
+    public Project(Set<User> managers, Set<User> developers, String projectName,
+                   String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme,
+                   Set<GitFile> gitFiles, Set<Tag> tags) {
+        this.developers = developers;
+        this.projectName = projectName;
+        this.gitRepoName = gitRepoName;
+        this.gitRepoUrl = gitRepoUrl;
+        this.gitLastSHA = gitLastSHA;
+        this.gitReadme = gitReadme;
+        this.gitFiles = gitFiles;
+        this.managers = managers;
+        this.tags = tags;
+    }
+
+    public Project(String projectName, String gitRepoName, Set<User> managers) {
+        this.projectName = projectName;
+        this.gitRepoName = gitRepoName;
+        this.managers = managers;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public List<User> getManagers() {
+    public Set<User> getManagers() {
         return managers;
     }
 
-    public void setManagers(List<User> managers) {
+    public void setManagers(Set<User> managers) {
         this.managers = managers;
     }
 
-    public List<User> getDevelopers() {
+    public Set<User> getDevelopers() {
         return developers;
     }
 
-    public void setDevelopers(List<User> developers) {
+    public void setDevelopers(Set<User> developers) {
         this.developers = developers;
     }
 
@@ -95,33 +126,27 @@ public class Project {
         this.gitReadme = gitReadme;
     }
 
-    public List<GitFile> getGitFiles() {
+    public Set<GitFile> getGitFiles() {
         return gitFiles;
     }
 
-    public void setGitFiles(List<GitFile> gitFiles) {
+    public void setGitFiles(Set<GitFile> gitFiles) {
         this.gitFiles = gitFiles;
     }
 
-    public Project() {
+    public String getGitRepoUrl() {
+        return gitRepoUrl;
     }
 
-    public Project(List<User> managers,List<User> developers, String projectName,
-                   String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme,
-                   List<GitFile> gitFiles) {
-        this.developers = developers;
-        this.projectName = projectName;
-        this.gitRepoName = gitRepoName;
+    public void setGitRepoUrl(String gitRepoUrl) {
         this.gitRepoUrl = gitRepoUrl;
-        this.gitLastSHA = gitLastSHA;
-        this.gitReadme = gitReadme;
-        this.gitFiles = gitFiles;
-        this.managers = managers;
     }
 
-    public Project(String projectName, String gitRepoName, List<User> managers) {
-        this.projectName = projectName;
-        this.gitRepoName = gitRepoName;
-        this.managers = managers;
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }

@@ -15,6 +15,12 @@
 <html>
     <%@include file='components/head.jsp'%>
     <body>
+
+    <h1>valik</h1>
+
+    <div id="example" style="width: 550px; height: 350px;"></div>
+    <div id="elfinder"></div>
+
         <%@include file='components/header.jsp'%>
 
         <div class="inner-content">
@@ -48,6 +54,18 @@
             </div>
         </div>
 
+
         <%@include file='components/footer.jsp'%>
+
+    <script type="text/javascript">
+        //Documentation for client options:
+        // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+        $(document).ready(function() {
+            $('#elfinder').elfinder({
+                url : 'elfinder-servlet/connector',  			// connector URL (REQUIRED)
+                lang: 'en'                  					// language (OPTIONAL)
+            });
+        });
+    </script>
     </body>
 </html>

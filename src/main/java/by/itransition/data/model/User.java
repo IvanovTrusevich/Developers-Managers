@@ -54,6 +54,9 @@ public class User implements UserDetails {
     @Column(name = "photo")
     private String photo;
 
+    @Column(name = "description", length = 10000)
+    private String description;
+
     @ManyToMany(mappedBy = "developers")
     private List<Project> projects;
 
@@ -62,26 +65,20 @@ public class User implements UserDetails {
 
     private User() {
     }
-
-    public User(String email, String password) {
-        this(email, password, Lists.newArrayList(),null,null,
-                null,null,null);
+    public User(String email, String password){
+        this.email = email;
+        this.password = password;
     }
 
     public User(String email, String password, String lastName,
-                String firstName, String nickName, String githubNick, String photo) {
+                String firstName, String nickName, String githubNick, String photo, String description) {
         this(email, password, Lists.newArrayList(), lastName,
-                firstName, nickName, githubNick, photo);
+                firstName, nickName, githubNick, photo, description);
     }
 
-    public User(String email, String password, GrantedAuthority authority, String lastName,
-                String firstName, String nickName, String githubNick, String photo) {
-        this(email, password, Lists.newArrayList(authority), lastName,
-                firstName, nickName, githubNick, photo);
-    }
 
     public User(String email, String password, List<? extends GrantedAuthority> authorities, String lastName,
-                String firstName, String nickName, String githubNick, String photo) {
+                String firstName, String nickName, String githubNick, String photo, String description) {
         this.email = email;
         this.password = password;
         this.enabled = true;
@@ -90,6 +87,7 @@ public class User implements UserDetails {
         this.nickName = nickName;
         this.githubNick = githubNick;
         this.photo = photo;
+        this.description = description;
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
             this.addAllAuthority(authorities);

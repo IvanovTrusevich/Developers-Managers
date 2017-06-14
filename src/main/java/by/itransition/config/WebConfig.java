@@ -22,7 +22,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("by.itransition.web")
+@ComponentScan({"by.itransition.web", "cn.bluejoe.elfinder.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver viewResolver() {
