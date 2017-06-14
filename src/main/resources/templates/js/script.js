@@ -22,10 +22,28 @@ $(function () {
     });
 });
 
+function getQueryParameter(parameterName) {
+    var queryString = window.top.location.search.substring(1);
+    var parameterName = parameterName + "=";
+    if (queryString.length > 0) {
+        begin = queryString.indexOf(parameterName);
+        if (begin != -1) {
+            begin += parameterName.length;
+            end = queryString.indexOf("&", begin);
+            if (end == -1) {
+                end = queryString.length
+            }
+            return unescape(queryString.substring(begin, end));
+        }
+    }
+    return "null";
+}
 /////////////////////////////////////  VALIDATORS  //////////////////////////////////////////
 var $defaultSubmitting = {
     submitHandler: function (form) {
         $(form).find(':submit').button('loading');
+        //        $modal.changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "OK");
+        //            changeMessage($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
         return true;
     }
 };
@@ -33,17 +51,21 @@ var $ajaxSubmitting = {
     submitHandler: function (form) {
         var $btn = $(form).find(':submit');
         $btn.button('loading');
-        $(form).ajaxForm({
+        $(form).ajaxSubmit({
             clearForm: true,
+            beforeSubmit: function (formData) {
+                console.log('About to submit: \n\n' + $.param(formData));
+                return true;
+            },
             success: function (responseText, statusText, xhr, $form) {
                 changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", responseText);
                 $btn.button('reset');
             },
             error: function (error) {
-                alert('Error: ' + error);
+                changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", error['responseText']);
+                $btn.button('reset');
             }
         });
-        //            changeMessage($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
         return false;
     }
 };
@@ -95,7 +117,7 @@ $.validator.addMethod("regex", function (value, element, regexp) {
     return this.optional(element) || re.test(value);
 }, "Please check your input.");
 $.validator.addMethod("notEqual", function (value, element, param) {
-    return this.optional(element) || value != $(param).val();
+    return this.optional(element) || value !== $(param).val();
 }, "This has to be different.");
 
 function changeMessage($divTag, $iconTag, $textTag, $divClass, $iconClass, $messageText) {
@@ -106,7 +128,7 @@ function changeMessage($divTag, $iconTag, $textTag, $divClass, $iconClass, $mess
         $messageId.fadeOut($messageAnimateTime, function () {
             $(this).val($messageText).fadeIn($messageAnimateTime);
         });
-    }
+    };
     var $messageOld = $textTag.val();
     fadeMessage($textTag, $messageText);
     $divTag.addClass($divClass);
@@ -150,14 +172,14 @@ function Modal($modal, $contentDiv) {
                 $newForm.fadeToggle($animateModalTime);
             });
         });
-    }
+    };
 
     this.changeForm = function ($newForm) {
         this.$currentForm.closeTooltips();
         animateModal(this.$currentForm['form'], $newForm.form);
         $('#modal-message-text').val($newForm.form.attr('data-default-message'));
         this.$currentForm = $newForm;
-    }
+    };
 }
 
 function Form($form, $validator) {
@@ -193,7 +215,7 @@ function Form($form, $validator) {
         }).val('');
         this.form.find('input:radio, input:checkbox').removeAttr('checked');
         this.form.find('.form-group').removeClass('has-success');
-    }
+    };
 
     this.closeTooltips = function () {
         this.form.find('input.tooltipstered').tooltipster('close');

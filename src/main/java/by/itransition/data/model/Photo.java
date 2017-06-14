@@ -13,8 +13,11 @@ import java.util.Date;
  */
 @Entity(name = "photos")
 public class Photo {
-    @Value("")
+    @Value("${by.itransition.service.photo.thumbnail.width}")
     private static Double width;
+
+    @Value("${by.itransition.service.photo.thumbnail.height}")
+    private static Double height;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -88,7 +91,7 @@ public class Photo {
                 .type(file.getType())
                 .format(file.getFormat())
                 .version(file.getVersion())
-                .transformation(new Transformation().width(150).height(150).crop("fit"))
+                .transformation(new Transformation().width(width).height(height).crop("fit"))
                 .generate(file.getPublicId());
     }
 
