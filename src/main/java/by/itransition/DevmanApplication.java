@@ -1,24 +1,22 @@
 package by.itransition;
 
-import by.itransition.data.model.GitFile;
+import by.itransition.data.model.Photo;
 import by.itransition.data.model.User;
 import by.itransition.data.repository.GitFileRepository;
 import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.UserRepository;
-import by.itransition.data.model.Project;
-import by.itransition.tools.github.GitHubImpl;
-import javafx.util.Pair;
+import by.itransition.service.photo.PhotoService;
+import by.itransition.service.photo.impl.CloudinaryService;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.env.Environment;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +31,12 @@ public class DevmanApplication {
 	@Bean
     @Profile("prod")
     public CommandLineRunner prod(GitFileRepository gitFileRepository,
-                                 ProjectRepository projectRepository,
-                                 UserRepository userRepository,
-                                 PasswordEncoder passwordEncoder) {
+                                  ProjectRepository projectRepository,
+                                  UserRepository userRepository,
+                                  PasswordEncoder passwordEncoder,
+                                  PhotoService cloudinaryService) {
         return (args) -> {
-            addAdmins(userRepository, passwordEncoder);
+            addAdmins(userRepository, passwordEncoder, cloudinaryService);
         };
 	}
 
@@ -46,9 +45,10 @@ public class DevmanApplication {
 	public CommandLineRunner dev(GitFileRepository gitFileRepository,
                                  ProjectRepository projectRepository,
                                  UserRepository userRepository,
-                                 PasswordEncoder passwordEncoder) {
+                                 PasswordEncoder passwordEncoder,
+                                 PhotoService cloudinaryService) {
 		return (args) -> {
-            addAdmins(userRepository, passwordEncoder);
+            addAdmins(userRepository, passwordEncoder, cloudinaryService);
 //			final User one = userRepository.findOne(1L);
 //            final User two = userRepository.findOne(2L);
 //			log.info(one);
@@ -80,20 +80,20 @@ public class DevmanApplication {
 		};
 	}
 
-	private void addAdmins(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+	private void addAdmins(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService cloudinaryService) {
+        final Photo defaultPhoto = cloudinaryService.getDefaultPhoto();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
         String encodedPassword = passwordEncoder.encode("Ilyailya1");
-        User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, "Ivanov",
-                "Ilya","illya","Ilya1vanov","photo");
-        user.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        user.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
+        User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, authorities, "Ivanov",
+                "Ilya","Petrovich", "Ilya", defaultPhoto);
         userRepository.save(user);
 
-        String encodedPassword2 = passwordEncoder.encode("valik");
-        User user2 = new User("vtrusevich@gmail.com", encodedPassword2, "aa",
-                "aaa","aaa","vtrusevich","nnnn");
-        user.addAuthority(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        user.addAuthority(new SimpleGrantedAuthority("ROLE_USER"));
+        String encodedPassword2 = passwordEncoder.encode("Valikvalik1");
+        User user2 = new User("vtrusevich@gmail.com", encodedPassword2, authorities, "aa",
+                "aaa","aaa","aaa", defaultPhoto);
         userRepository.save(user2);
     }
 }

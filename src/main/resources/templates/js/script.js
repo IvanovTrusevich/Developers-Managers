@@ -294,3 +294,28 @@ $(function () {
         $modal.changeForm($loginForm);
     });
 });
+////////////////////////////////////     RECOVERY    /////////////////////////////////////////
+$(function () {
+    var $recoveryFormValidator = Object.assign({
+        rules: {
+            password: {
+                required: true,
+                minlength: 8,
+                maxlength: 25,
+                regex: "^(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$",
+                notEqual: "#register-username"
+            },
+            matchingPassword: {
+                required: true,
+                equalTo: "#register-password"
+            }
+        },
+        messages: {
+            password: {
+                regex: "Should contain at least one uppercase letter and one digit",
+                notEqual: "Password has to be diffrent to username."
+            }
+        }
+    }, $defaultSubmitting, $highlightValidation, $tooltopValidation);
+    var $recoveryForm = new Form($('#recovery-form'), $recoveryFormValidator);
+});

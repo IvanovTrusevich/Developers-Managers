@@ -1,5 +1,6 @@
 package by.itransition.data.model;
 
+import by.itransition.data.model.dto.UserDto;
 import com.google.common.collect.Lists;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
@@ -52,14 +53,15 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "middle_name")
+    private String middleName;
+
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "github_nick", unique = true)
-    private String githubNick;
-
-    @Column(name = "photo")
-    private String photo;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "photo_id")
+    private Photo photo;
 
     @ManyToMany(mappedBy = "developers")
     private Set<Project> projects = new HashSet<>();
@@ -70,32 +72,29 @@ public class User implements UserDetails {
     private User() {
     }
 
-    public User(String email, String password) {
-        this(email, password, Lists.newArrayList(),null,null,
-                null,null,null);
+    public static User createUser(UserDto userDto, String encodedPassword, Photo photo) {
+        return new User(userDto, encodedPassword, photo);
     }
 
-    public User(String email, String password, String lastName,
-                String firstName, String username, String githubNick, String photo) {
-        this(email, password, Lists.newArrayList(), lastName,
-                firstName, username, githubNick, photo);
+    public User(UserDto userDto, String encodedPassword, Photo photo) {
+        this(userDto.getEmail(), encodedPassword, Lists.newArrayList(), userDto.getFirstName(),
+                userDto.getLastName(), userDto.getMiddleName(), userDto.getUsername(), photo);
     }
 
-    public User(String email, String password, GrantedAuthority authority, String lastName,
-                String firstName, String username, String githubNick, String photo) {
-        this(email, password, Lists.newArrayList(authority), lastName,
-                firstName, username, githubNick, photo);
+    public User(String email, String password, GrantedAuthority authority, String firstName,
+                String lastName, String middleName, String username, String githubNick, Photo photo) {
+        this(email, password, Lists.newArrayList(authority), firstName, lastName, middleName, username, photo);
     }
 
-    public User(String email, String password, List<? extends GrantedAuthority> authorities, String lastName,
-                String firstName, String username, String githubNick, String photo) {
+    public User(String email, String password, List<? extends GrantedAuthority> authorities, String firstName,
+                String lastName, String middleName, String username, Photo photo) {
         this.email = email;
         this.password = password;
-        this.enabled = true;
+        this.enabled = false;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.middleName = middleName;
         this.username = username;
-        this.githubNick = githubNick;
         this.photo = photo;
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
@@ -192,6 +191,14 @@ public class User implements UserDetails {
         this.lastName = lastName;
     }
 
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
     @Override
     public String getUsername() {
         return username;
@@ -201,19 +208,11 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public String getGithubNick() {
-        return githubNick;
-    }
-
-    public void setGithubNick(String githubNick) {
-        this.githubNick = githubNick;
-    }
-
-    public String getPhoto() {
+    public Photo getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Photo photo) {
         this.photo = photo;
     }
 
@@ -263,7 +262,6 @@ public class User implements UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
-                ", githubNick='" + githubNick + '\'' +
                 '}';
     }
 }

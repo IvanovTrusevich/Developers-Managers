@@ -36,6 +36,8 @@ by.itransition:
             alwaysGenerateOnRegistration: false
             defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_USER
+        cloudinary:
+          defaultUserIconUrl: /res/pics/user-icon.png
 ---
 spring:
   profiles: dev

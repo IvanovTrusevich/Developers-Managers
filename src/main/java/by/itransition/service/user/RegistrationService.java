@@ -5,9 +5,11 @@ import by.itransition.data.model.dto.UserDto;
 import by.itransition.service.user.exception.AlreadyExistsException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.io.IOException;
+
 /**
  * @author Ilya Ivanov
  */
 public interface RegistrationService extends UserDetailsService {
-    User registerNewUserAccount(UserDto accountDto) throws AlreadyExistsException, IllegalAccessException, InstantiationException;
+    User registerNewUserAccount(UserDto accountDto) throws AlreadyExistsException, IllegalAccessException, InstantiationException, IOException;
 }
