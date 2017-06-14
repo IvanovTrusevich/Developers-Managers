@@ -42,41 +42,41 @@ public class DevmanApplication {
 	}
 
 	@Bean
-	@Profile({"dev"})
+	@Profile("dev")
 	public CommandLineRunner dev(GitFileRepository gitFileRepository,
                                  ProjectRepository projectRepository,
                                  UserRepository userRepository,
                                  PasswordEncoder passwordEncoder) {
 		return (args) -> {
             addAdmins(userRepository, passwordEncoder);
-			final User one = userRepository.findOne(1L);
-            final User two = userRepository.findOne(2L);
-			log.info(one);
-            log.info(two);
-
-            List<User> developers = new ArrayList<>();
-            developers.add(two);
-
-            List<User> managers = new ArrayList<>();
-            managers.add(one);
-
-            Project project = new Project(managers, developers,"socket",
-                    "Socket","https://github.com/ItransitionProjects/Socket.git",
-                    "lasSSH","RM",null);
-            projectRepository.save(project);
-
-            final Project pOne = projectRepository.findOne(1L);
-            List<GitFile> files = new ArrayList<>();
-            files.add(new GitFile("main.txt","hello",pOne));
-            gitFileRepository.save(files);
-
-            final Project pr = projectRepository.findOne(1L);
-            log.info(pr.getGitLastSHA());
-
-            log.info("lastSha " + projectRepository.findGitLastSHAByGitRepoName("Socket"));
-
-            GitHubImpl ghi = new GitHubImpl(projectRepository,gitFileRepository);
-            log.info("size = " + ghi.getFiles("Socket").size());
+//			final User one = userRepository.findOne(1L);
+//            final User two = userRepository.findOne(2L);
+//			log.info(one);
+//            log.info(two);
+//
+//            List<User> developers = new ArrayList<>();
+//            developers.add(two);
+//
+//            List<User> managers = new ArrayList<>();
+//            managers.add(one);
+//
+//            Project project = new Project(managers, developers,"socket",
+//                    "Socket","https://github.com/ItransitionProjects/Socket.git",
+//                    "lasSSH","RM",null);
+//            projectRepository.save(project);
+//
+//            final Project pOne = projectRepository.findOne(1L);
+//            List<GitFile> files = new ArrayList<>();
+//            files.add(new GitFile("main.txt","hello",pOne));
+//            gitFileRepository.save(files);
+//
+//            final Project pr = projectRepository.findOne(1L);
+//            log.info(pr.getGitLastSHA());
+//
+//            log.info("lastSha " + projectRepository.findGitLastSHAByGitRepoName("Socket"));
+//
+//            GitHubImpl ghi = new GitHubImpl(projectRepository,gitFileRepository);
+//            log.info("size = " + ghi.getFiles("Socket").size());
 		};
 	}
 

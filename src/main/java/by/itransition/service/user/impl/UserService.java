@@ -44,7 +44,7 @@ public class UserService implements RegistrationService, UserDetailsService {
     public User registerNewUserAccount(UserDto accountDto) throws AlreadyExistsException, IllegalAccessException, InstantiationException {
         final String email = accountDto.getEmail();
         if (usernameExist(email)) {
-            throw new AlreadyExistsException("There is an account with that username: + accountDto.getEmail()");
+            throw new AlreadyExistsException("There is an account with that username: + accountDto.getCredentials()");
         }
 
         String password = accountDto.getPassword();
@@ -87,5 +87,9 @@ public class UserService implements RegistrationService, UserDetailsService {
 
     public void setAuthorityPolicy(AuthorityPolicy authorityPolicy) {
         this.authorityPolicy = authorityPolicy;
+    }
+
+    public User findOneWithCredentials(String credentials) {
+        return userRepository.findByEmailOrUsername(credentials, credentials);
     }
 }

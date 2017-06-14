@@ -19,39 +19,120 @@
 <body>
 <%@include file='components/header.jsp' %>
 
-<div class="inner-content">
-    <div class="modal-window">
-        <div class="modal-content">
-            <form action="<c:url value="/login"/>" method="post" onload='document.forms[0].username.focus();'>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <div class="clearfix">
-                    <div class="input-text">
-                        <label for="username">
-                            <s:message code="login.email"/></label>
-                        <input type="text" id="username" name="credentials" placeholder="Username"/>
-                    </div>
-                    <div class="input-text">
-                        <label for="password">
-                            <s:message code="login.password"/></label>
-                        <input type="password" id="password" name="password" placeholder="*****"/>
-                    </div>
+<div class="main-content">
+    <div class="wrapper">
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+            <div class="panel-heading">
+                <div class="panel-title text-center">
+                    <h1 class="title text-uppercase">devman</h1>
+                    <hr/>
                 </div>
-                <input id="remember_me" name="remember-me" type="checkbox"/>
-                <label for="remember_me" class="inline"><s:message code="login.rememberMe"/></label>
-                <label><a href="<c:url value="/registration"/>" class=right><s:message
-                        code="login.registration"/></a></label>
-                <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                    <div style="color:red;margin-top:3px;">
-                        <s:message code="login.error"/>
-                    </div>
-                </c:if>
-                <input name="submit" type="submit" class="btn" value="<s:message code="login.login"/>"/>
-                <button type="reset" class="btn btn-gray"><s:message code="login.erase"/></button>
-            </form>
+            </div>
+            <div class="form-state-line" id="modal-message-block">
+                <div class="input-group col-xs-12">
+                    <span id="modal-message-icon" class="input-group-addon glyphicon glyphicon-chevron-right"></span>
+                    <input type="text" class="form-control" id="modal-message-text" readonly value="Enter username and password.">
+                </div>
+            </div>
+
+            <div class="" id="login-modal">
+                <div id="div-forms">
+                    <!-- Begin # Login Form -->
+                    <form id="login-form" action="<s:url value="/login"/>" method="post" class="form-horizontal" data-default-message="Type your username and password.">
+                        <div class="modal-body">
+                            <fieldset>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <div class="form-group">
+                                    <label for="login-credentials" class="col-sm-3 control-label">Username:</label>
+                                    <div class="col-sm-9">
+
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                            <input type="text" class="form-control" id="login-credentials" name="credentials" placeholder="Username of credentials" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password" class="col-sm-3 control-label">Password:</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                            <input type="password" class="form-control" id="login-password" name="password" placeholder="********" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <div class="col-xs-12">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" name="rememer-me">Remember me</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Logging in...">Login</button>
+                            </div>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-link to-lost-btn">Lost Password?</button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <a href="<s:url value="/registration"/>" class="btn btn-link">Register</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End # Login Form -->
+
+                    <!-- Begin | Lost Password Form -->
+                    <form id="lost-form" action="<s:url value="/lost"/>" method="post" class="form-horizontal" style="display:none;" data-default-message="Type your username or e-mail.">
+                        <div class="modal-body">
+                            <fieldset>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <div class="form-group">
+                                    <label for="lost-credentials" class="col-sm-3 control-label">Username:</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-group col-xs-12">
+                                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                            <input type="text" class="form-control" id="lost-credentials" name="credentials" placeholder="Username or credentials" required="required"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Sending...">Send</button>
+                        </div>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-link to-login-btn">Sign In</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- End | Lost Password Form -->
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 <%@include file='components/footer.jsp' %>
+<c:if test="${not empty lost && lost eq 'true'}">
+    <script>
+        $(function() {
+            $('.to-lost-btn')[0].click();
+        });
+    </script>
+</c:if>
+<c:if test="${not empty hasError && hasError eq 'true'}">
+    <script>
+        $(function () {
+            changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", "<s:message code="login.error"/>");
+        });
+    </script>
+</c:if>
 </body>
 </html>

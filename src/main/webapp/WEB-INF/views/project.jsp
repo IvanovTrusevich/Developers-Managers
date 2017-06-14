@@ -8,6 +8,11 @@
 
 <head>
     <%@include file='components/head.jsp'%>
+    <!-- git -->
+    <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/git/dist/github.min.css"/> ">
+    <!-- elFinder CSS (REQUIRED) -->
+    <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/elfinder.min.css"/> ">
+    <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/theme.css"/> ">
     <title>Project</title>
 </head>
 <body>

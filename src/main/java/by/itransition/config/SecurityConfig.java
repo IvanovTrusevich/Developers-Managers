@@ -2,6 +2,7 @@ package by.itransition.config;
 
 import by.itransition.data.repository.UserRepository;
 import by.itransition.service.user.impl.UserService;
+import by.itransition.web.ajax.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -10,10 +11,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import java.io.IOException;
 
 /**
  * @author Ilya Ivanov
@@ -38,16 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/res/**").permitAll()
-                    .antMatchers("/registration", "/index", "/project").permitAll()
+                    .antMatchers("/registration", "/index", "/lost/**", "/login/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
-//                    .loginProcessingUrl("/login-processing")
                     .usernameParameter("credentials")
                     .passwordParameter("password")
-//                    .successForwardUrl("/index")
-//                    .failureForwardUrl("/project")
+                    .failureUrl("/login?error")
                     .permitAll()
                     .and()
                 .rememberMe()

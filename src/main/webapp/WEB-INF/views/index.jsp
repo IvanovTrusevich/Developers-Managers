@@ -4,88 +4,15 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<c:set var="page" value="index"/>
 <!DOCTYPE html>
-<html class="no-js">
+<html>
+<head>
     <%@include file='components/head.jsp'%>
+    <title><s:message code="index.title"/> </title>
+</head>
     <body>
     <%@include file='components/header.jsp'%>
 
-    <div class="slider">
-        <div class="container">
-            <input type="radio" id="btn-1" name="toggle" checked>
-            <input type="radio" id="btn-2" name="toggle">
-            <input type="radio" id="btn-3" name="toggle">
-            <div class="slider-controls">
-                <label for="btn-1"></label>
-                <label for="btn-2"></label>
-                <label for="btn-3"></label>
-            </div>
-            <div class="slides">
-                <div class="slide-1">
-                    <div class="width-50">
-                        <div class="h1  slide-title">
-                            <s:message code="index.garden1"/><br>
-                            <s:message code="index.garden2"/>
-                        </div>
-                        <p>
-                            <s:message code="index.garden.detail1"/><br>
-                            <s:message code="index.garden.detail2"/>
-                    </div>
-                </div>
-                <div class="slide-2">
-                    <div class="width-50">
-                        <div class="h1  slide-title">
-                            <s:message code="index.swimmingpool"/>
-                        </div>
-                        <p><s:message code="index.swimmingpool.detail1"/><br>
-                            <s:message code="index.swimmingpool.detail2"/>
-                        </p>
-                    </div>
-                </div>
-                <div class="slide-3">
-                    <div class="width-50">
-                        <div class="h1  slide-title">
-                            <s:message code="index.chair"/>
-                        </div>
-                        <p><s:message code="index.chair.detail1"/></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="description-row  clearfix">
-            <div class="column-2-of-3  left">
-                <div class="h1"><s:message code="index.description.title"/></div>
-                <p><s:message code="index.description.text"/></p>
-            </div>
-            <div class="column-1-of-3  right">
-                <div class="wrap">
-                    <div class="large-logo">
-                        <img src="<c:url value="/res/pics/content-logo.png" />" alt="Nerd's" width="240" height="119">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mode-row  index-content-row  clearfix">
-            <div class="column-2-of-3  left">
-                <div class="h3"><s:message code="index.weHave"/></div>
-                <ul class="list">
-                    <li><s:message code="index.weHave.feature1"/></li>
-                    <li><s:message code="index.weHave.feature2"/></li>
-                    <li><s:message code="index.weHave.feature3"/></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <%@include file='components/footer.jsp'%>
-
-    <script>
-        var html = document.documentElement;
-        html.classList.remove("no-js");
-    </script>
+    <%@include file="components/footer.jsp"%>
     </body>
 </html>
