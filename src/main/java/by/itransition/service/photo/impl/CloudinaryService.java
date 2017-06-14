@@ -27,7 +27,7 @@ public class CloudinaryService implements PhotoService {
     private Cloudinary cloudinary;
 
     @Autowired
-    public CloudinaryService(@Value("${by.itransition.service.cloudinary.defaultUserIconUrl}") String defaultUserIconUrl, PhotoRepository photoRepository) {
+    public CloudinaryService(@Value("${by.itransition.service.photo.defaultUserIconUrl}") String defaultUserIconUrl, PhotoRepository photoRepository) {
         this.photoRepository = photoRepository;
         cloudinary = Singleton.getCloudinary();
         Photo byImage = photoRepository.findByImage(defaultUserIconUrl);
