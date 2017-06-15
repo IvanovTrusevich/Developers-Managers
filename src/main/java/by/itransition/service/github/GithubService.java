@@ -104,7 +104,7 @@ public class GithubService {
 
         String lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
         if(lastCachedCommitSha == null){
-
+            return false;
         }
         String lastCommitSha = getLastCommitSha(repoName);
         return lastCachedCommitSha.equals(lastCommitSha);
@@ -141,11 +141,13 @@ public class GithubService {
 
     private void cacheFiles(List<Pair<String, String>> files, String repoName) throws IOException {
 	    Project project = projectRepository.findByGitRepoName(repoName);
-        gitFileRepository.deleteByProject(project);
-	    for(Pair<String,String> file : files){
-            GitFile gitFile = new GitFile(file.getKey(), file.getValue(),project);
-            gitFileRepository.save(gitFile);
+	    if(project != null) {
+            gitFileRepository.deleteByProject(project);
+            for (Pair<String, String> file : files) {
+                GitFile gitFile = new GitFile(file.getKey(), file.getValue(), project);
+                gitFileRepository.save(gitFile);
+            }
+            projectRepository.updateProjectSHAByRepoName(getLastCommitSha(repoName), repoName);
         }
-        projectRepository.updateProjectSHAByRepoName(getLastCommitSha(repoName),repoName);
     }
 }

@@ -78,7 +78,7 @@
         // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
         $(document).ready(function() {
             $('#elfinder').elfinder({
-                url : 'elfinder-servlet/connector',  			// connector URL (REQUIRED)
+                url : 'connector',  			// connector URL (REQUIRED)
                 lang: 'en'                  					// language (OPTIONAL)
             });
         });

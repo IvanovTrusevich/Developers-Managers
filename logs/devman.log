@@ -10217,3 +10217,57 @@ java.lang.NullPointerException: null
 2017-06-15 21:54:18.615  INFO 6832 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
 2017-06-15 21:54:28.581  INFO 6832 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.978 seconds (JVM running for 18.072)
 2017-06-15 21:54:32.037  INFO 6832 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 22:02:13.899  INFO 7936 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 7936 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 22:02:13.905  INFO 7936 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 22:02:18.034  INFO 7936 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 22:02:18.036  INFO 7936 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 22:02:18.547  INFO 7936 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 22:02:18.557  INFO 7936 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 22:02:18.887  INFO 7936 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 22:02:29.096  INFO 7936 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.112 seconds (JVM running for 17.141)
+2017-06-15 22:02:43.873  INFO 7936 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 22:03:59.429  INFO 1600 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 1600 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 22:03:59.734  INFO 1600 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 22:04:04.476  INFO 1600 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 22:04:04.478  INFO 1600 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 22:04:05.165  INFO 1600 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 22:04:05.178  INFO 1600 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 22:04:05.642  INFO 1600 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 22:04:16.124  INFO 1600 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 18.209 seconds (JVM running for 19.346)
+2017-06-15 22:04:18.213  INFO 1600 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 22:05:15.061  INFO 7144 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 7144 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 22:05:15.068  INFO 7144 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 22:05:19.133  INFO 7144 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 22:05:19.136  INFO 7144 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 22:05:19.643  INFO 7144 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 22:05:19.651  INFO 7144 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 22:05:19.980  INFO 7144 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 22:05:29.434  INFO 7144 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 15.317 seconds (JVM running for 16.41)
+2017-06-15 22:05:33.536  INFO 7144 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 22:06:26.396  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\.settings]
+2017-06-15 22:06:26.398  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\client\gui]
+2017-06-15 22:06:26.399  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\client\tools]
+2017-06-15 22:06:26.400  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server]
+2017-06-15 22:06:26.401  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server\tools]
+2017-06-15 22:06:26.401  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server\tools\xml]
+2017-06-15 22:06:26.401  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server\tools\xml\parsers]
+2017-06-15 22:06:26.402  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\tools]
+2017-06-15 22:06:26.426  INFO 7144 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B]
+2017-06-15 22:08:33.303  INFO 6412 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6412 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 22:08:33.309  INFO 6412 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 22:08:37.701  INFO 6412 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 22:08:37.703  INFO 6412 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 22:08:38.394  INFO 6412 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 22:08:38.403  INFO 6412 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 22:08:38.733  INFO 6412 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 22:08:48.635  INFO 6412 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.241 seconds (JVM running for 17.321)
+2017-06-15 22:09:11.261  INFO 6412 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 22:09:23.020  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\.settings]
+2017-06-15 22:09:23.020  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\client\gui]
+2017-06-15 22:09:23.020  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\client\tools]
+2017-06-15 22:09:23.021  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server]
+2017-06-15 22:09:23.022  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server\tools]
+2017-06-15 22:09:23.022  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server\tools\xml]
+2017-06-15 22:09:23.022  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\server\tools\xml\parsers]
+2017-06-15 22:09:23.023  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\src\tools]
+2017-06-15 22:09:23.045  INFO 6412 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B]
