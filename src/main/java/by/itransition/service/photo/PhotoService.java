@@ -9,7 +9,6 @@ import java.io.IOException;
 /**
  * Created by ilya on 6/14/17.
  */
-@Service
 public interface PhotoService {
     Photo getDefaultPhoto();
     Photo uploadFile(UserDto userDto) throws IOException;

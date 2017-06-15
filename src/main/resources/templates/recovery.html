@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+    <title>Registration</title>
+</head>
+
+<body>
+    <header class="main-navigation">
+        <nav class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="#">Devman</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="text-uppercase" href="#"><strong>News</strong></a></li>
+                    <li><a class="text-uppercase" href="login.html"><strong>Login/registrate</strong></a></li>
+                    <li class="dropdowm-menu" id="user-dropdown">
+                        <a class="text-uppercase dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="">
+                            <strong>Profile</strong>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li class="dropdown-header">Signed in as <span id="user-dropdown-username"></span></li>
+                            <li><a href="#">My profile</a></li>
+                            <li><a href="#">My projects</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Settings</a></li>
+                            <li>
+                                <a id="logout-trigger" type="submit" href="">Sign out</a>
+                                <form id="logout-form" action="/logout" method="POST">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input class="form-control" placeholder="Search..." type="text">
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="wrapper">
+            <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-12">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">
+                        <h1 class="title text-uppercase">devman</h1>
+                        <hr/>
+                    </div>
+                </div>
+
+                <div class="form-state-line" id="modal-message-block">
+                    <div class="input-group col-xs-12">
+                        <span id="modal-message-icon" class="input-group-addon glyphicon glyphicon-chevron-right"></span>
+                        <input type="text" class="form-control" id="modal-message-text" readonly value="Enter new password.">
+                    </div>
+                </div>
+
+                <form id="recovery-form" class="form-horizontal" method="post">
+                    <fieldset>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <div class="form-group">
+                            <label for="register-password" class="col-sm-3 control-label">Password:</label>
+                            <div class="col-sm-9">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" id="register-password" name="password" placeholder="********" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="matchingPassword" class="col-sm-3 control-label">Password:</label>
+                            <div class="col-sm-9">
+                                <div class="input-group col-xs-12">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" id="matchingPassword" name="matchingPassword" placeholder="********" required>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-error-container">
+                        <!--
+                        <span id="credentials.errors">User with this credentials is already exists</span>
+                        <span id="user.errors">Ololo</span>
+-->
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Register</button>
+                    </div>
+                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                        <div class="btn-group" role="group">
+                            <a href="login.html" class="btn btn-link">Sign In</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-filestyle.min.js"></script>
+
+    <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

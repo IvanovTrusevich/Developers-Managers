@@ -81,19 +81,23 @@ public class DevmanApplication {
 	}
 
 	private void addAdmins(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService cloudinaryService) {
-        final Photo defaultPhoto = cloudinaryService.getDefaultPhoto();
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+	    if (!userRepository.exists(1L)) {
+            final Photo defaultPhoto = cloudinaryService.getDefaultPhoto();
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        String encodedPassword = passwordEncoder.encode("Ilyailya1");
-        User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, authorities, "Ivanov",
-                "Ilya","Petrovich", "Ilya", defaultPhoto);
-        userRepository.save(user);
+            String encodedPassword = passwordEncoder.encode("Ilyailya1");
+            User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, authorities, "Ivanov",
+                    "Ilya", "Petrovich", "Ilya", defaultPhoto);
+            user.setEnabled(true);
+            userRepository.save(user);
 
-        String encodedPassword2 = passwordEncoder.encode("Valikvalik1");
-        User user2 = new User("vtrusevich@gmail.com", encodedPassword2, authorities, "aa",
-                "aaa","aaa","aaa", defaultPhoto);
-        userRepository.save(user2);
+            String encodedPassword2 = passwordEncoder.encode("Valikvalik1");
+            User user2 = new User("vtrusevich@gmail.com", encodedPassword2, authorities, "aa",
+                    "aaa", "aaa", "aaa", defaultPhoto);
+            user2.setEnabled(true);
+            userRepository.save(user2);
+        }
     }
 }

@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Table(name = "recovery_tokens")
 public class RecoveryToken {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "recovery_token_id")
+    private Long id;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
@@ -16,9 +20,16 @@ public class RecoveryToken {
     @Column(name = "token")
     private String token;
 
+    private RecoveryToken() {
+    }
+
     public RecoveryToken(User user, String token) {
         this.user = user;
         this.token = token;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public User getUser() {

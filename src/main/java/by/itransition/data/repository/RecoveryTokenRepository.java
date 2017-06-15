@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by ilya on 6/14/17.
  */
-public interface RecoveryTokenRepository extends JpaRepository<RecoveryToken, User> {
+public interface RecoveryTokenRepository extends JpaRepository<RecoveryToken, Long> {
     RecoveryToken findByToken(String token);
 }

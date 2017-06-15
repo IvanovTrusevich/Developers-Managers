@@ -1,27 +1,34 @@
 package by.itransition.config;
 
 import by.itransition.data.repository.UserRepository;
-import by.itransition.service.user.impl.UserService;
-import by.itransition.web.ajax.RequestUtil;
+import by.itransition.service.user.impl.DefaultUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * @author Ilya Ivanov
@@ -29,16 +36,16 @@ import java.io.IOException;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final DataSource dataSource;
+    private final MessageSource messages;
 
-    private final UserRepository userRepository;
+    private final LocaleResolver localeResolver;
 
-    private UserService userService;
+    private DefaultUserService userService;
 
     @Autowired
-    public SecurityConfig(@Qualifier("dataSource") DataSource dataSource, UserRepository userRepository) {
-        this.dataSource = dataSource;
-        this.userRepository = userRepository;
+    public SecurityConfig(MessageSource messages, LocaleResolver localeResolver) {
+        this.messages = messages;
+        this.localeResolver = localeResolver;
     }
 
     @Override
@@ -46,14 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/res/**").permitAll()
-                    .antMatchers("/registration", "/index", "/lost/**", "/login/**").permitAll()
+                    .antMatchers("/registration", "/index", "/lost/**", "/login/**", "/activate/**", "/recovery/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
                     .usernameParameter("credentials")
                     .passwordParameter("password")
-                    .failureUrl("/login?error")
+                    .failureHandler(authenticationFailureHandler())
+//                    .failureUrl("/login?error=true")
                     .permitAll()
                     .and()
                 .rememberMe()
@@ -80,7 +88,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public void setUserService(DefaultUserService userService) {
         this.userService = userService;
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new SimpleUrlAuthenticationFailureHandler() {
+            @Override
+            public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+                setDefaultFailureUrl("/login?error=true");
+                super.onAuthenticationFailure(request, response, exception);
+                Locale locale = localeResolver.resolveLocale(request);
+                String errorMessage = exception.getMessage();
+                if (exception instanceof BadCredentialsException) {
+                    errorMessage = messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", null, locale);
+                } else if (exception instanceof DisabledException) {
+                    errorMessage = messages.getMessage("AbstractUserDetailsAuthenticationProvider.disabled", null, locale);
+                } else if (exception instanceof AccountExpiredException) {
+                    errorMessage = messages.getMessage("AbstractUserDetailsAuthenticationProvider.expired", null, locale);
+                } else if (exception instanceof LockedException) {
+                    errorMessage = messages.getMessage("AbstractUserDetailsAuthenticationProvider.locked", null, locale);
+                }
+                request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
+            }
+        };
     }
 }

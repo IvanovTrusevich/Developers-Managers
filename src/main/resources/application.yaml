@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
   jpa:
     show-sql: true
     generate-ddl: true
@@ -36,6 +36,7 @@ by.itransition:
             alwaysGenerateOnRegistration: false
             defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_USER
+          expirationTime: 1440
         photo:
           defaultUserIconUrl: /res/pics/user-icon.png
           thumbnail:
@@ -66,7 +67,7 @@ spring:
   profiles: prod
   jpa:
       hibernate:
-        ddl-auto: create
+        ddl-auto: update
       database: MYSQL
   datasource:
     url: jdbc:mysql://localhost:3306/devman

@@ -51,7 +51,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.addBasenames("/resources/messages/messages");
+        messageSource.addBasenames("/resources/messages/messages", "classpath:ValidationMessages");
         messageSource.setCacheSeconds(10);
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
@@ -105,8 +105,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/index");
-        registry.addRedirectViewController("/lost", "/login?lost=true");
         registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/login").setViewName("login");
+        registry.addRedirectViewController("/lost", "/login?lost=true");
         registry.addViewController("/project").setViewName("project");
     }
 }

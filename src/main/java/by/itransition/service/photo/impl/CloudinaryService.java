@@ -18,6 +18,7 @@ import java.util.Map;
 /**
  * Created by ilya on 6/14/17.
  */
+@Service
 @SuppressWarnings("unchecked")
 public class CloudinaryService implements PhotoService {
     private PhotoRepository photoRepository;

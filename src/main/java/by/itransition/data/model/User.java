@@ -41,6 +41,9 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @Column(name = "locked")
+    private Boolean locked;
+
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name="user_id"))
@@ -59,7 +62,7 @@ public class User implements UserDetails {
     @Column(name = "username", unique = true)
     private String username;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "photo_id")
     private Photo photo;
 
@@ -82,7 +85,7 @@ public class User implements UserDetails {
     }
 
     public User(String email, String password, GrantedAuthority authority, String firstName,
-                String lastName, String middleName, String username, String githubNick, Photo photo) {
+                String lastName, String middleName, String username, Photo photo) {
         this(email, password, Lists.newArrayList(authority), firstName, lastName, middleName, username, photo);
     }
 
@@ -91,6 +94,7 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.enabled = false;
+        this.locked = false;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -108,7 +112,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -119,6 +123,14 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void lock() {
+        this.locked = true;
+    }
+
+    public void unlock() {
+        this.locked = false;
     }
 
     public void addProject(Project project) {

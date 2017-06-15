@@ -97,7 +97,7 @@ var $suppressMessaging = {
     errorPlacement: function (error, element) {},
     success: function (label, element) {}
 };
-var $validateOnSubmit = {
+var $validateOnSubmitOnly = {
     onkeyup: false,
     onfocusout: false,
     onclick: false
@@ -176,7 +176,7 @@ function Modal($modal, $contentDiv) {
     this.changeForm = function ($newForm) {
         this.$currentForm.closeTooltips();
         animateModal(this.$currentForm['form'], $newForm.form);
-        $('#modal-message-text').val($newForm.form.attr('data-default-message'));
+        $('#modal-message-text').val($newForm.form.data('default-message'));
         this.$currentForm = $newForm;
     };
 }
@@ -291,7 +291,7 @@ $(function () {
                 maxlength: 25
             }
         }
-    }, $defaultSubmitting, $tooltopValidation, $validateOnSubmit);
+    }, $defaultSubmitting, $tooltopValidation, $validateOnSubmitOnly);
     var $loginForm = new Form($('#login-form'), $loginFormValidator);
 
     var $lostFormValidator = Object.assign({
@@ -302,7 +302,7 @@ $(function () {
                 maxlength: 30
             }
         }
-    }, $ajaxSubmitting, $tooltopValidation, $validateOnSubmit);
+    }, $ajaxSubmitting, $tooltopValidation, $validateOnSubmitOnly);
     var $lostForm = new Form($('#lost-form'), $lostFormValidator);
 
     $modal.forms = [$loginForm, $lostForm];

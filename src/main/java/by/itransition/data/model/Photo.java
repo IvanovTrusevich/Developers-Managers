@@ -26,6 +26,7 @@ public class Photo {
     @Column(name = "image")
     private String image;
 
+    @Transient
     private String thumbnail;
 
     @Column(name = "created_at")
@@ -58,8 +59,25 @@ public class Photo {
         return image;
     }
 
+    public String getThumbnail(Double width, Double height) {
+        return getFormattedThumbnail(width, height);
+    }
+
     public String getThumbnail() {
-        return thumbnail;
+        if (thumbnail == null) {
+            return getFormattedThumbnail(width, height);
+        } else return thumbnail;
+    }
+
+    private String getFormattedThumbnail(Double width, Double height) {
+        final StoredFile file = getUpload();
+        return Singleton.getCloudinary().url()
+                .resourceType(file.getResourceType())
+                .type(file.getType())
+                .format(file.getFormat())
+                .version(file.getVersion())
+                .transformation(new Transformation().width(width).height(height).crop("fit"))
+                .generate(file.getPublicId());
     }
 
     public void setThumbnail(String thumbnail) {
@@ -86,13 +104,6 @@ public class Photo {
 
     public void setUpload(StoredFile file) {
         this.image = file.getPreloadedFile();
-        this.thumbnail = Singleton.getCloudinary().url()
-                .resourceType(file.getResourceType())
-                .type(file.getType())
-                .format(file.getFormat())
-                .version(file.getVersion())
-                .transformation(new Transformation().width(width).height(height).crop("fit"))
-                .generate(file.getPublicId());
     }
 
     @Override
@@ -100,7 +111,6 @@ public class Photo {
         return "Photo{" +
                 "id=" + id +
                 ", image='" + image + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
     }

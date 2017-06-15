@@ -120,6 +120,7 @@
     </div>
 </div>
 <%@include file='components/footer.jsp' %>
+<c:set var="lost" value='<%= request.getParameter("lost") %>'/>
 <c:if test="${not empty lost && lost eq 'true'}">
     <script>
         $(function() {
@@ -127,10 +128,11 @@
         });
     </script>
 </c:if>
-<c:if test="${not empty hasError && hasError eq 'true'}">
+<c:set var="hasError" value='<%= request.getParameter("error") %>'/>
+<c:if test="${not empty hasError && hasError eq 'true' && not empty param.error}">
     <script>
         $(function () {
-            changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", "<s:message code="login.error"/>");
+            changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", "${SPRING_SECURITY_LAST_EXCEPTION}");
         });
     </script>
 </c:if>
