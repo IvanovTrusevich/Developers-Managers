@@ -4,11 +4,9 @@ import by.itransition.data.model.RecoveryToken;
 import by.itransition.data.model.User;
 import by.itransition.data.model.VerificationToken;
 import by.itransition.data.model.dto.UserDto;
-import by.itransition.service.user.RecoveryService;
 import by.itransition.service.user.UserService;
 import by.itransition.service.user.event.OnPasswordRecoveryRequestEvent;
 import by.itransition.service.user.event.OnRegistrationCompleteEvent;
-import by.itransition.service.user.exception.AlreadyExistsException;
 import org.apache.log4j.Logger;
 import org.elasticsearch.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +24,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
 
 /**
  * @author Ilya Ivanov

@@ -140,10 +140,7 @@ public class GithubService {
 	    Project project = projectRepository.findByGitRepoName(repoName);
         gitFileRepository.deleteByProject(project);
 	    for(Pair<String,String> file : files){
-	        GitFile gitFile = new GitFile();
-	        gitFile.setFileName(file.getKey());
-            gitFile.setFileContent(file.getValue());
-            gitFile.setProject(project);
+            GitFile gitFile = new GitFile(file.getKey(), file.getValue(),project);
             gitFileRepository.save(gitFile);
         }
         projectRepository.updateProjectSHAByRepoName(getLastCommitSha(repoName),repoName);

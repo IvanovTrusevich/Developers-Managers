@@ -8717,3 +8717,507 @@ Consider defining a bean of type 'cn.bluejoe.elfinder.servlet.ConnectorServlet' 
 2017-06-15 11:27:14.980  INFO 2468 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B\.settings]
 2017-06-15 11:27:15.060  INFO 2468 --- [http-nio-8080-exec-1] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B]
 2017-06-15 11:27:15.148  INFO 2468 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [\B]
+2017-06-15 18:32:13.043  INFO 6268 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6268 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 18:32:13.049  INFO 6268 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 18:32:17.225  INFO 6268 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 18:32:17.227  INFO 6268 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 18:32:18.023  INFO 6268 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 18:32:18.034  INFO 6268 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 18:32:18.340  INFO 6268 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 18:32:32.424  WARN 6268 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+2017-06-15 18:32:32.433  INFO 6268 --- [main] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2017-06-15 18:32:32.622 ERROR 6268 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:667) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:866) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:370) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1162) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1151) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at by.itransition.DevmanApplication.main(DevmanApplication.java:28) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 19 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:77) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:329) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:309) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:272) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:243) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:76) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:247) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.buildTree(PartTree.java:398) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:378) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:86) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:64) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:103) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:214) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:77) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.<init>(RepositoryFactorySupport.java:436) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:221) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.initAndReturn(RepositoryFactoryBeanSupport.java:277) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:263) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:101) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 29 common frames omitted
+
+2017-06-15 18:47:13.585  INFO 4436 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 4436 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 18:47:13.593  INFO 4436 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 18:47:17.738  INFO 4436 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 18:47:17.741  INFO 4436 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 18:47:18.322  INFO 4436 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 18:47:18.332  INFO 4436 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 18:47:18.749  INFO 4436 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 18:47:25.116  WARN 4436 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+2017-06-15 18:47:25.125  INFO 4436 --- [main] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2017-06-15 18:47:25.167 ERROR 4436 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:667) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:866) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:370) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1162) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1151) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at by.itransition.DevmanApplication.main(DevmanApplication.java:28) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 19 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:77) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:329) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:309) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:272) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:243) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:76) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:247) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.buildTree(PartTree.java:398) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:378) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:86) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:64) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:103) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:214) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:77) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.<init>(RepositoryFactorySupport.java:436) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:221) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.initAndReturn(RepositoryFactoryBeanSupport.java:277) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:263) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:101) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 29 common frames omitted
+
+2017-06-15 18:51:23.668  INFO 6456 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6456 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 18:51:23.675  INFO 6456 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 18:51:28.062  INFO 6456 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 18:51:28.064  INFO 6456 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 18:51:28.634  INFO 6456 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 18:51:28.643  INFO 6456 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 18:51:28.934  INFO 6456 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 18:51:35.666  WARN 6456 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+2017-06-15 18:51:35.676  INFO 6456 --- [main] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2017-06-15 18:51:35.717 ERROR 6456 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:667) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:866) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:370) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1162) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1151) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at by.itransition.DevmanApplication.main(DevmanApplication.java:28) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 19 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:77) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:329) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:309) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:272) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:243) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:76) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:247) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.buildTree(PartTree.java:398) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:378) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:86) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:64) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:103) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:214) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:77) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.<init>(RepositoryFactorySupport.java:436) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:221) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.initAndReturn(RepositoryFactoryBeanSupport.java:277) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:263) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:101) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 29 common frames omitted
+
+2017-06-15 19:06:38.123  INFO 7616 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 7616 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:06:38.130  INFO 7616 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:06:42.647  INFO 7616 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:06:42.649  INFO 7616 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:06:43.200  INFO 7616 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:06:43.210  INFO 7616 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:06:43.549  INFO 7616 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:06:50.301  WARN 7616 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+2017-06-15 19:06:50.312  INFO 7616 --- [main] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2017-06-15 19:06:50.348 ERROR 7616 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:667) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:866) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:370) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1162) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1151) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at by.itransition.DevmanApplication.main(DevmanApplication.java:28) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 19 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property find found for type News! Did you mean 'id'?
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:77) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:329) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:309) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:272) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:243) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:76) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:247) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.buildTree(PartTree.java:398) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:378) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:86) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:64) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:103) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:214) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:77) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.<init>(RepositoryFactorySupport.java:436) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:221) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.initAndReturn(RepositoryFactoryBeanSupport.java:277) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:263) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:101) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 29 common frames omitted
+
+2017-06-15 19:09:36.735  INFO 6848 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6848 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:09:36.742  INFO 6848 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:09:40.775  INFO 6848 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:09:40.777  INFO 6848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:09:41.332  INFO 6848 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:09:41.341  INFO 6848 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:09:41.637  INFO 6848 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:09:49.780  WARN 6848 --- [main] ationConfigEmbeddedWebApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property findAll found for type News!
+2017-06-15 19:09:49.795  INFO 6848 --- [main] o.apache.catalina.core.StandardService   : Stopping service Tomcat
+2017-06-15 19:09:49.836 ERROR 6848 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'companyNewsLoader': Unsatisfied dependency expressed through method 'setNewsRepository' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property findAll found for type News!
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:667) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:88) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues(AutowiredAnnotationBeanPostProcessor.java:366) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1264) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:553) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:197) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:761) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:866) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:542) ~[spring-context-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.boot.context.embedded.EmbeddedWebApplicationContext.refresh(EmbeddedWebApplicationContext.java:122) ~[spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:737) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:370) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:314) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1162) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1151) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at by.itransition.DevmanApplication.main(DevmanApplication.java:28) [classes/:na]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'newsRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.PropertyReferenceException: No property findAll found for type News!
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1628) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:483) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:306) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:230) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:302) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:208) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1138) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1066) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:659) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 19 common frames omitted
+Caused by: org.springframework.data.mapping.PropertyReferenceException: No property findAll found for type News!
+	at org.springframework.data.mapping.PropertyPath.<init>(PropertyPath.java:77) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:329) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.create(PropertyPath.java:309) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:272) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.mapping.PropertyPath.from(PropertyPath.java:243) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.Part.<init>(Part.java:76) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:247) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.buildTree(PartTree.java:398) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree$Predicate.<init>(PartTree.java:378) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:86) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:64) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:103) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:214) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:77) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.<init>(RepositoryFactorySupport.java:436) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:221) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.initAndReturn(RepositoryFactoryBeanSupport.java:277) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:263) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:101) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1687) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1624) ~[spring-beans-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 29 common frames omitted
+
+2017-06-15 19:10:56.785  INFO 6304 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6304 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:10:56.867  INFO 6304 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:11:00.697  INFO 6304 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:11:00.699  INFO 6304 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:11:01.230  INFO 6304 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:11:01.241  INFO 6304 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:11:01.570  INFO 6304 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:11:12.899  INFO 6304 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 17.614 seconds (JVM running for 18.83)
+2017-06-15 19:11:35.925  INFO 6304 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 19:14:36.270  INFO 7684 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 7684 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:14:36.277  INFO 7684 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:14:40.611  INFO 7684 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:14:40.613  INFO 7684 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:14:41.219  INFO 7684 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:14:41.232  INFO 7684 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:14:41.630  INFO 7684 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:14:52.187  INFO 7684 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 17.419 seconds (JVM running for 18.558)
+2017-06-15 19:14:57.507  INFO 7684 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 19:16:16.763  INFO 3832 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 3832 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:16:16.771  INFO 3832 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:16:20.742  INFO 3832 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:16:20.745  INFO 3832 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:16:21.359  INFO 3832 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:16:21.368  INFO 3832 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:16:21.702  INFO 3832 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:16:55.353  WARN 3832 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1062, SQLState: 23000
+2017-06-15 19:16:55.358 ERROR 3832 --- [main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Duplicate entry 'com.ilya.ivanov@gmail.com' for key 'UK_6dotkott2kjsp8vw4d0m25fb7'
+2017-06-15 19:17:00.408 ERROR 3832 --- [main] o.s.boot.SpringApplication               : Application startup failed
+
+java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:779) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:760) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.afterRefresh(SpringApplication.java:747) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1162) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1151) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	at by.itransition.DevmanApplication.main(DevmanApplication.java:28) [classes/:na]
+Caused by: org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [UK_6dotkott2kjsp8vw4d0m25fb7]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:278) ~[spring-orm-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:244) ~[spring-orm-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:488) ~[spring-orm-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:59) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:213) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:147) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:133) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:92) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.data.repository.core.support.SurroundingTransactionDetectorMethodInterceptor.invoke(SurroundingTransactionDetectorMethodInterceptor.java:57) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:213) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.sun.proxy.$Proxy98.save(Unknown Source) ~[na:na]
+	at by.itransition.DevmanApplication.addAdmins(DevmanApplication.java:94) [classes/:na]
+	at by.itransition.DevmanApplication.lambda$prod$0(DevmanApplication.java:39) [classes/:na]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:776) [spring-boot-1.5.3.RELEASE.jar:1.5.3.RELEASE]
+	... 6 common frames omitted
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:59) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:42) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:111) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:97) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:208) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.dialect.identity.GetGeneratedKeysDelegate.executeAndExtract(GetGeneratedKeysDelegate.java:57) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.id.insert.AbstractReturningDelegate.performInsert(AbstractReturningDelegate.java:42) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:2909) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3480) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.action.internal.EntityIdentityInsertAction.execute(EntityIdentityInsertAction.java:81) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.spi.ActionQueue.execute(ActionQueue.java:623) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.spi.ActionQueue.addResolvedEntityInsertAction(ActionQueue.java:277) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.spi.ActionQueue.addInsertAction(ActionQueue.java:258) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.engine.spi.ActionQueue.addAction(ActionQueue.java:303) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.addInsertAction(AbstractSaveEventListener.java:318) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSaveOrReplicate(AbstractSaveEventListener.java:275) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.performSave(AbstractSaveEventListener.java:182) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:113) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:67) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:189) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:132) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:58) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:773) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:758) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_121]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_121]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_121]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_121]
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:298) ~[spring-orm-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at com.sun.proxy.$Proxy96.persist(Unknown Source) ~[na:na]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.save(SimpleJpaRepository.java:508) ~[spring-data-jpa-1.11.3.RELEASE.jar:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_121]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_121]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_121]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_121]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.executeMethodOn(RepositoryFactorySupport.java:504) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.doInvoke(RepositoryFactorySupport.java:489) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.invoke(RepositoryFactorySupport.java:461) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:61) ~[spring-data-commons-1.13.3.RELEASE.jar:na]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:99) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:282) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:96) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:136) ~[spring-tx-4.3.8.RELEASE.jar:4.3.8.RELEASE]
+	... 18 common frames omitted
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'com.ilya.ivanov@gmail.com' for key 'UK_6dotkott2kjsp8vw4d0m25fb7'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[na:1.8.0_121]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) ~[na:1.8.0_121]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[na:1.8.0_121]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423) ~[na:1.8.0_121]
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.Util.getInstance(Util.java:408) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:935) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3973) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3909) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2527) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2680) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2501) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1858) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2079) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2013) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.PreparedStatement.executeLargeUpdate(PreparedStatement.java:5104) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1998) ~[mysql-connector-java-5.1.41.jar:5.1.41]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_121]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_121]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_121]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_121]
+	at org.apache.tomcat.jdbc.pool.StatementFacade$StatementProxy.invoke(StatementFacade.java:114) ~[tomcat-jdbc-8.5.14.jar:na]
+	at com.sun.proxy.$Proxy103.executeUpdate(Unknown Source) ~[na:na]
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:205) ~[hibernate-core-5.2.9.Final.jar:5.2.9.Final]
+	... 59 common frames omitted
+
+2017-06-15 19:17:52.644  INFO 5736 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 5736 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:17:52.659  INFO 5736 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:17:56.269  INFO 5736 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:17:56.271  INFO 5736 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:17:56.740  INFO 5736 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:17:56.754  INFO 5736 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:17:57.095  INFO 5736 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:18:06.779  INFO 5736 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 15.003 seconds (JVM running for 16.06)
+2017-06-15 19:18:13.083  INFO 5736 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 19:26:13.333  INFO 4232 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 4232 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:26:13.341  INFO 4232 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:26:17.792  INFO 4232 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:26:17.794  INFO 4232 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:26:18.397  INFO 4232 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:26:18.408  INFO 4232 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:26:18.776  INFO 4232 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:26:43.135  INFO 4232 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 30.713 seconds (JVM running for 31.789)
+2017-06-15 19:26:55.918  INFO 4232 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 19:28:48.991  INFO 7848 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 7848 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 19:28:48.998  INFO 7848 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 19:28:53.437  INFO 7848 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 19:28:53.439  INFO 7848 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 19:28:53.996  INFO 7848 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 19:28:54.005  INFO 7848 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 19:28:54.322  INFO 7848 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 19:29:04.373  INFO 7848 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.404 seconds (JVM running for 17.56)
+2017-06-15 19:29:12.641  INFO 7848 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'

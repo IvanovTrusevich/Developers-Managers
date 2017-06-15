@@ -7,6 +7,7 @@ import by.itransition.service.news.NewsParser;
 import org.hibernate.boot.model.source.spi.Sortable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
@@ -31,8 +32,8 @@ public class ProjectNewsLoader {
     }
 
     public List<String> loadLastNews(Project project, Locale locale){
-        Pageable pageable = (Pageable) new PageRequest(0,10);
-        List<News> news = newsRepository.findByProjectNews(project, pageable);
+        PageRequest pageRequest = new PageRequest(0,10);
+        Slice<News> news = newsRepository.findByProjectNews(project, pageRequest);
         return newsParser.parseNews(news,locale);
     }
 }

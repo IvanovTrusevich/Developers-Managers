@@ -4,6 +4,7 @@ import by.itransition.data.model.News;
 import by.itransition.data.model.NewsType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class NewsParser {
         this.messageSource = messageSource;
     }
 
-    public List<String> parseNews(List<News> news, Locale locale) {
+    public List<String> parseNews(Slice<News> news, Locale locale) {
         List<String> parsedNews = new ArrayList<>();
         for (News pieceOfNews : news) {
             String format = messageSource.getMessage(pieceOfNews.getNewsType().getFormatStringAddress(), null, locale);
