@@ -13,13 +13,3 @@ function displayOrganisation(orgName, divId){
         	selector: '#' + divId	
 		});
 }
-
-webix.ready(function(){
-    //object constructor
-    webix.ui({
-        view:"filemanager",
-        id:"files"
-    });
-    // loading data source
-    $$("files").load("data/files.php");
-});

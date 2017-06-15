@@ -103,6 +103,9 @@ public class GithubService {
     private boolean isLastCommitCashed(String repoName) throws IOException {
 
         String lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
+        if(lastCachedCommitSha == null){
+
+        }
         String lastCommitSha = getLastCommitSha(repoName);
         return lastCachedCommitSha.equals(lastCommitSha);
     }

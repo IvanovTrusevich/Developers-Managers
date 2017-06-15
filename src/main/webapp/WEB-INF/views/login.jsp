@@ -119,7 +119,8 @@
         </div>
     </div>
 </div>
-<%@include file='components/footer.jsp' %>
+<%@include file="components/footer.jsp"%>
+<%@include file="components/script.jsp"%>
 <c:set var="lost" value='<%= request.getParameter("lost") %>'/>
 <c:if test="${not empty lost && lost eq 'true'}">
     <script>

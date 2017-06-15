@@ -71,7 +71,8 @@
     </div>
 </div>
 
-<%@include file='components/footer.jsp' %>
+<%@include file="components/footer.jsp"%>
+<%@include file="components/script.jsp"%>
 <c:if test="${success}">
     <script>
         changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "Confirm your email");
