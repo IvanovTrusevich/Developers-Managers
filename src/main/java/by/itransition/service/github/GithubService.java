@@ -1,4 +1,4 @@
-package by.itransition.tools.github;
+package by.itransition.service.github;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,22 +15,32 @@ import org.kohsuke.github.GHTreeEntry;
 import org.kohsuke.github.GitHub;
 
 import javafx.util.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class GitHubImpl {
+@Service("githubService")
+public class GithubService {
 	private static final String orgName = "ItransitionProjects";
     private static final String oAuth = System.getenv("githubToken");
     private static final String branchName = "master";
     private ProjectRepository projectRepository;
     private GitFileRepository gitFileRepository;
+    private GitHub github;
 
-    public GitHubImpl() {
-    }
-
-    public GitHubImpl(ProjectRepository projectRepository,
-                      GitFileRepository gitFileRepository) {
+    @Autowired
+    public GithubService(ProjectRepository projectRepository,
+                         GitFileRepository gitFileRepository) {
         this.projectRepository = projectRepository;
         this.gitFileRepository = gitFileRepository;
     }
+//    @Autowired
+//    public void setProjectRepository(ProjectRepository projectRepository) {
+//        this.projectRepository = projectRepository;
+//    }
+//    @Autowired
+//    public void setGitFileRepository(GitFileRepository gitFileRepository) {
+//        this.gitFileRepository = gitFileRepository;
+//    }
 
     public boolean createRepo(String repoName) {
 		GitHub github;
@@ -84,17 +94,24 @@ public class GitHubImpl {
     }
 
 	private GHRepository getRepo(String repoName) throws IOException {
-        GitHub github = GitHub.connectUsingOAuth(oAuth);
+        if(github == null)
+            github = GitHub.connectUsingOAuth(oAuth);
         GHOrganization organisation = github.getOrganization(orgName);
         return organisation.getRepository(repoName);
     }
 
     private boolean isLastCommitCashed(String repoName) throws IOException {
-        GHRepository repo = getRepo(repoName);
+
         String lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
-        String lastCommitSha = repo.getBranch(branchName).getSHA1();
+        String lastCommitSha = getLastCommitSha(repoName);
         return lastCachedCommitSha.equals(lastCommitSha);
     }
+
+    private String getLastCommitSha(String repoName) throws IOException {
+        GHRepository repo = getRepo(repoName);
+        return repo.getBranch(branchName).getSHA1();
+    }
+
 
     @SuppressWarnings("deprecation")
     private List<Pair<String,String>> loadFilesFromGithub(String repoName) throws IOException {
@@ -119,7 +136,7 @@ public class GitHubImpl {
         return formattedFiles;
     }
 
-    private void cacheFiles(List<Pair<String, String>> files, String repoName) {
+    private void cacheFiles(List<Pair<String, String>> files, String repoName) throws IOException {
 	    Project project = projectRepository.findByGitRepoName(repoName);
         gitFileRepository.deleteByProject(project);
 	    for(Pair<String,String> file : files){
@@ -129,5 +146,6 @@ public class GitHubImpl {
             gitFile.setProject(project);
             gitFileRepository.save(gitFile);
         }
+        projectRepository.updateProjectSHAByRepoName(getLastCommitSha(repoName),repoName);
     }
 }

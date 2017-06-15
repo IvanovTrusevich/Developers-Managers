@@ -1,7 +1,7 @@
 package by.itransition.config;
 
 import by.itransition.data.repository.UserRepository;
-import by.itransition.service.user.impl.DefaultUserService;
+import by.itransition.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LocaleResolver localeResolver;
 
-    private DefaultUserService userService;
+    private UserService userService;
 
     @Autowired
     public SecurityConfig(MessageSource messages, LocaleResolver localeResolver) {
@@ -53,12 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/res/**").permitAll()
-                    .antMatchers("/registration", "/index", "/lost/**", "/login/**", "/activate/**", "/recovery/**").permitAll()
+                    .antMatchers("/registration", "/index", "/lost/**", "/login/**", "/activate/**", "/recovery/**", "/connector").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .usernameParameter("credentials")
+                    .usernameParameter("username")
                     .passwordParameter("password")
                     .failureHandler(authenticationFailureHandler())
 //                    .failureUrl("/login?error=true")
@@ -68,11 +68,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .tokenValiditySeconds(3600)     // 1 hour
                     .and()
                 .logout()
-                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true)
                     .permitAll()
-                    .and();
+                    .and()
+                .csrf()
+                    .disable();
     }
 
     @Override
@@ -88,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void setUserService(DefaultUserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
