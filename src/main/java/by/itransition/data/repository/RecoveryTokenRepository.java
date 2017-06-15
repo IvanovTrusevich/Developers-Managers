@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface RecoveryTokenRepository extends JpaRepository<RecoveryToken, Long> {
     RecoveryToken findByToken(String token);
+
+    void deleteAllByToken(String token);
 }

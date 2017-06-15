@@ -1,7 +1,7 @@
 package by.itransition.data.constraints.validator;
 
 import by.itransition.data.constraints.annotation.PasswordMatches;
-import by.itransition.data.model.dto.UserDto;
+import by.itransition.data.model.dto.PasswordDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -16,7 +16,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context){
-        UserDto user = (UserDto) obj;
+        PasswordDto user = (PasswordDto) obj;
         return user.getPassword().equals(user.getMatchingPassword());
     }
 }

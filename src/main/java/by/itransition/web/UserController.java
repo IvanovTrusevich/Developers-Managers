@@ -3,12 +3,12 @@ package by.itransition.web;
 import by.itransition.data.model.RecoveryToken;
 import by.itransition.data.model.User;
 import by.itransition.data.model.VerificationToken;
+import by.itransition.data.model.dto.PasswordDto;
 import by.itransition.data.model.dto.UserDto;
-import by.itransition.service.user.RecoveryService;
 import by.itransition.service.user.UserService;
 import by.itransition.service.user.event.OnPasswordRecoveryRequestEvent;
 import by.itransition.service.user.event.OnRegistrationCompleteEvent;
-import by.itransition.service.user.exception.AlreadyExistsException;
+import com.google.common.collect.ImmutableMap;
 import org.apache.log4j.Logger;
 import org.elasticsearch.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Calendar;
@@ -72,23 +72,32 @@ public class UserController {
     }
 
     @GetMapping("/recovery")
-    public String lostPasswordRecoveryForm(@RequestParam("token") String token) {
+    public ModelAndView lostPasswordRecoveryForm(@RequestParam("token") String token) {
         log.info("Token: " + token);
-        final Optional<RecoveryToken> optional = userService.getUserByRecoveryToken(token);
+        final Optional<RecoveryToken> optional = userService.findByRecoveryToken(token);
         if (optional.isPresent()) {
-
-            return "recovery";
+            return new ModelAndView("recovery", ImmutableMap.of("recoveryForm", PasswordDto.getPlaceholder(), "token", token));
         } else throw new ResourceNotFoundException("No recovery request found");
     }
 
     @PostMapping("/recovery")
-    public String processRecovery() {
-        return "";
+    @Transactional
+    public String processRecovery(Locale locale, @ModelAttribute("recoveryForm") @Valid PasswordDto passwordRecovery, @RequestParam("token") String token, BindingResult result) {
+        if (result.hasErrors()) return "recovery";
+        else {
+            final Optional<RecoveryToken> optional = userService.findByRecoveryToken(token);
+            if (optional.isPresent()) {
+                unlockUser(optional.get().getUser(), token);
+                return "redirect:/login?lang=" + locale;
+            }
+            else throw new ResourceNotFoundException("No recovery request found");
+        }
     }
 
-    private void unlockUser(User user) {
+    private void unlockUser(User user, String token) {
         user.unlock();
         userService.saveRegisteredUser(user);
+        userService.deleteUsedRecoveryToken(token);
     }
 
     @GetMapping(value = "/registration")
@@ -121,6 +130,7 @@ public class UserController {
     }
 
     @GetMapping("/activate")
+    @Transactional
     public String activateAccount(Locale locale, @RequestParam("token") String token) {
         log.info("Token: " + token);
         final Optional<VerificationToken> optional = userService.getVerificationToken(token);
@@ -133,7 +143,7 @@ public class UserController {
 //                model.addAttribute("message", expiredMessage);
 //                return "redirect:/404?lang=" + locale.getLanguage();
             }
-            this.enableUser(user);
+            this.activateUser(user, token);
             return "redirect:/login?lang=" + locale;
         } else {
             String notFound = messageSource.getMessage("user.activate.notFound", null, locale);
@@ -141,9 +151,10 @@ public class UserController {
         }
     }
 
-    private void enableUser(User user) {
+    private void activateUser(User user, String token) {
         user.setEnabled(true);
         userService.saveRegisteredUser(user);
+        userService.deleteUsedVerificationToken(token);
     }
 
     private boolean checkExpiration(Date expiry) {

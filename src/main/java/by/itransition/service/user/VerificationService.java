@@ -12,4 +12,6 @@ public interface VerificationService {
     void createVerificationToken(User user, String token);
 
     Optional<VerificationToken> getVerificationToken(String token);
+
+    void deleteUsedVerificationToken(String token);
 }

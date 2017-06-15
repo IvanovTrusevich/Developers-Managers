@@ -14,5 +14,7 @@ import java.util.Optional;
 public interface RecoveryService {
     void createRecoveryToken(User user, String token);
 
-    Optional<RecoveryToken> getUserByRecoveryToken(String token);
+    Optional<RecoveryToken> findByRecoveryToken(String token);
+
+    void deleteUsedRecoveryToken(String token);
 }

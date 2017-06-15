@@ -111,13 +111,23 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public void deleteUsedVerificationToken(String token) {
+        verificationTokenRepository.deleteAllByToken(token);
+    }
+
+    @Override
     public void createRecoveryToken(User user, String token) {
         recoveryTokenRepository.save(new RecoveryToken(user, token));
     }
 
     @Override
-    public Optional<RecoveryToken> getUserByRecoveryToken(String token) {
+    public Optional<RecoveryToken> findByRecoveryToken(String token) {
         return Optional.ofNullable(recoveryTokenRepository.findByToken(token));
+    }
+
+    @Override
+    public void deleteUsedRecoveryToken(String token) {
+        recoveryTokenRepository.deleteAllByToken(token);
     }
 
     public void setCredentialsPolicy(CredentialsPolicy credentialsPolicy) {
