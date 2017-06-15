@@ -1,11 +1,20 @@
 package by.itransition.data.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Created by ilya on 5/29/17.
+ */
 @Entity
 @Table(name = "projects")
+//@Getter
+//@Setter
+//@EqualsAndHashCode
+//@ToString(of = {"id", "projectName", "gitRepoName", "gitRepoUrl", "gitLastSHA", "gitReadme"})
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +47,11 @@ public class Project {
     @Column(name = "git_last_SHA")
     private String gitLastSHA;
 
-    @Column(name = "git_readme")
+    @Column(name = "git_readme", length = 10000)
     private String gitReadme;
+
+    @Column(name = "wiki_content", length = 10000)
+    private String wikiContent;
 
     @OneToMany(mappedBy = "project")
     private Set<GitFile> gitFiles;
@@ -50,14 +62,17 @@ public class Project {
             joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
             inverseJoinColumns=@JoinColumn(name="tags", referencedColumnName="tag_id"))
     private Set<Tag> tags;
+    @OneToMany(mappedBy = "projectNews")
+    private Set<News> news;
 
-    public Project() {
+    private Project() {
     }
 
     public Project(Set<User> managers, Set<User> developers, String projectName,
                    String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme,
-                   Set<GitFile> gitFiles, Set<Tag> tags) {
+                   Set<GitFile> gitFiles, Set<Tag> tags, String wikiContent) {
         this.developers = developers;
+        this.managers = managers;
         this.projectName = projectName;
         this.gitRepoName = gitRepoName;
         this.gitRepoUrl = gitRepoUrl;
@@ -65,6 +80,7 @@ public class Project {
         this.gitReadme = gitReadme;
         this.gitFiles = gitFiles;
         this.managers = managers;
+        this.wikiContent = wikiContent;
         this.tags = tags;
     }
 
@@ -110,6 +126,14 @@ public class Project {
         this.gitRepoName = gitRepoName;
     }
 
+    public String getGitRepoUrl() {
+        return gitRepoUrl;
+    }
+
+    public void setGitRepoUrl(String gitRepoUrl) {
+        this.gitRepoUrl = gitRepoUrl;
+    }
+
     public String getGitLastSHA() {
         return gitLastSHA;
     }
@@ -134,12 +158,20 @@ public class Project {
         this.gitFiles = gitFiles;
     }
 
-    public String getGitRepoUrl() {
-        return gitRepoUrl;
+    public String getWikiContent() {
+        return wikiContent;
     }
 
-    public void setGitRepoUrl(String gitRepoUrl) {
-        this.gitRepoUrl = gitRepoUrl;
+    public void setWikiContent(String wikiContent) {
+        this.wikiContent = wikiContent;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
     }
 
     public Set<Tag> getTags() {
@@ -148,5 +180,37 @@ public class Project {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Project project = (Project) o;
+
+        if (id != null ? !id.equals(project.id) : project.id != null) return false;
+        if (gitRepoName != null ? !gitRepoName.equals(project.gitRepoName) : project.gitRepoName != null) return false;
+        return gitRepoUrl != null ? gitRepoUrl.equals(project.gitRepoUrl) : project.gitRepoUrl == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (gitRepoName != null ? gitRepoName.hashCode() : 0);
+        result = 31 * result + (gitRepoUrl != null ? gitRepoUrl.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", projectName='" + projectName + '\'' +
+                ", gitRepoName='" + gitRepoName + '\'' +
+                ", gitRepoUrl='" + gitRepoUrl + '\'' +
+                ", gitLastSHA='" + gitLastSHA + '\'' +
+                ", gitReadme='" + gitReadme + '\'' +
+                '}';
     }
 }

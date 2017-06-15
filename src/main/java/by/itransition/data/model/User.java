@@ -72,6 +72,9 @@ public class User implements UserDetails {
     @ManyToMany(mappedBy = "managers")
     private List<Project> managedProjects;
 
+    @OneToMany(mappedBy = "userNews")
+    private Set<News> news;
+
     private User() {
     }
 
