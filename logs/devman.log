@@ -10199,3 +10199,21 @@ java.lang.NullPointerException: null
 2017-06-15 21:41:57.341  INFO 6792 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
 2017-06-15 21:42:07.192  INFO 6792 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 15.721 seconds (JVM running for 16.768)
 2017-06-15 21:42:11.927  INFO 6792 --- [http-nio-8080-exec-9] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 21:49:58.228  INFO 6252 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6252 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 21:49:58.235  INFO 6252 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 21:50:02.442  INFO 6252 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 21:50:02.444  INFO 6252 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 21:50:02.944  INFO 6252 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 21:50:02.953  INFO 6252 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 21:50:03.284  INFO 6252 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 21:50:12.556  INFO 6252 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 15.263 seconds (JVM running for 16.394)
+2017-06-15 21:50:29.407  INFO 6252 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-15 21:54:12.814  INFO 6832 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6832 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-15 21:54:12.821  INFO 6832 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-15 21:54:17.625  INFO 6832 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-15 21:54:17.628  INFO 6832 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-15 21:54:18.251  INFO 6832 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-15 21:54:18.259  INFO 6832 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-15 21:54:18.615  INFO 6832 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-15 21:54:28.581  INFO 6832 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.978 seconds (JVM running for 18.072)
+2017-06-15 21:54:32.037  INFO 6832 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
