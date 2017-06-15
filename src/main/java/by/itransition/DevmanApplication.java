@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -42,6 +43,7 @@ public class DevmanApplication {
                                   PhotoService cloudinaryService) {
         return (args) -> {
             addAdmins(userRepository, passwordEncoder, cloudinaryService);
+            addProject(userRepository, projectRepository, gitFileRepository);
         };
 	}
 
@@ -53,39 +55,45 @@ public class DevmanApplication {
                                  PasswordEncoder passwordEncoder,
                                  PhotoService cloudinaryService) {
 		return (args) -> {
-            addAdmins(userRepository, passwordEncoder, cloudinaryService);
-			final User one = userRepository.findOne(1L);
-            final User two = userRepository.findOne(2L);
-			log.info(one);
-            log.info(two);
+            //addAdmins(userRepository, passwordEncoder, cloudinaryService);
+            addProject(userRepository, projectRepository, gitFileRepository);
 
-            Set<User> developers = new HashSet<>();
-            developers.add(two);
-
-            Set<User> managers = new HashSet<>();
-            managers.add(one);
-
-            Project project = new Project(managers, developers,"socket",
-                    "Socket","https://github.com/ItransitionProjects/Socket.git",
-                    "lasSSH","RM",null,null,null);
-            projectRepository.save(project);
-
-            final Project pOne = projectRepository.findOne(1L);
-            List<GitFile> files = new ArrayList<>();
-            files.add(new GitFile("main.txt","hello",pOne));
-            gitFileRepository.save(files);
-
-            final Project pr = projectRepository.findOne(1L);
-            log.info(pr.getGitLastSHA());
-
-            log.info("lastSha " + projectRepository.findGitLastSHAByGitRepoName("Socket"));
-
-            GithubService ghi = new GithubService(projectRepository,gitFileRepository);
-            log.info("size = " + ghi.getFiles("Socket").size());
 		};
 	}
 
-	private void addAdmins(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService cloudinaryService) {
+    private void addProject(UserRepository userRepository, ProjectRepository projectRepository, GitFileRepository gitFileRepository) throws IOException {
+        final User one = userRepository.findOne(1L);
+        final User two = userRepository.findOne(2L);
+        log.info(one);
+        log.info(two);
+
+        Set<User> developers = new HashSet<>();
+        developers.add(two);
+
+        Set<User> managers = new HashSet<>();
+        managers.add(one);
+
+        Project project = new Project(managers, developers,"socket",
+                "Socket","https://github.com/ItransitionProjects/Socket.git",
+                "lasSSH","RM",null,null,null);
+        projectRepository.save(project);
+
+//        final Project pOne = projectRepository.findOne(1L);
+//        List<GitFile> files = new ArrayList<>();
+//        files.add(new GitFile("main.txt","hello",pOne));
+//        gitFileRepository.save(files);
+//
+//        final Project pr = projectRepository.findOne(1L);
+//        log.info(pr.getGitLastSHA());
+//
+//        log.info("lastSha " + projectRepository.findGitLastSHAByGitRepoName("Socket"));
+//
+//        GithubService ghi = new GithubService(projectRepository,gitFileRepository);
+//        log.info("size = " + ghi.getFiles("Socket").size());
+
+	}
+
+    private void addAdmins(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService cloudinaryService) {
 	    if (!userRepository.exists(1L)) {
             final Photo defaultPhoto = cloudinaryService.getDefaultPhoto();
             List<GrantedAuthority> authorities = new ArrayList<>();

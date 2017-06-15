@@ -145,7 +145,12 @@ public class GithubService {
             gitFileRepository.deleteByProject(project);
             for (Pair<String, String> file : files) {
                 GitFile gitFile = new GitFile(file.getKey(), file.getValue(), project);
-                gitFileRepository.save(gitFile);
+                try {
+                    gitFileRepository.save(gitFile);
+                } catch (Exception e){
+                    continue;
+                }
+
             }
             projectRepository.updateProjectSHAByRepoName(getLastCommitSha(repoName), repoName);
         }

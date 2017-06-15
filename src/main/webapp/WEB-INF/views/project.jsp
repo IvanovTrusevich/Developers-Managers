@@ -67,7 +67,7 @@
 
     <!-- elFinder JS (REQUIRED) -->
     <script type="text/javascript"
-            src="res/libs/elfinder/js/elfinder.min.js"></script>
+            src="res/libs/elfinder/js/elfinder.full.js"></script>
 
     <!-- elFinder translation (OPTIONAL) -->
     <script type="text/javascript"
