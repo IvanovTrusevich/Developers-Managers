@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ilya on 5/29/17.
@@ -46,11 +47,17 @@ public class Project {
     @Column(name = "git_last_SHA")
     private String gitLastSHA;
 
-    @Column(name = "git_readme")
+    @Column(name = "git_readme", length = 10000)
     private String gitReadme;
+
+    @Column(name = "wiki_content", length = 10000)
+    private String wikiContent;
 
     @OneToMany(mappedBy = "project")
     private List<GitFile> gitFiles;
+
+    @OneToMany(mappedBy = "projectNews")
+    private Set<News> news;
 
     private Project() {
     }
@@ -61,7 +68,7 @@ public class Project {
         this.managers = managers;
     }
 
-    public Project(List<User> developers, List<User> managers, String projectName, String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme, List<GitFile> gitFiles) {
+    public Project(List<User> developers, List<User> managers, String projectName, String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme, List<GitFile> gitFiles, String wikiContent) {
         this.developers = developers;
         this.managers = managers;
         this.projectName = projectName;
@@ -70,6 +77,7 @@ public class Project {
         this.gitLastSHA = gitLastSHA;
         this.gitReadme = gitReadme;
         this.gitFiles = gitFiles;
+        this.wikiContent = wikiContent;
     }
 
     public Long getId() {
@@ -138,6 +146,22 @@ public class Project {
 
     public void setGitFiles(List<GitFile> gitFiles) {
         this.gitFiles = gitFiles;
+    }
+
+    public String getWikiContent() {
+        return wikiContent;
+    }
+
+    public void setWikiContent(String wikiContent) {
+        this.wikiContent = wikiContent;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
     }
 
     @Override
