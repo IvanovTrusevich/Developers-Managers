@@ -1,71 +1,42 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Илья
-  Date: 14.05.2017
-  Time: 12:25
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
-
-<c:set var="page" value="login"/>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-    <%@include file='components/head.jsp'%>
-    <body>
+	<head>
+		<meta charset="utf-8">
+		<title>elFinder 2.1</title>
 
-    <h1>valik</h1>
+		<!-- jQuery and jQuery UI (REQUIRED) -->
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
-    <div id="example" style="width: 550px; height: 350px;"></div>
-    <div id="elfinder"></div>
+		<!-- elFinder CSS (REQUIRED) -->
+		<link rel="stylesheet" type="text/css" href="res/libs/elfinder/css/elfinder.min.css">
+		<link rel="stylesheet" type="text/css" href="res/libs/elfinder/css/theme.css">
 
-        <%@include file='components/header.jsp'%>
+		<!-- elFinder JS (REQUIRED) -->
+		<script src="res/libs/elfinder/js/elfinder.full.js"></script>
 
-        <div class="inner-content">
-            <div class="modal-window">
-                <div class="modal-content">
-                    <form action="<c:url value="/login"/>" method="POST" onload='document.forms[0].username.focus();'>
-                        <div class="clearfix">
-                            <div class="input-text">
-                                <label for="username" >
-                                    <s:message code="login.username" /></label>
-                                <input type="text" id="username" name="username" placeholder="Username" />
-                            </div>
-                            <div class="input-text">
-                                <label for="password" >
-                                    <s:message code="login.password" /></label>
-                                <input type="password" id="password" name="password" placeholder="*****" />
-                            </div>
-                        </div>
-                        <input id="remember_me" name="remember-me" type="checkbox"/>
-                        <label for="remember_me" class="inline"><s:message code="login.rememberMe"/></label>
-                        <label><a href="<c:url value="/registration"/>" class=right><s:message code="login.registration"/></a></label>
-                        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                            <div style="color:red;margin-top:3px;">
-                                <s:message code="login.error"/>
-                            </div>
-                        </c:if>
-                        <input name="submit" type="submit" class="btn" value="<s:message code="login.login"/>"/>
-                        <button type="reset" class="btn btn-gray"><s:message code="login.erase"/></button>
-                    </form>
-                </div>
-            </div>
-        </div>
+		<!-- elFinder translation (OPTIONAL) -->
+		<script src="res/libs/elfinder/js/i18n/elfinder.ru.js"></script>
 
+		<!-- elFinder initialization (REQUIRED) -->
+		<script type="text/javascript" charset="utf-8">
+			// Documentation for client options:
+			// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
+			$(document).ready(function() {
+				$('#elfinder').elfinder({
+                    url : 'connector',  			// connector URL (REQUIRED)
+                    lang: 'en'                  					// language (OPTIONAL)
+				});
+			});
+		</script>
+	</head>
 
-        <%@include file='components/footer.jsp'%>
+	<body>
+		<!-- Element where elFinder will be created (REQUIRED) -->
+		<div id="elfinder"></div>
 
-    <script type="text/javascript">
-        //Documentation for client options:
-        // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
-        $(document).ready(function() {
-            $('#elfinder').elfinder({
-                url : 'elfinder-servlet/connector',  			// connector URL (REQUIRED)
-                lang: 'en'                  					// language (OPTIONAL)
-            });
-        });
-    </script>
-    </body>
+	</body>
 </html>

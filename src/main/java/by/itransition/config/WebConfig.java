@@ -5,6 +5,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -22,7 +23,8 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan({"by.itransition.web", "cn.bluejoe.elfinder.controller"})
+@ComponentScan("by.itransition.web")
+@ImportResource("classpath:elfinder-servlet.xml")
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver viewResolver() {

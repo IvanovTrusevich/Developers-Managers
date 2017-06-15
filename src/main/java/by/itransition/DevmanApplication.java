@@ -6,8 +6,7 @@ import by.itransition.data.repository.GitFileRepository;
 import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.UserRepository;
 import by.itransition.data.model.Project;
-import by.itransition.tools.elasticserarch.ElasticSearch;
-import by.itransition.tools.github.GitHubImpl;
+import by.itransition.service.github.GithubService;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class DevmanApplication {
@@ -56,10 +57,10 @@ public class DevmanApplication {
 //            log.info(one);
 //            log.info(two);
 //
-//            List<User> developers = new ArrayList<>();
+//            Set<User> developers = new HashSet<>();
 //            developers.add(two);
 //
-//            List<User> managers = new ArrayList<>();
+//            Set<User> managers = new HashSet<>();
 //            managers.add(one);
 //
 //            Project project = new Project(managers, developers,"socket",
@@ -77,7 +78,7 @@ public class DevmanApplication {
 //
 //            log.info("lastSha " + projectRepository.findGitLastSHAByGitRepoName("Socket"));
 //
-//            GitHubImpl ghi = new GitHubImpl(projectRepository,gitFileRepository);
+//            GithubService ghi = new GithubService(projectRepository,gitFileRepository);
 //            log.info("size = " + ghi.getFiles("Socket").size());
         };
     }
