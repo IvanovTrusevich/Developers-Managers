@@ -6,6 +6,22 @@ spring:
     generate-ddl: true
   jmx:
     enabled: false
+  mail:
+    properties.mail.smtp:
+      connecttimeout: 5000
+      timeout: 3000
+      writetimeout: 5000
+#    test-connection: true
+    host: smtp.gmail.com
+    port: 587
+    username: com.ilya.ivanov@gmail.com
+    password: Ivanov123
+    properties:
+      mail.transport.protocol: smtp
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.debug: true
+#      mail.mime.multipart.allowempty: true
   hibernate:
     max_fetch_depth: 3
     jdbc:
@@ -18,8 +34,14 @@ by.itransition:
         user:
           credential:
             alwaysGenerateOnRegistration: false
-            defaultPasswordGeneratorName: by.itransition.service.user.RandomPasswordGenerator
+            defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_USER
+          expirationTime: 1440
+        photo:
+          defaultUserIconUrl: /res/pics/user-icon.png
+          thumbnail:
+            width: 150.
+            height: 150.
 ---
 spring:
   profiles: dev

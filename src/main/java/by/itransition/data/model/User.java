@@ -1,6 +1,8 @@
 package by.itransition.data.model;
 
+import by.itransition.data.model.dto.UserDto;
 import com.google.common.collect.Lists;
+import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -17,7 +21,11 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "users")
-//@PersistenceContext(type = PersistenceContextType.EXTENDED)
+//@ToString(of = {"id", "email", "username", "password", "enabled", "authorities"}, doNotUseGetters = true)
+//@EqualsAndHashCode(of = {"id", "email", "username"})
+//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+//@Getter
+//@Setter
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +41,9 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private Boolean enabled;
 
+    @Column(name = "locked")
+    private Boolean locked;
+
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
     @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name="user_id"))
@@ -45,125 +56,53 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "nick_name", unique = true)
-    private String nickName;
+    @Column(name = "middle_name")
+    private String middleName;
 
-    @Column(name = "github_nick", unique = true)
-    private String githubNick;
+    @Column(name = "username", unique = true)
+    private String username;
 
-    @Column(name = "photo")
-    private String photo;
-
-    @Column(name = "description", length = 10000)
-    private String description;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "photo_id")
+    private Photo photo;
 
     @ManyToMany(mappedBy = "developers")
-    private List<Project> projects;
+    private Set<Project> projects = new HashSet<>();
 
     @ManyToMany(mappedBy = "managers")
     private List<Project> managedProjects;
 
     private User() {
     }
-    public User(String email, String password){
-        this.email = email;
-        this.password = password;
+
+    public static User createUser(UserDto userDto, String encodedPassword, Photo photo) {
+        return new User(userDto, encodedPassword, photo);
     }
 
-    public User(String email, String password, String lastName,
-                String firstName, String nickName, String githubNick, String photo, String description) {
-        this(email, password, Lists.newArrayList(), lastName,
-                firstName, nickName, githubNick, photo, description);
+    public User(UserDto userDto, String encodedPassword, Photo photo) {
+        this(userDto.getEmail(), encodedPassword, Lists.newArrayList(), userDto.getFirstName(),
+                userDto.getLastName(), userDto.getMiddleName(), userDto.getUsername(), photo);
     }
 
+    public User(String email, String password, GrantedAuthority authority, String firstName,
+                String lastName, String middleName, String username, Photo photo) {
+        this(email, password, Lists.newArrayList(authority), firstName, lastName, middleName, username, photo);
+    }
 
-    public User(String email, String password, List<? extends GrantedAuthority> authorities, String lastName,
-                String firstName, String nickName, String githubNick, String photo, String description) {
+    public User(String email, String password, List<? extends GrantedAuthority> authorities, String firstName,
+                String lastName, String middleName, String username, Photo photo) {
         this.email = email;
         this.password = password;
-        this.enabled = true;
+        this.enabled = false;
+        this.locked = false;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.nickName = nickName;
-        this.githubNick = githubNick;
+        this.middleName = middleName;
+        this.username = username;
         this.photo = photo;
-        this.description = description;
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
             this.addAllAuthority(authorities);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getGithubNick() {
-        return githubNick;
-    }
-
-    public void setGithubNick(String githubNick) {
-        this.githubNick = githubNick;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
     }
 
     @Override
@@ -173,7 +112,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override
@@ -184,6 +123,21 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public void lock() {
+        this.locked = true;
+    }
+
+    public void unlock() {
+        this.locked = false;
+    }
+
+    public void addProject(Project project) {
+        this.projects.add(project);
+        if (!project.getManagers().contains(this)) {
+            project.getManagers().add(this);
+        }
     }
 
     @Override
@@ -204,6 +158,112 @@ public class User implements UserDetails {
         this.authorities.addAll(authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
+    public List<Project> getManagedProjects() {
+        return managedProjects;
+    }
+
+    public void setManagedProjects(List<Project> managedProjects) {
+        this.managedProjects = managedProjects;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        return username != null ? username.equals(user.username) : user.username == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        return result;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -211,7 +271,9 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
-                ", authorities=" + authorities +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }

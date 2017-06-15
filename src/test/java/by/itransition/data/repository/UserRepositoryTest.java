@@ -54,7 +54,7 @@
 //    @Test
 //    public void testFindOne() {
 //        final UserEntity one = userRepository.findOne(id);
-//        assertThat("Cannot find record by ID", one.getEmail(), is("ilya@gmail.com"));
+//        assertThat("Cannot find record by ID", one.getCredentials(), is("ilya@gmail.com"));
 //    }
 //
 //    @Test
@@ -83,7 +83,7 @@
 //    public void testFindByLoginAndPassword() {
 //        final UserEntity entity = userRepository.findByEmailAndPassword("ilya@gmail.com", "ilya");
 //        assertThat(entity, notNullValue());
-//        assertThat(entity.getEmail(), is("ilya@gmail.com"));
+//        assertThat(entity.getCredentials(), is("ilya@gmail.com"));
 //        assertThat(entity.getPassword(), is("ilya"));
 //    }
 //
