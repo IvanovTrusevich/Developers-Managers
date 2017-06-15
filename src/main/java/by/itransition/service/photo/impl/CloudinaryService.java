@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
 import com.cloudinary.StoredFile;
 import com.cloudinary.utils.ObjectUtils;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class CloudinaryService implements PhotoService {
     @Override
     public Photo uploadFile(byte[] bytes) throws IOException {
         if (bytes != null && bytes.length != 0) {
-            final Map uploadResult = cloudinary.uploader().upload(bytes, ObjectUtils.asMap("resource_type", "auto"));
+            final Map uploadResult = cloudinary.uploader().upload(bytes, Maps.newConcurrentMap());
             final StoredFile storedFile = createStoredFile(uploadResult);
             return photoRepository.save(new Photo(storedFile));
         } else return defaultUserIcon;
