@@ -87,17 +87,15 @@ public class UserController {
         else {
             final Optional<RecoveryToken> optional = userService.findByRecoveryToken(token);
             if (optional.isPresent()) {
-                unlockUser(optional.get().getUser(), token);
+                unlockUser(optional.get().getUser(), passwordRecovery, token);
                 return "redirect:/login?lang=" + locale;
             }
             else throw new ResourceNotFoundException("No recovery request found");
         }
     }
 
-    private void unlockUser(User user, String token) {
-        user.unlock();
-        userService.saveRegisteredUser(user);
-        userService.deleteUsedRecoveryToken(token);
+    private void unlockUser(User user, PasswordDto passwordDto, String token) {
+        userService.changeUserPassword(user, passwordDto, token);
     }
 
     @GetMapping(value = "/registration")

@@ -63,7 +63,8 @@ var $ajaxSubmitting = {
             error: function (error) {
                 changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", error['responseText']);
                 $btn.button('reset');
-            }
+            },
+            timeout: 10000
         });
         return false;
     }

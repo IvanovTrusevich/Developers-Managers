@@ -2,6 +2,7 @@ package by.itransition.service.user;
 
 import by.itransition.data.model.RecoveryToken;
 import by.itransition.data.model.User;
+import by.itransition.data.model.dto.PasswordDto;
 import by.itransition.service.user.event.OnPasswordRecoveryRequestEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
@@ -16,5 +17,5 @@ public interface RecoveryService {
 
     Optional<RecoveryToken> findByRecoveryToken(String token);
 
-    void deleteUsedRecoveryToken(String token);
+    void changeUserPassword(User user, PasswordDto passwordDto, String token);
 }
