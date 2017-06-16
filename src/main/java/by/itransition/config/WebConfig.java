@@ -112,6 +112,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/cloud").setViewName("cloud");
         registry.addViewController("/wiki").setViewName("wiki");
         registry.addRedirectViewController("/lost", "/login?lost=true");
-        registry.addViewController("/project").setViewName("project");
+//        registry.addViewController("/project").setViewName("project");
     }
 }

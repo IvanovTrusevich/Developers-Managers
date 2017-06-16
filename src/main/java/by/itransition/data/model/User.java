@@ -75,6 +75,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "userNews")
     private Set<News> news;
 
+    @OneToMany(mappedBy = "wikiLastEditor")
+    private Set<Project> editedProjects;
+
     private User() {
     }
 
@@ -146,11 +149,6 @@ public class User implements UserDetails {
     @Override
     public List<? extends GrantedAuthority> getAuthorities() {
         return authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
-    }
-
-    public void setAuthorities(List<GrantedAuthority> authorities) {
-        this.authorities.clear();
-        this.addAllAuthority(authorities);
     }
 
     public <T extends GrantedAuthority> void addAuthority(T authority) {
@@ -245,6 +243,22 @@ public class User implements UserDetails {
 
     public void setManagedProjects(List<Project> managedProjects) {
         this.managedProjects = managedProjects;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
+    }
+
+    public Set<Project> getEditedProjects() {
+        return editedProjects;
+    }
+
+    public void setEditedProjects(Set<Project> editedProjects) {
+        this.editedProjects = editedProjects;
     }
 
     @Override

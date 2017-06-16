@@ -1,65 +1,58 @@
 package by.itransition.web;
 
-import by.itransition.data.repository.ProjectRepository;
+import by.itransition.data.model.News;
+import by.itransition.data.model.Tag;
+import by.itransition.data.model.User;
 import by.itransition.service.Project.ProjectService;
-import by.itransition.service.github.GithubService;
-import by.itransition.service.news.CompanyNewsLoader;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.io.IOException;
-import java.util.Locale;
-import java.util.Map;
+import org.springframework.web.servlet.ModelAndView;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = {"/"})
 public class ProjectController {
 
-    private GithubService githubService;
-
     private ProjectService projectService;
 
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    public void setGithubService(GithubService githubService) {
-        this.githubService = githubService;
-    }
-    @Autowired
-    public void setProjectRepository(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
     @Autowired
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }
 
     @GetMapping(value = "/project/{projectName}")
-    public String getReadme(@PathVariable("projectName") String projectName) {
-
-       String readme = projectService.getReadme(projectName);
-
-        return readme;
+    public ModelAndView getHome(@PathVariable("projectName") String projectName) {
+        if (!projectService.exists(projectName))
+            throw new RuntimeException("project not found");
+       List<String> readme = Lists.newArrayList(projectService.getReadme(projectName).split("\n"));
+       Set<Tag> tags = projectService.getCurrentProjectTags(projectName);
+       String repoUrl = projectService.getRepoUrl(projectName);
+       String repoName = projectService.getRepoName(projectName);
+       return new ModelAndView("project", ImmutableMap.of("readme", readme, "tags", tags,
+               "repoUrl", repoUrl,"repoName",repoName));
     }
 
-    @GetMapping(value = "/project/.../wiki")
-    public String getWikiContent(String projectName){
-
-        String wikiContent = projectRepository.findWikiContentByProjectName(projectName);
-
-        return wikiContent == null ? "" : wikiContent;
+    @GetMapping(value = "/project/{projectName}/wiki")
+    public ModelAndView getWiki(@PathVariable("projectName") String projectName){
+        if (!projectService.exists(projectName))
+            throw new RuntimeException("project not found");
+        String wiki = projectService.getWikiContent(projectName);
+        Set<Tag> tags = projectService.getCurrentProjectTags(projectName);
+        User wikiLastEditor = projectService.getWikiLastEditor(projectName);
+        return new ModelAndView("project", ImmutableMap.of("wiki", wiki, "tags", tags));
     }
 
-    @GetMapping(value = "/")
-    public Map<String,Float> getConcreteProjectTags(String projectName) {
-
-//        String wikiContent = projectRepository.findTagsByProjectName(projectName);
-//
-//        return wikiContent == null ? "" : wikiContent;
-        return null;
+    @GetMapping(value = "/project/{projectName}/news")
+    public ModelAndView getNewsContent(@PathVariable("projectName") String projectName){
+        if (!projectService.exists(projectName))
+            throw new RuntimeException("project not found");
+        Set<News> news = projectService.getNews(projectName);
+        Set<Tag> tags = projectService.getCurrentProjectTags(projectName);
+        return new ModelAndView("project", ImmutableMap.of("news", news, "tags", tags));
     }
-
 }
