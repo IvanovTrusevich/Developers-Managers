@@ -29,6 +29,7 @@ spring:
       batch_size: 10
 logging:
   file: logs/devman.log
+server.error.whitelabel.enabled: false
 by.itransition:
       service:
         user:
@@ -67,7 +68,7 @@ spring:
   profiles: prod
   jpa:
       hibernate:
-        ddl-auto: update
+        ddl-auto: create
       database: MYSQL
   datasource:
     url: jdbc:mysql://localhost:3306/devman

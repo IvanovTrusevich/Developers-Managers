@@ -4,6 +4,7 @@ import by.itransition.data.model.Photo;
 import by.itransition.data.model.RecoveryToken;
 import by.itransition.data.model.User;
 import by.itransition.data.model.VerificationToken;
+import by.itransition.data.model.dto.PasswordDto;
 import by.itransition.data.model.dto.UserDto;
 import by.itransition.data.repository.RecoveryTokenRepository;
 import by.itransition.data.repository.UserRepository;
@@ -111,13 +112,34 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public void deleteUsedVerificationToken(String token) {
+        verificationTokenRepository.deleteAllByToken(token);
+    }
+
+    @Override
+    public void activateUser(User user, String token) {
+        user.setEnabled(true);
+        this.saveRegisteredUser(user);
+        this.deleteUsedVerificationToken(token);
+    }
+
+    @Override
     public void createRecoveryToken(User user, String token) {
         recoveryTokenRepository.save(new RecoveryToken(user, token));
     }
 
     @Override
-    public Optional<RecoveryToken> getUserByRecoveryToken(String token) {
+    public Optional<RecoveryToken> findByRecoveryToken(String token) {
         return Optional.ofNullable(recoveryTokenRepository.findByToken(token));
+    }
+
+    @Override
+    public void changeUserPassword(User user, PasswordDto passwordDto, String token) {
+        user.unlock();
+        final String encodedPassword = passwordEncoder.encode(passwordDto.getPassword());
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+        recoveryTokenRepository.deleteAllByToken(token);
     }
 
     public void setCredentialsPolicy(CredentialsPolicy credentialsPolicy) {

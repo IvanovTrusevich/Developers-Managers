@@ -4,11 +4,11 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
-<c:set var="page" value="registration"/>
 <!DOCTYPE html>
 <html>
 <head>
     <%@include file='components/head.jsp' %>
+    <title>Recovery</title>
 </head>
 <body>
 <%@include file='components/header.jsp' %>
@@ -30,15 +30,16 @@
                 </div>
             </div>
 
-            <form id="recovery-form" class="form-horizontal" method="post">
+            <sf:form id="recovery-form" class="form-horizontal" action="/recovery" method="post" modelAttribute="recoveryForm">
                 <fieldset>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                    <input type="hidden" name="token" value="${token}">
                     <div class="form-group">
                         <label for="register-password" class="col-sm-3 control-label">Password:</label>
                         <div class="col-sm-9">
                             <div class="input-group col-xs-12">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" id="register-password" name="password" placeholder="********" required>
+                                <sf:password class="form-control" id="register-password" path="password" placeholder="********" required="required"/>
                             </div>
                         </div>
                     </div>
@@ -47,30 +48,30 @@
                         <div class="col-sm-9">
                             <div class="input-group col-xs-12">
                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                <input type="password" class="form-control" id="matchingPassword" name="matchingPassword" placeholder="********" required>
+                                <sf:password class="form-control" id="matchingPassword" path="matchingPassword" placeholder="********" required="required"/>
                             </div>
                         </div>
                     </div>
                 </fieldset>
                 <div class="form-error-container">
-                    <!--
-                    <span id="credentials.errors">User with this credentials is already exists</span>
-                    <span id="user.errors">Ololo</span>
--->
+                    <sf:errors path="password" element="span" />
+                    <sf:errors path="matchingPassword" element="span" />
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Register</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Submit</button>
                 </div>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
-                        <a href="<c:url var="/login"/>" class="btn btn-link">Sign In</a>
+                        <a href="<c:url value="/login"/>" class="btn btn-link">Sign In</a>
                     </div>
                 </div>
-            </form>
+            </sf:form>
         </div>
     </div>
 </div>
 
+<%@include file='components/footer.jsp' %>
+<c:if test="${not empty success}">
 <%@include file="components/footer.jsp"%>
 <%@include file="components/script.jsp"%>
 <c:if test="${success}">
