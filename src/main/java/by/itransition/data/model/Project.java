@@ -55,6 +55,10 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private Set<GitFile> gitFiles;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="wikiLastEditor")
+    private User wikiLastEditor;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="project_tag",
@@ -181,6 +185,13 @@ public class Project {
         this.tags = tags;
     }
 
+    public User getWikiLastEditor() {
+        return wikiLastEditor;
+    }
+
+    public void setWikiLastEditor(User wikiLastEditor) {
+        this.wikiLastEditor = wikiLastEditor;
+    }
 
     @Override
     public boolean equals(Object o) {

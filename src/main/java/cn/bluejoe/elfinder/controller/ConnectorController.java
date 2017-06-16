@@ -15,6 +15,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.itransition.data.repository.ProjectRepository;
 import cn.bluejoe.elfinder.impl.DefaultFsService;
 import cn.bluejoe.elfinder.impl.StaticFsServiceFactory;
 import cn.bluejoe.elfinder.servlet.ConnectorServlet;
@@ -24,6 +25,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.bluejoe.elfinder.controller.executor.CommandExecutionContext;
@@ -40,13 +43,22 @@ public class ConnectorController {
    //@Resource(name = "fsServiceFactory")
     private FsServiceFactory _fsServiceFactory;
 
+    private ProjectRepository projectRepository;
+
+    @Autowired
+    public void setProjectRepository(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
+
     @Autowired
     private ConnectorServlet connectorServlet;
 
-    @RequestMapping
+    //@RequestMapping
+    @GetMapping(value = "/{projectName}")
     public void connector(HttpServletRequest request,
-                          final HttpServletResponse response) throws IOException {
-        String repoName = "Socket";
+                          final HttpServletResponse response, @PathVariable("projectName") String projectName) throws IOException {
+        String repoName = projectRepository.findGitRepoNameByProjectName(projectName);
+        //String repoName = "Socket";
         setCommandExecutorFactory(connectorServlet.createCommandExecutorFactory(null));
         setFsServiceFactory((FsServiceFactory) connectorServlet.createServiceFactory(null,repoName));
         try {

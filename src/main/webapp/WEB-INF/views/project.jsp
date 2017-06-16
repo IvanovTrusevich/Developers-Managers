@@ -78,7 +78,7 @@
         // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
         $(document).ready(function() {
             $('#elfinder').elfinder({
-                url : 'connector',  			// connector URL (REQUIRED)
+                url : 'connector/${projectName}',  			// connector URL (REQUIRED)
                 lang: 'en'                  					// language (OPTIONAL)
             });
         });
@@ -101,6 +101,21 @@
                 <li role="presentation"><a href="#">Messages</a></li>
             </ul>
         </header>
+        <div>
+            <c:forEach items="${readme}" var="paragraph">
+                <p>${paragraph}</p>
+            </c:forEach>
+        </div>
+        <div>
+            <c:forEach items="${tags}" var="tag">
+                <p>${tag.tagName}</p>
+            </c:forEach>
+        </div>
+        <div>
+            ${repoUrl}
+            ${repoName}
+        </div>
+
         <div class="page-header">
             <h1 class="text-center">Title</h1>
             <div id="elfinder"></div>
@@ -111,7 +126,7 @@
 
 
 <script type="text/javascript">
-    displayRepo('ITransitionProjects', 'repo', 'Socket');
+    displayRepo('ITransitionProjects', 'repo', ${repoName});
     //displayOrganisation('IvanovTrusevich', 'org');
 </script>
 

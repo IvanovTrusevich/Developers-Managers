@@ -1,7 +1,9 @@
 package by.itransition.data.repository;
 
+import by.itransition.data.model.News;
 import by.itransition.data.model.Project;
 import by.itransition.data.model.Tag;
+import by.itransition.data.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +18,8 @@ import java.util.Set;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Project findByGitRepoName(String gitRepoName);
+
+    Project findByProjectName(String projectname);
 
     @Query("SELECT p.gitLastSHA FROM Project p WHERE p.gitRepoName = :gitRepoName")
     String findGitLastSHAByGitRepoName(@Param("gitRepoName") String gitRepoName);
@@ -41,4 +45,13 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("select p.gitReadme from Project p where p.projectName =:projectName")
     String findGitReadmeByProjectName(@Param("projectName") String projectName);
+
+    @Query("select p.news from Project p where p.projectName =:projectName")
+    Set<News> findNewsByProjectName(@Param("projectName") String projectName);
+
+    @Query("select p.gitRepoUrl from Project p where p.projectName =:projectName")
+    String findGitRepoUrlByProjectName(@Param("projectName") String projectName);
+
+    @Query("select p.wikiLastEditor from Project p where p.projectName =:projectName")
+    User findWikiLastEditorByProjectName(@Param("projectName") String projectName);
 }
