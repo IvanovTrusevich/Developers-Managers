@@ -1,12 +1,11 @@
 package by.itransition;
 
-import by.itransition.data.model.GitFile;
-import by.itransition.data.model.Photo;
-import by.itransition.data.model.Project;
-import by.itransition.data.model.User;
+import by.itransition.data.model.*;
 import by.itransition.data.repository.GitFileRepository;
 import by.itransition.data.repository.ProjectRepository;
+import by.itransition.data.repository.TagRepository;
 import by.itransition.data.repository.UserRepository;
+import by.itransition.service.elasticsearch.SynchronizationService;
 import by.itransition.service.github.GithubService;
 import by.itransition.service.photo.PhotoService;
 import by.itransition.service.photo.impl.CloudinaryService;
@@ -25,6 +24,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class DevmanApplication {
@@ -40,28 +42,34 @@ public class DevmanApplication {
                                   ProjectRepository projectRepository,
                                   UserRepository userRepository,
                                   PasswordEncoder passwordEncoder,
-                                  PhotoService cloudinaryService) {
+                                  PhotoService cloudinaryService,
+                                  TagRepository tagRepository,
+                                  SynchronizationService synchronizationService) {
         return (args) -> {
-            addAdmins(userRepository, passwordEncoder, cloudinaryService);
-            addProject(userRepository, projectRepository, gitFileRepository);
+           // addAdmins(userRepository, passwordEncoder, cloudinaryService);
+            //addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
+           // addTags( projectRepository, tagRepository);
+            backendElastickSerachSynchronizer(synchronizationService);
         };
 	}
 
-	@Bean
+    @Bean
 	@Profile("dev")
 	public CommandLineRunner dev(GitFileRepository gitFileRepository,
                                  ProjectRepository projectRepository,
                                  UserRepository userRepository,
                                  PasswordEncoder passwordEncoder,
-                                 PhotoService cloudinaryService) {
+                                 PhotoService cloudinaryService,
+                                 SynchronizationService synchronizationService) {
 		return (args) -> {
             //addAdmins(userRepository, passwordEncoder, cloudinaryService);
-            addProject(userRepository, projectRepository, gitFileRepository);
+            addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
 
 		};
 	}
 
-    private void addProject(UserRepository userRepository, ProjectRepository projectRepository, GitFileRepository gitFileRepository) throws IOException {
+    private void addProject(UserRepository userRepository, ProjectRepository projectRepository,
+                            GitFileRepository gitFileRepository, SynchronizationService synchronizationService) throws IOException {
         final User one = userRepository.findOne(1L);
         final User two = userRepository.findOne(2L);
         log.info(one);
@@ -112,5 +120,19 @@ public class DevmanApplication {
             user2.setEnabled(true);
             userRepository.save(user2);
         }
+    }
+
+    private void backendElastickSerachSynchronizer(SynchronizationService synchronizationService) {
+        Executors.newSingleThreadScheduledExecutor(r -> {
+            Thread thread = Executors.defaultThreadFactory().newThread(r);
+            thread.setDaemon(true);
+            return thread;
+        }).scheduleAtFixedRate(() -> {
+           synchronizationService.synchronizeWithSql();
+        }, 1, 3, TimeUnit.MINUTES);
+    }
+
+    private void addTags(ProjectRepository projectRepository, TagRepository tagRepository) {
+        //Tag tag = new Tag();
     }
 }

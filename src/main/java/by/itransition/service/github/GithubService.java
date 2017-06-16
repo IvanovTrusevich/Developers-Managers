@@ -7,6 +7,7 @@ import by.itransition.data.model.GitFile;
 import by.itransition.data.model.Project;
 import by.itransition.data.repository.GitFileRepository;
 import by.itransition.data.repository.ProjectRepository;
+import org.apache.log4j.Logger;
 import org.kohsuke.github.GHCreateRepositoryBuilder;
 import org.kohsuke.github.GHOrganization;
 import org.kohsuke.github.GHRepository;
@@ -18,7 +19,7 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("githubService")
+@Service
 public class GithubService {
 	private static final String orgName = "ItransitionProjects";
     private static final String oAuth = System.getenv("githubToken");
@@ -26,6 +27,7 @@ public class GithubService {
     private ProjectRepository projectRepository;
     private GitFileRepository gitFileRepository;
     private GitHub github;
+    private static final Logger log = Logger.getLogger(GithubService.class);
 
     @Autowired
     public GithubService(ProjectRepository projectRepository,
@@ -33,14 +35,6 @@ public class GithubService {
         this.projectRepository = projectRepository;
         this.gitFileRepository = gitFileRepository;
     }
-//    @Autowired
-//    public void setProjectRepository(ProjectRepository projectRepository) {
-//        this.projectRepository = projectRepository;
-//    }
-//    @Autowired
-//    public void setGitFileRepository(GitFileRepository gitFileRepository) {
-//        this.gitFileRepository = gitFileRepository;
-//    }
 
     public boolean createRepo(String repoName) {
 		GitHub github;
@@ -71,7 +65,6 @@ public class GithubService {
 	}
 
 	public List<Pair<String,String>> getFiles(String repoName) throws IOException {
-
         if(isLastCommitCashed(repoName)){
             return getFilesFromCache(repoName);
         }
@@ -101,8 +94,12 @@ public class GithubService {
     }
 
     private boolean isLastCommitCashed(String repoName) throws IOException {
-
-        String lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
+        String lastCachedCommitSha = null;
+        try {
+             lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
+        } catch (Exception e){
+            log.warn("Error in checking last commit. May be there are unique constraint failture. Error: " + e.getMessage());
+        }
         if(lastCachedCommitSha == null){
             return false;
         }
@@ -148,11 +145,15 @@ public class GithubService {
                 try {
                     gitFileRepository.save(gitFile);
                 } catch (Exception e){
-                    continue;
+                    log.warn("Unable to load file " + file.getKey() + "from Github repository " + repoName);
                 }
-
             }
             projectRepository.updateProjectSHAByRepoName(getLastCommitSha(repoName), repoName);
+            try {
+                projectRepository.updateGitReadMeByRepoName(getReadMe(repoName), repoName);
+            } catch (Exception e){
+                log.info("No readme file");
+            }
         }
     }
 }

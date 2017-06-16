@@ -54,4 +54,7 @@ public class News {
     public Date getDate() {
         return date;
     }
+
+    private News() {
+    }
 }

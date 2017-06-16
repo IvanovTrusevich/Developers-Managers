@@ -37,10 +37,10 @@ public class Project {
     @Column(name = "project_name")
     private String projectName;
 
-    @Column(name = "git_repo_name")
+    @Column(name = "git_repo_name", unique = true)
     private String gitRepoName;
 
-    @Column(name = "git_repo_url")
+    @Column(name = "git_repo_url", unique = true)
     private String gitRepoUrl;
 
     @Column(name = "git_last_SHA")
@@ -180,6 +180,7 @@ public class Project {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
+
 
     @Override
     public boolean equals(Object o) {

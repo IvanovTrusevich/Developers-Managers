@@ -103,14 +103,12 @@ public class ConnectorServlet{
 
 	private List<String> makeFolders(List<Pair<String, String>> files) {
 		List<String> folders = new ArrayList<String>();
-		System.out.println("Folders:");
 		for (Pair<String, String> file : files) {
 			String str = file.getKey();
 			int index = str.lastIndexOf('/');
 			if(index == -1 || folders.contains(str.substring(0, index)))
 				continue;
 			folders.add(str.substring(0, index));
-			System.out.println(str.substring(0, index));
 		}
 		return folders;
 	}

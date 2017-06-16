@@ -106,14 +106,13 @@
             <div id="elfinder"></div>
         </div>
         <div id="repo" class="border component"></div>
-        <div id="org" class="border component"></div>
     </div>
 </div>
 
 
 <script type="text/javascript">
-    displayRepo('IvanovTrusevich', 'repo', 'Developers-Managers');
-    displayOrganisation('IvanovTrusevich', 'org');
+    displayRepo('ITransitionProjects', 'repo', 'Socket');
+    //displayOrganisation('IvanovTrusevich', 'org');
 </script>
 
 

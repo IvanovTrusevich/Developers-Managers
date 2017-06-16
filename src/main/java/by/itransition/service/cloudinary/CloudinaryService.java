@@ -1,4 +1,4 @@
-package by.itransition.tools.cloudinary;
+package by.itransition.service.cloudinary;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;

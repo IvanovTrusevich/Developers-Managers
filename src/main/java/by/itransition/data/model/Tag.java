@@ -37,6 +37,9 @@ public class Tag {
         return projects;
     }
 
+    private Tag() {
+    }
+
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
