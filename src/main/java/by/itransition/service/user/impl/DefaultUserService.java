@@ -117,6 +117,13 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public void activateUser(User user, String token) {
+        user.setEnabled(true);
+        this.saveRegisteredUser(user);
+        this.deleteUsedVerificationToken(token);
+    }
+
+    @Override
     public void createRecoveryToken(User user, String token) {
         recoveryTokenRepository.save(new RecoveryToken(user, token));
     }

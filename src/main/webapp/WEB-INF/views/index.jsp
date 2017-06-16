@@ -14,5 +14,6 @@
     <%@include file='components/header.jsp'%>
 
     <%@include file="components/footer.jsp"%>
+    <%@include file="components/script.jsp"%>
     </body>
 </html>

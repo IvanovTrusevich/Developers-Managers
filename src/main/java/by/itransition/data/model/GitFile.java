@@ -13,12 +13,15 @@ public class GitFile {
     @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "file_content")
+    @Column(name = "file_content", length = 10000)
     private String fileContent;
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="project_id")
     private Project project;
+
+    private GitFile() {
+    }
 
     public Long getId() {
         return id;
@@ -46,9 +49,6 @@ public class GitFile {
 
     public void setProject(Project project) {
         this.project = project;
-    }
-
-    public GitFile() {
     }
 
     public GitFile(String fileName, String fileContent, Project project) {

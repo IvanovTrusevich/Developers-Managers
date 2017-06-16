@@ -20,7 +20,7 @@ public class ElasticSearch {
         es.openClient();
 
         Map<String, String> paramMap = new HashMap<>();
-        paramMap.put("q", "content:story");
+        paramMap.put("q", "content:cats");
         paramMap.put("pretty", "true");
         es.findDocuments(paramMap);
 
@@ -53,34 +53,34 @@ public class ElasticSearch {
         System.out.println("Host -" + (response != null ? response.getHost() : null));
         System.out.println("RequestLine -" + (response != null ? response.getRequestLine() : null));
     }
-    public void createDocument(Map<String, Object> objects, String index, String type, long id){
-        String endpoint = "/" + index + "/" + type + "/" + id +"?pretty";
-        //HttpEntity entity = new NStringEntity(makeEntity(objects),ContentType.APPLICATION_JSON);
-        HttpEntity entity = new NStringEntity(new Json().mapToString(objects),ContentType.APPLICATION_JSON);
-        Response response = null;
-        try {
-            response = restClient.performRequest(
-                    "PUT",
-                    endpoint,
-                    Collections.<String, String>emptyMap(),
-                    entity
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteDocument( String index, String type, long id){
-        String endpoint = "/" + index + "/" + type + "/" + id +"?pretty";
-        Response response = null;
-        try {
-            response = restClient.performRequest(
-                    "DELETE",
-                    endpoint,
-                    Collections.<String, String>emptyMap()
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void createDocument(Map<String, Object> objects, String index, String type, long id){
+//        String endpoint = "/" + index + "/" + type + "/" + id +"?pretty";
+//        //HttpEntity entity = new NStringEntity(makeEntity(objects),ContentType.APPLICATION_JSON);
+//        HttpEntity entity = new NStringEntity(new Json().mapToString(objects),ContentType.APPLICATION_JSON);
+//        Response response = null;
+//        try {
+//            response = restClient.performRequest(
+//                    "PUT",
+//                    endpoint,
+//                    Collections.<String, String>emptyMap(),
+//                    entity
+//            );
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void deleteDocument( String index, String type, long id){
+//        String endpoint = "/" + index + "/" + type + "/" + id +"?pretty";
+//        Response response = null;
+//        try {
+//            response = restClient.performRequest(
+//                    "DELETE",
+//                    endpoint,
+//                    Collections.<String, String>emptyMap()
+//            );
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -15,6 +15,8 @@
     <!-- elFinder CSS (REQUIRED) -->
     <link rel="stylesheet" type="text/css" href="libs/elfinder/css/elfinder.min.css">
     <link rel="stylesheet" type="text/css" href="libs/elfinder/css/theme.css">
+    <!--    tag cloud-->
+    <link rel="stylesheet" type="text/css" href="/libs/jqcloud/jqcloud.css" />
     <title>Project</title>
 </head>
 
@@ -60,22 +62,66 @@
         </nav>
     </header>
 
+
     <div class="main-content">
         <div class="wrapper">
-            <header>
-                <ul class="nav nav-tabs nav-justified">
-                    <li role="presentation" class="active"><a href="#">Home</a></li>
-                    <li role="presentation"><a href="#">Profile</a></li>
-                    <li role="presentation"><a href="#">Messages</a></li>
-                </ul>
-            </header>
-            <div id="elfinder" class="page-header">
-                <h1 class="text-center">Title</h1>
+            <div class="content">
+                <header>
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                        <li role="presentation"><a href="#wiki" aria-controls="profile" role="tab" data-toggle="tab">Wiki</a></li>
+                        <li role="presentation"><a href="#forum" aria-controls="messages" role="tab" data-toggle="tab">Forum</a></li>
+                        <li role="presentation"><a href="#news" aria-controls="settings" role="tab" data-toggle="tab">News</a></li>
+                        <li role="presentation"><a href="#managment" aria-controls="settings" role="tab" data-toggle="tab">Managment</a></li>
+                    </ul>
+                </header>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                        <div id="repo" class="component"></div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="wiki">
+                        <h1 class="text-center">README</h1>
+                        <pre>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo provident aliquam nam facilis hic non incidunt blanditiis<br>repellat porro deleniti facere, quas doloremque temporibus in recusandae, sit repudiandae aliquid. Iusto <br>tenetur nisi autem quos minus in provident vitae, similique saepe, assumenda officia, necessitatibus ut voluptas nulla quo! Esse, dolorem. Dignissimos omnis beatae, magni laboriosam impedit rerum quas adipisci harum voluptates sed corporis animi dolores porro, ut! Laboriosam quas explicabo eaque ipsa, aperiam nisi asperiores laudantium. Laboriosam veniam architecto, hic deserunt, beatae voluptatum. Nemo voluptatem facere velit maxime odio dolorem quisquam?</p>
+                        </pre>
+                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo provident aliquam nam facilis hic non incidunt blanditiis repellat porro deleniti facere, quas doloremque temporibus in recusandae, sit repudiandae aliquid. Iusto tenetur nisi autem quos minus in provident vitae, similique saepe, assumenda officia, necessitatibus ut voluptas nulla quo! Esse, dolorem. Dignissimos omnis beatae, magni laboriosam impedit rerum quas adipisci harum voluptates sed corporis animi dolores porro, ut! Laboriosam quas explicabo eaque ipsa, aperiam nisi asperiores laudantium. Laboriosam veniam architecto, hic deserunt, beatae voluptatum. Nemo voluptatem facere velit maxime odio dolorem quisquam?</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo provident aliquam nam facilis hic non incidunt blanditiis repellat porro deleniti facere, quas doloremque temporibus in recusandae, sit repudiandae aliquid. Iusto tenetur nisi autem quos minus in provident vitae, similique saepe, assumenda officia, necessitatibus ut voluptas nulla quo! Esse, dolorem. Dignissimos omnis beatae, magni laboriosam impedit rerum quas adipisci harum voluptates sed corporis animi dolores porro, ut! Laboriosam quas explicabo eaque ipsa, aperiam nisi asperiores laudantium. Laboriosam veniam architecto, hic deserunt, beatae voluptatum. Nemo voluptatem facere velit maxime odio dolorem quisquam?</p>
+                        <p><mark>highlight</mark></p>
+                        <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+                        <p><strong>rendered as bold text</strong></p>
+                        <p><em>rendered as italicized text</em></p>
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        </blockquote>
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                            <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                        </blockquote>
+                        <p>To switch directories, type <kbd>cd</kbd> followed by the name of the directory. To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd>
+                        </p>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="forum">
+                        <div class="page-header">
+                            <h1 class="text-center">Title</h1>
+                            <div id="elfinder"></div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="news">
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="managment">...</div>
+                </div>
             </div>
-            <div id="repo" class="border component"></div>
-            <div id="org" class="border component"></div>
+
         </div>
     </div>
+    <footer class="container-fluide">
+        <div class="wrapper">
+            <div class="col-xs-12">
+                <div id="example" style="height: 150px;"></div>
+            </div>
+        </div>
+    </footer>
     <script src="js/jquery.min.js">
     </script>
     <script src="js/jquery-ui.min.js"></script>
@@ -106,6 +152,66 @@
     });
 </script>
 -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/jqcloud/jqcloud-1.0.4.js"></script>
+    <script type="text/javascript">
+        /*!
+         * Create an array of word objects, each representing a word in the cloud
+         */
+        var word_array = [{
+                text: "Lorem",
+                weight: 15
+            },
+            {
+                text: "Ipsum",
+                weight: 9,
+                link: "http://jquery.com/"
+            },
+            {
+                text: "Dolor",
+                weight: 6,
+                html: {
+                    title: "I can haz any html attribute"
+                }
+            },
+            {
+                text: "Sit",
+                weight: 7
+            },
+            {
+                text: "Amet",
+                weight: 5
+            }, {
+                text: "Lorem",
+                weight: 15
+            },
+            {
+                text: "Ipsum",
+                weight: 9,
+                link: "http://jquery.com/"
+            },
+            {
+                text: "Dolor",
+                weight: 6,
+                html: {
+                    title: "I can haz any html attribute"
+                }
+            },
+            {
+                text: "Sit",
+                weight: 7
+            },
+            {
+                text: "Amet",
+                weight: 5
+            }
+            // ...as many words as you want
+        ];
+        $(function() {
+            // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+            $("#example").jQCloud(word_array);
+        });
+    </script>
     <script type="text/javascript">
         displayRepo('IvanovTrusevich', 'repo', 'Developers-Managers');
         displayOrganisation('IvanovTrusevich', 'org');

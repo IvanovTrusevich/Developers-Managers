@@ -5,29 +5,39 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.CacheControl;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
+import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author Ilya Ivanov
  */
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 @ComponentScan("by.itransition.web")
+@ImportResource("classpath:elfinder-servlet.xml")
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver viewResolver() {
@@ -88,6 +98,31 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registrationBean.setOrder(5);
         return registrationBean;
     }
+//
+//    @Bean(name = "simpleMappingExceptionResolver")
+//    public SimpleMappingExceptionResolver createSimpleMappingExceptionResolver() {
+//        SimpleMappingExceptionResolver r = new SimpleMappingExceptionResolver() {
+//            @Override
+//            public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+//                return super.resolveException(request, response, handler, ex);
+//            }
+//
+//            @Override
+//            protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+//                ModelAndView mav = super.doResolveException(request, response, handler, ex);
+//                mav.addObject("url", request.getRequestURL());
+//                return mav;
+//            }
+//        };
+//        Properties mappings = new Properties();
+//        // add mappings: customException -> custom exception view name
+//        mappings.setProperty("DatabaseException", "databaseError");
+//        r.setExceptionMappings(mappings);
+//        r.setDefaultErrorView("error");
+//        r.setWarnLogCategory(this.getClass().getName());
+//        r.setOrder(Integer.MAX_VALUE);
+//        return r;
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -107,6 +142,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addRedirectViewController("/", "/index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/cloud").setViewName("cloud");
+        registry.addViewController("/wiki").setViewName("wiki");
         registry.addRedirectViewController("/lost", "/login?lost=true");
         registry.addViewController("/recovery").setViewName("recovery");
         registry.addViewController("/project").setViewName("project");

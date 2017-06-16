@@ -3,7 +3,7 @@ package by.itransition.data.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ilya on 5/29/17.
@@ -25,14 +25,14 @@ public class Project {
             name = "developer_project",
             joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "developers", referencedColumnName = "user_id"))
-    private List<User> developers;
+    private Set<User> developers;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name="manager_project",
             joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
             inverseJoinColumns=@JoinColumn(name="managers", referencedColumnName="user_id"))
-    private List<User> managers;
+    private Set<User> managers;
 
     @Column(name = "project_name")
     private String projectName;
@@ -46,22 +46,30 @@ public class Project {
     @Column(name = "git_last_SHA")
     private String gitLastSHA;
 
-    @Column(name = "git_readme")
+    @Column(name = "git_readme", length = 10000)
     private String gitReadme;
 
+    @Column(name = "wiki_content", length = 10000)
+    private String wikiContent;
+
     @OneToMany(mappedBy = "project")
-    private List<GitFile> gitFiles;
+    private Set<GitFile> gitFiles;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name="project_tag",
+            joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
+            inverseJoinColumns=@JoinColumn(name="tags", referencedColumnName="tag_id"))
+    private Set<Tag> tags;
+    @OneToMany(mappedBy = "projectNews")
+    private Set<News> news;
 
     private Project() {
     }
 
-    public Project(String projectName, String gitRepoName, List<User> managers) {
-        this.projectName = projectName;
-        this.gitRepoName = gitRepoName;
-        this.managers = managers;
-    }
-
-    public Project(List<User> developers, List<User> managers, String projectName, String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme, List<GitFile> gitFiles) {
+    public Project(Set<User> managers, Set<User> developers, String projectName,
+                   String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme,
+                   Set<GitFile> gitFiles, Set<Tag> tags, String wikiContent) {
         this.developers = developers;
         this.managers = managers;
         this.projectName = projectName;
@@ -70,26 +78,35 @@ public class Project {
         this.gitLastSHA = gitLastSHA;
         this.gitReadme = gitReadme;
         this.gitFiles = gitFiles;
+        this.managers = managers;
+        this.wikiContent = wikiContent;
+        this.tags = tags;
+    }
+
+    public Project(String projectName, String gitRepoName, Set<User> managers) {
+        this.projectName = projectName;
+        this.gitRepoName = gitRepoName;
+        this.managers = managers;
     }
 
     public Long getId() {
         return id;
     }
 
-    public List<User> getDevelopers() {
-        return developers;
-    }
-
-    public void setDevelopers(List<User> developers) {
-        this.developers = developers;
-    }
-
-    public List<User> getManagers() {
+    public Set<User> getManagers() {
         return managers;
     }
 
-    public void setManagers(List<User> managers) {
+    public void setManagers(Set<User> managers) {
         this.managers = managers;
+    }
+
+    public Set<User> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(Set<User> developers) {
+        this.developers = developers;
     }
 
     public String getProjectName() {
@@ -132,12 +149,36 @@ public class Project {
         this.gitReadme = gitReadme;
     }
 
-    public List<GitFile> getGitFiles() {
+    public Set<GitFile> getGitFiles() {
         return gitFiles;
     }
 
-    public void setGitFiles(List<GitFile> gitFiles) {
+    public void setGitFiles(Set<GitFile> gitFiles) {
         this.gitFiles = gitFiles;
+    }
+
+    public String getWikiContent() {
+        return wikiContent;
+    }
+
+    public void setWikiContent(String wikiContent) {
+        this.wikiContent = wikiContent;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     @Override

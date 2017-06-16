@@ -29,7 +29,7 @@ import java.util.Properties;
 @Import(AppConfig.class)
 @ComponentScan(basePackages = {"by.itransition.data"})
 @EnableJpaRepositories("by.itransition.data.repository")
-public class JpaConfig {
+public class   JpaConfig {
     private final Environment env;
 
     @Autowired

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: Илья
+  User: ÐÐ»ÑÑ
   Date: 14.05.2017
   Time: 12:25
   To change this template use File | Settings | File Templates.
@@ -118,7 +118,8 @@
         </div>
     </div>
 </div>
-<%@include file='components/footer.jsp' %>
+<%@include file="components/footer.jsp"%>
+<%@include file="components/script.jsp"%>
 <c:set var="lost" value='<%= request.getParameter("lost") %>'/>
 <c:if test="${not empty lost && lost eq 'true'}">
     <script>
