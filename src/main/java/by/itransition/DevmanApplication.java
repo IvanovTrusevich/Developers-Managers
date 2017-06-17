@@ -6,9 +6,7 @@ import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.TagRepository;
 import by.itransition.data.repository.UserRepository;
 import by.itransition.service.elasticsearch.SynchronizationService;
-import by.itransition.service.github.GithubService;
 import by.itransition.service.photo.PhotoService;
-import by.itransition.service.photo.impl.CloudinaryService;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +23,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
@@ -46,10 +43,10 @@ public class DevmanApplication {
                                   TagRepository tagRepository,
                                   SynchronizationService synchronizationService) {
         return (args) -> {
-           // addAdmins(userRepository, passwordEncoder, cloudinaryService);
-            //addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
-           // addTags( projectRepository, tagRepository);
-            backendElastickSerachSynchronizer(synchronizationService);
+            addAdmins(userRepository, passwordEncoder, cloudinaryService);
+            addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
+            addTags( projectRepository, tagRepository);
+//            backendElasticSearchSynchronize(synchronizationService);
         };
 	}
 
@@ -62,9 +59,8 @@ public class DevmanApplication {
                                  PhotoService cloudinaryService,
                                  SynchronizationService synchronizationService) {
 		return (args) -> {
-            //addAdmins(userRepository, passwordEncoder, cloudinaryService);
+            addAdmins(userRepository, passwordEncoder, cloudinaryService);
             addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
-
 		};
 	}
 
@@ -122,14 +118,12 @@ public class DevmanApplication {
         }
     }
 
-    private void backendElastickSerachSynchronizer(SynchronizationService synchronizationService) {
+    private void backendElasticSearchSynchronize(SynchronizationService synchronizationService) {
         Executors.newSingleThreadScheduledExecutor(r -> {
             Thread thread = Executors.defaultThreadFactory().newThread(r);
             thread.setDaemon(true);
             return thread;
-        }).scheduleAtFixedRate(() -> {
-           synchronizationService.synchronizeWithSql();
-        }, 1, 3, TimeUnit.MINUTES);
+        }).scheduleAtFixedRate(synchronizationService::synchronizeWithSql, 1, 3, TimeUnit.MINUTES);
     }
 
     private void addTags(ProjectRepository projectRepository, TagRepository tagRepository) {

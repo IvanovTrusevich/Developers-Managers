@@ -21,8 +21,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="text-uppercase" href="#"><strong>News</strong></a></li>
-
+                <li class="nav-item"><a class="text-uppercase" href="#"><strong>News</strong></a></li>
                 <c:choose>
                     <c:when test="${not empty authenticated && authenticated == true}">
                         <li class="dropdowm-menu" id="user-dropdown">
@@ -47,7 +46,7 @@
                         </li>
                     </c:when>
                     <c:otherwise>
-                        <li><a class="text-uppercase" href="<s:url value="/login"/>"><strong><s:message
+                        <li class="nav-item"><a class="text-uppercase" href="<s:url value="/login"/>"><strong><s:message
                                 code="header.login"/></strong></a></li>
                     </c:otherwise>
                 </c:choose>

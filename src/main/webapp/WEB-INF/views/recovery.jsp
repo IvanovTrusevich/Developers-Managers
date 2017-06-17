@@ -10,7 +10,7 @@
     <%@include file='components/head.jsp' %>
     <title>Recovery</title>
 </head>
-<body>
+<body class="recovery-page">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">
@@ -58,7 +58,7 @@
                     <sf:errors path="matchingPassword" element="span" />
                 </div>
                 <div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submitting...">Submit</button>
                 </div>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
                     <div class="btn-group" role="group">
@@ -71,10 +71,8 @@
 </div>
 
 <%@include file='components/footer.jsp' %>
-<c:if test="${not empty success}">
-<%@include file="components/footer.jsp"%>
 <%@include file="components/script.jsp"%>
-<c:if test="${success}">
+<c:if test="${not empty success}">
     <script>
         changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "Confirm your email");
     </script>

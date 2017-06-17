@@ -1,14 +1,12 @@
-package by.itransition.service.Project;
+package by.itransition.service.project;
 
 import by.itransition.data.model.News;
-import by.itransition.data.model.Project;
 import by.itransition.data.model.Tag;
 import by.itransition.data.model.User;
 import by.itransition.data.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service

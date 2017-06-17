@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="/libs/jqcloud/jqcloud.css" />
     <title>Registration</title>
 </head>
 
-<body>
+<body class="registration-page">
     <header class="main-navigation">
         <nav class="container">
             <div class="navbar-header">
@@ -161,10 +162,10 @@
                         </div>
                     </fieldset>
                     <div class="form-error-container">
-                        <!--
+
                         <span id="credentials.errors">User with this credentials is already exists</span>
                         <span id="user.errors">Ololo</span>
--->
+
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Register</button>
@@ -178,6 +179,16 @@
             </div>
         </div>
     </div>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="col-sm-5 col-xs-12 footer-content">
+                <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                <div id="tag-cloud"></div>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
@@ -187,6 +198,8 @@
     <script src="js/bootstrap-filestyle.min.js"></script>
 
     <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+    <script type="text/javascript" src="/libs/jqcloud/jqcloud-1.0.4.js"></script>
 
     <script src="js/script.js"></script>
 </body>

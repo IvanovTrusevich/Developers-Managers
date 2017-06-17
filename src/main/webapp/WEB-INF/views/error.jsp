@@ -7,7 +7,7 @@
 <head>
     <%@include file='components/head.jsp' %>
 </head>
-<body>
+<body class="error-page">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">

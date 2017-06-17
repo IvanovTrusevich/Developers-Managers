@@ -1,48 +1,121 @@
-/////////////////////////////////////    PROJECT   //////////////////////////////////////////
-function displayRepo(userName, divId, repoName) {
-    Github.repoActivity({
-        username: userName,
-        selector: '#' + divId,
-        reponame: repoName
-    });
-}
+/////////////////////////////////////     GLOBAL    /////////////////////////////////////////
+var $currentPage;
 
-function displayOrganisation(orgName, divId) {
-    Github.userActivity({
-        username: orgName,
-        selector: '#' + divId
-    });
-}
-
-///////////////////////////////////// COMMON HEADER /////////////////////////////////////////
 $(function () {
-    $('#logout-trigger').click(function (e) {
-        e.preventDefault();
-        $('#logout-form').submit();
-    });
+    var $body = $('body');
+    if ($('.main-navigation'))
+        $mainNavigation.init();
+    if ($body.hasClass('login-page'))
+        $currentPage = new LoginPage();
+    else if ($body.hasClass('recovery-page'))
+        $currentPage = new RecoveryPage();
+    else if ($body.hasClass('registration-page'))
+        $currentPage = new RegistrationPage();
+    else if ($body.hasClass('project-page'))
+        $currentPage = new ProjectPage();
 });
+
 function getQueryParameter(parameterName) {
     var queryString = window.top.location.search.substring(1);
     var parameterName = parameterName + "=";
-    if ( queryString.length > 0 ) {
-        begin = queryString.indexOf ( parameterName );
-        if ( begin != -1 ) {
+    if (queryString.length > 0) {
+        begin = queryString.indexOf(parameterName);
+        if (begin != -1) {
             begin += parameterName.length;
-            end = queryString.indexOf ( "&" , begin );
-            if ( end == -1 ) {
+            end = queryString.indexOf("&", begin);
+            if (end == -1) {
                 end = queryString.length
             }
-            return unescape ( queryString.substring ( begin, end ) );
+            return unescape(queryString.substring(begin, end));
         }
     }
     return "null";
 }
+
+var extended$ = (function ($, sr) {
+    var debounce = function (func, threshold, execAsap) {
+        var timeout;
+        return function debounced() {
+            var obj = this;
+            var args = arguments;
+
+            function delayed() {
+                if (!execAsap)
+                    func.apply(obj, args);
+                timeout = null;
+            };
+            if (timeout)
+                clearTimeout(timeout);
+            else if (execAsap)
+                func.apply(obj, args);
+            timeout = setTimeout(delayed, threshold || 100);
+        };
+    }
+    var obj = {};
+    obj[sr] = function (fn) {
+        return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr);
+    };
+    $.fn.extend(obj);
+    return $;
+})(jQuery, 'smartresize');
+
+///////////////////////////////////// COMMON HEADER /////////////////////////////////////////
+var $mainNavigation = (function () {
+    return {
+        init: function () {
+            (function initLogout() {
+                $('#logout-trigger').click(function (e) {
+                    e.preventDefault();
+                    $('#logout-form').submit();
+                });
+            })();
+            (function initActiveMenuItem() {
+                var pathname = window.location.pathname;
+                $('.nav > li > a[href="' + pathname + '"]').parent().addClass('active');
+            })();
+        }
+    }
+})();
+
+/////////////////////////////////////   TAG CLOUD   /////////////////////////////////////////
+var $tagCloud = (function () {
+    var $element;
+    var $tags;
+    var tagCloudHeight = '80';
+    var footerHeight = $('.main-footer').height();
+    var $refresh = function () {
+        if (ResponsiveBootstrapToolkit.is('<md')) {
+            $('.main-footer').height(footerHeight + +tagCloudHeight);
+        } else {
+            $('.main-footer').height(footerHeight < tagCloudHeight ? tagCloudHeight : footerHeight);
+        }
+        $element.width('100%');
+        $element.empty();
+        $element.jQCloud($tags);
+    }
+    return {
+        init: function (id, tags) {
+            $tags = tags;
+            $element = $(id);
+            if ($element && $tags.length) {
+                $element.height(tagCloudHeight);
+                $refresh();
+                extended$(window).smartresize(function (e) {
+                    $refresh();
+                }, 50);
+            }
+        },
+        setTags: function (tags) {
+            $tags = tags;
+            $refresh();
+        }
+    }
+})();
+
 /////////////////////////////////////  VALIDATORS  //////////////////////////////////////////
 var $defaultSubmitting = {
     submitHandler: function (form) {
         $(form).find(':submit').button('loading');
-        //        $modal.changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "OK");
-        //            changeMessage($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
         return true;
     }
 };
@@ -52,7 +125,7 @@ var $ajaxSubmitting = {
         $btn.button('loading');
         $(form).ajaxSubmit({
             clearForm: true,
-            beforeSubmit: function(formData) {
+            beforeSubmit: function (formData) {
                 console.log('About to submit: \n\n' + $.param(formData));
                 return true;
             },
@@ -140,90 +213,98 @@ function changeMessage($divTag, $iconTag, $textTag, $divClass, $iconClass, $mess
     }, $messageShowTime);
 }
 
-function Modal($modal, $contentDiv) {
+function FormContainer(modal, contentDiv) {
     var $this = this;
-    this.contentDiv = $contentDiv;
-    this.modal = $modal;
-    this.forms = [];
-    this.$currentForm = null;
-    this.$primaryForm = null;
-
-    this.modal.on('shown.bs.modal', function (e) {
-        if ($this.$currentForm !== $this.$primaryForm)
-            $this.changeForm($this.$primaryForm);
-    });
-
-    this.modal.on('hide.bs.modal', function (e) {
-        $this.forms.forEach(function (e) {
-            e.reset();
-        })
-    });
-
+    var $contentDiv = contentDiv;
+    var $modal = modal;
+    var $forms = [];
     var $animateModalTime = 300;
 
-    var animateModal = function ($oldForm, $newForm) {
+    var $initializeModal = (function () {
+        $modal.on('hide.bs.modal', function (e) {
+            $this.$forms.forEach(function (e) {
+                e.reset();
+            })
+        });
+        $modal.on('shown.bs.modal', function (e) {
+            if ($this.$currentForm !== $this.$primaryForm)
+                $this.changeForm($this.$primaryForm);
+        });
+    });
+
+    var $animateModal = (function ($oldForm, $newForm) {
         var $oldH = $oldForm.height();
         var $newH = $newForm.height();
-        $this.contentDiv.css("height", $oldH);
+        $contentDiv.css("height", $oldH);
         $oldForm.fadeToggle($animateModalTime, function () {
-            $this.contentDiv.animate({
+            $contentDiv.animate({
                 height: $newH
             }, $animateModalTime, function () {
                 $newForm.fadeToggle($animateModalTime);
             });
         });
-    };
+    });
 
-    this.changeForm = function ($newForm) {
-        this.$currentForm.closeTooltips();
-        animateModal(this.$currentForm['form'], $newForm.form);
-        $('#modal-message-text').val($newForm.form.data('default-message'));
-        this.$currentForm = $newForm;
+    return {
+        changeForm: function ($newForm) {
+            this.$currentForm.closeTooltips();
+            $animateModal(this.$currentForm['$form'], $newForm['$form']);
+            $('#modal-message-text').val($newForm['$form'].attr('data-default-message'));
+            this.$currentForm = $newForm;
+        },
+        setForms: function (forms) {
+            $forms = forms;
+        },
+        $currentForm: null,
+        $primaryForm: null
     };
 }
 
-function Form($form, $validator) {
-    this.form = $form;
-    this.validator = this.form.validate($validator);
+function Form(form, validator) {
+    var $form = form;
+    var $validator = $form.validate(validator);
 
-    $form.find('input').tooltipster({
-        trigger: 'custom',
-        onlyOne: true,
-        position: 'top'
-    });
+    return {
+        init: function () {
+            $form.find('input').tooltipster({
+                trigger: 'custom',
+                onlyOne: true,
+                position: 'top'
+            });
 
-    $form.find('.form-error-container span[id$=".errors"]').each(function (i, e) {
-        var name = $(e).attr('id').slice(0, -7);
-        var $input = $form.find('input[name="' + name + '"]');
-        if (name) {
-            var text = $(e).text();
-            if ($input.length > 0) {
-                $input.closest('.form-group').addClass('has-error');
-                $input.tooltipster('content', text);
-                $input.tooltipster('open');
-            } else {
-                changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", text);
-            }
-        }
-    });
-
-    this.reset = function () {
-        this.closeTooltips();
-        this.validator.resetForm();
-        this.form.find('input:text, input:password, input:file, select, textarea').filter(function (i, e) {
-            return !$(e).prop('readonly');
-        }).val('');
-        this.form.find('input:radio, input:checkbox').removeAttr('checked');
-        this.form.find('.form-group').removeClass('has-success');
+            $form.find('.form-error-container span[id$=".errors"]').each(function (i, e) {
+                var name = $(e).attr('id').slice(0, -7);
+                var $input = $form.find('input[name="' + name + '"]');
+                if (name) {
+                    var text = $(e).text();
+                    if ($input.length > 0) {
+                        $input.closest('.form-group').addClass('has-error');
+                        $input.tooltipster('content', text);
+                        $input.tooltipster('open');
+                    } else {
+                        changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", text);
+                    }
+                }
+            });
+        },
+        reset: function () {
+            this.closeTooltips();
+            $validator.resetForm();
+            $form.find('input:text, input:password, input:file, select, textarea').filter(function (i, e) {
+                return !$(e).prop('readonly');
+            }).val('');
+            $form.find('input:radio, input:checkbox').removeAttr('checked');
+            $form.find('.form-group').removeClass('has-success');
+        },
+        closeTooltips: function () {
+            $form.find('input.tooltipstered').tooltipster('close');
+        },
+        $form: $form
     };
-
-    this.closeTooltips = function () {
-        this.form.find('input.tooltipstered').tooltipster('close');
-    }
 }
 
 ///////////////////////////////////// REGISTRATION //////////////////////////////////////////
-$(function () {
+function RegistrationPage() {
     var $registerFormValidator = Object.assign({
         rules: {
             firstName: {
@@ -274,10 +355,12 @@ $(function () {
         }
     }, $defaultSubmitting, $highlightValidation, $tooltopValidation);
     var $registerForm = new Form($('#register-form'), $registerFormValidator);
-});
+    $registerForm.init();
+};
+
 /////////////////////////////////////     LOGIN    //////////////////////////////////////////
-$(function () {
-    var $modal = new Modal($('#login-modal'), $('#div-forms'));
+function LoginPage() {
+    var $modal = new FormContainer($('#login-modal'), $('#div-forms'));
 
     var $loginFormValidator = Object.assign({
         rules: {
@@ -294,6 +377,7 @@ $(function () {
         }
     }, $defaultSubmitting, $tooltopValidation, $validateOnSubmitOnly);
     var $loginForm = new Form($('#login-form'), $loginFormValidator);
+    $loginForm.init();
 
     var $lostFormValidator = Object.assign({
         rules: {
@@ -305,8 +389,9 @@ $(function () {
         }
     }, $ajaxSubmitting, $tooltopValidation, $validateOnSubmitOnly);
     var $lostForm = new Form($('#lost-form'), $lostFormValidator);
+    $lostForm.init();
 
-    $modal.forms = [$loginForm, $lostForm];
+    $modal.setForms([$loginForm, $lostForm]);
     $modal.$primaryForm = $modal.$currentForm = $loginForm;
 
     $('.to-lost-btn').click(function () {
@@ -315,9 +400,14 @@ $(function () {
     $('.to-login-btn').click(function () {
         $modal.changeForm($loginForm);
     });
-});
+
+    return {
+        $formContainer: $modal
+    };
+};
+
 ////////////////////////////////////     RECOVERY    /////////////////////////////////////////
-$(function () {
+function RecoveryPage() {
     var $recoveryFormValidator = Object.assign({
         rules: {
             password: {
@@ -340,4 +430,24 @@ $(function () {
         }
     }, $defaultSubmitting, $highlightValidation, $tooltopValidation);
     var $recoveryForm = new Form($('#recovery-form'), $recoveryFormValidator);
-});
+    $recoveryForm.init();
+};
+
+/////////////////////////////////////    PROJECT   //////////////////////////////////////////
+function ProjectPage() {
+    return {
+        displayRepo: function (userName, divId, repoName) {
+            Github.repoActivity({
+                username: userName,
+                selector: '#' + divId,
+                reponame: repoName
+            });
+        },
+        displayOrganisation: function (orgName, divId) {
+            Github.userActivity({
+                username: orgName,
+                selector: '#' + divId
+            });
+        }
+    }
+};

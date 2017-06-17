@@ -12,7 +12,7 @@
     <title>Login</title>
 </head>
 
-<body>
+<body class="login-page">
     <header class="main-navigation">
         <nav class="container">
             <div class="navbar-header">
@@ -26,8 +26,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="text-uppercase" href="#"><strong>News</strong></a></li>
-                    <li><a class="text-uppercase" href="login.html"><strong>Login/registrate</strong></a></li>
+                    <li><a class="text-uppercase" href="/project.html"><strong>News</strong></a></li>
+                    <li><a class="text-uppercase" href="/login.html"><strong>Login/registrate</strong></a></li>
                     <li class="dropdowm-menu" id="user-dropdown">
                         <a class="text-uppercase dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="">
                             <strong>Profile</strong>
@@ -155,6 +155,16 @@
         </div>
     </div>
 
+    <footer class="main-footer">
+        <div class="container">
+            <div class="col-sm-5 col-xs-12 footer-content">
+                <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                <div id="tag-cloud"></div>
+            </div>
+        </div>
+    </footer>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
@@ -162,8 +172,19 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-filestyle.min.js"></script>
 
-    <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+    <script type="text/javascript" src="/tooltipster/dist/js/tooltipster.bundle.min.js"></script>
 
     <script src="js/script.js"></script>
+    <script>
+        $(function() {
+            $('.to-lost-btn')[0].click();
+        });
+    </script>
+    <script>
+        $(function() {
+            changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", 'text');
+        });
+    </script>
 </body>
+
 </html>

@@ -15,7 +15,7 @@
 <head>
     <%@include file='components/head.jsp' %>
 </head>
-<body>
+<body class="login-page">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">
@@ -120,6 +120,7 @@
 </div>
 <%@include file="components/footer.jsp"%>
 <%@include file="components/script.jsp"%>
+
 <c:set var="lost" value='<%= request.getParameter("lost") %>'/>
 <c:if test="${not empty lost && lost eq 'true'}">
     <script>
@@ -129,7 +130,7 @@
     </script>
 </c:if>
 <c:set var="hasError" value='<%= request.getParameter("error") %>'/>
-<c:if test="${not empty hasError && hasError eq 'true' && not empty param.error}">
+<c:if test="${not empty hasError && hasError eq 'true' && not empty SPRING_SECURITY_LAST_EXCEPTION}">
     <script>
         $(function () {
             changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", "${SPRING_SECURITY_LAST_EXCEPTION}");
