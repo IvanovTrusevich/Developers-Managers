@@ -33,12 +33,15 @@
             </header>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="home">
-                    <div id="repo" class="component"></div>
+                    <div class="page-header">
+                        <h1 class="text-center">Title</h1>
+                        <div id="elfinder"></div>
+                    </div>
                     <h1 class="text-center">README</h1>
                     <div>
-                        <c:forTokens items="${readme}" delims="\n" var="paragraph">
+                        <c:forEach items="${readme}" var="paragraph">
                             <p>${paragraph}</p>
-                        </c:forTokens>
+                        </c:forEach>
                     </div>
                     <div>
                         <c:forEach items="${tags}" var="tag">
@@ -49,19 +52,15 @@
                         ${repoUrl}
                         ${repoName}
                     </div>
-                    <div class="page-header">
-                        <h1 class="text-center">Title</h1>
-                        <div id="elfinder"></div>
-                    </div>
-
-                    <textarea id='mde'></textarea>
-                    <button id="to-pdf-btn">To PDF</button>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="wiki">
+                    <textarea id='mde'></textarea>
+                    <button id="to-pdf-btn" class="btn btn-default">To PDF</button>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="forum">
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="news">
+                    <div id="repo" class="component"></div>
                 </div>
                 <security:authorize access="hasRole('ROLE_MANAGER')">
                     <div role="tabpanel" class="tab-pane fade" id="managment">...</div>
@@ -72,26 +71,13 @@
 </div>
 
 <%@include file='components/footer.jsp' %>
+<%@include file='components/footer.jsp' %>
+<%@include file='components/script.jsp' %>
 <script type="text/javascript" src="<s:url value="/res/libs/undercore/underscore-min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/git/dist/github.min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/git/src/github.js"/>"></script>
-<!-- elfinder -->
-<!-- jQuery and jQuery UI (REQUIRED) -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-
-<%--<script src="<s:url value="/res/js/jquery.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/js/jquery-ui.min.js"/> "></script>--%>
-
-<script src="<s:url value="/res/libs/simplemde/js/simplemde.min.js"/>"></script>
-<script src="<s:url value="/res/libs/jspdf/js/jspdf.min.js"/>"></script>
-
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/elfinder.full.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/i18n/elfinder.ru.js"/>"></script>
-
-<script src="<s:url value="/res/responsive-toolkit/dist/bootstrap-toolkit.min.js"/>"></script>
-<script src="<s:url value="/res/libs/jqcloud/jqcloud-1.0.4.js"/>"></script>
-<script src="<s:url value="/res/js/script.js"/> "></script>
 <script type="text/javascript">
     $(function() {
         $currentPage.displayRepo('ITransitionProjects', 'repo', '${repoName}');

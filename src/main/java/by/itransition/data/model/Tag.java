@@ -18,7 +18,7 @@ public class Tag {
     @Column(name = "tag_weight")
     private double weight;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private Set<Project> projects;
 
     public Long getId() {
@@ -42,5 +42,10 @@ public class Tag {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + "text:" + "\"" + tagName + "\"" + ", weight:" + weight + ", link:" + "\"" + "/search?q=#" + tagName + "\"" + "}";
     }
 }

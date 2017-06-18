@@ -37,7 +37,7 @@ public class ProjectController {
     public String getHome(Model model, @PathVariable("projectName") String projectName) {
         if (!projectService.exists(projectName))
             throw new ResourceNotFoundException("Project not found");
-       model.addAttribute("readme", projectService.getReadme(projectName));
+       model.addAttribute("readme", Lists.newArrayList(projectService.getReadme(projectName).split("\n")));
        model.addAttribute("tags", projectService.getCurrentProjectTags(projectName));
        model.addAttribute("repoUrl", projectService.getRepoUrl(projectName));
        model.addAttribute("repoName", projectService.getRepoName(projectName));
