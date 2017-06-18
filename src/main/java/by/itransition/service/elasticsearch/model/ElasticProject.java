@@ -9,7 +9,7 @@ public class ElasticProject implements ElasticModelInterface{
     private String gitRepoName;
     private String gitRepoUrl;
     private String wikiContent;
-
+    private String gitReadme;
 
     public ElasticProject(Project project) {
         this.id = project.getId();
@@ -17,6 +17,7 @@ public class ElasticProject implements ElasticModelInterface{
         this.gitRepoName = project.getGitRepoName();
         this.gitRepoUrl = project.getGitRepoUrl();
         this.wikiContent = project.getWikiContent();
+        this.gitReadme = project.getGitReadme();
     }
 
     @Override
@@ -38,5 +39,9 @@ public class ElasticProject implements ElasticModelInterface{
 
     public String getWikiContent() {
         return wikiContent;
+    }
+
+    public String getGitReadme() {
+        return gitReadme;
     }
 }

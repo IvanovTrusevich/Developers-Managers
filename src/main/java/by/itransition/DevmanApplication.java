@@ -129,7 +129,7 @@ public class DevmanApplication {
             return thread;
         }).scheduleAtFixedRate(() -> {
            synchronizationService.synchronizeWithSql();
-        }, 1, 3, TimeUnit.MINUTES);
+        }, 5, 30, TimeUnit.SECONDS);
     }
 
     private void addTags(ProjectRepository projectRepository, TagRepository tagRepository) {

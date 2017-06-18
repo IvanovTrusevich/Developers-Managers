@@ -6,7 +6,6 @@ public class ElasticUser implements ElasticModelInterface{
 
     private Long id;
     private String email;
-    private Boolean enabled;
     private String firstName;
     private String lastName;
     private String middleName;
@@ -15,7 +14,6 @@ public class ElasticUser implements ElasticModelInterface{
     public ElasticUser(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
-        this.enabled = user.getEnabled();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.middleName = user.getMiddleName();
@@ -31,10 +29,6 @@ public class ElasticUser implements ElasticModelInterface{
         return email;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
     public String getFirstName() {
         return firstName;
     }
@@ -43,9 +37,7 @@ public class ElasticUser implements ElasticModelInterface{
         return lastName;
     }
 
-    public String getMiddleName() {
-        return middleName;
-    }
+    public String getMiddleName() {return middleName;}
 
     public String getUsername() {
         return username;

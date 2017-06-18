@@ -1,9 +1,11 @@
 package by.itransition.service.elasticsearch.json;
 
+import by.itransition.service.elasticsearch.model.ElasticModelInterface;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.List;
 
 public class Json {
 
@@ -22,11 +24,12 @@ public class Json {
         ObjectMapper mapper = new ObjectMapper();
         T t = null;
         try {
-            t = mapper.readValue(json,new TypeReference() {
+            List<ElasticModelInterface> list = mapper.readValue(json,new TypeReference() {
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
         return t;
     }
+
 }

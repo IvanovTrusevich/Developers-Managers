@@ -15774,3 +15774,34 @@ java.lang.IllegalArgumentException: Name for parameter binding must not be null 
 2017-06-16 14:31:57.523  INFO 6876 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
 2017-06-16 14:32:07.010  INFO 6876 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.515 seconds (JVM running for 17.799)
 2017-06-16 14:32:14.977  INFO 6876 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-17 20:47:37.117  INFO 9924 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 9924 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-17 20:47:37.142  INFO 9924 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-17 20:47:46.981  INFO 9924 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-17 20:47:47.005  INFO 9924 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-17 20:47:48.914  INFO 9924 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-17 20:47:48.945  INFO 9924 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-17 20:47:49.214  INFO 9924 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-17 20:48:11.963  INFO 9924 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 37.318 seconds (JVM running for 40.172)
+2017-06-17 20:50:22.430  INFO 6564 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 6564 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-17 20:50:22.435  INFO 6564 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-17 20:50:35.582  INFO 6564 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-17 20:50:36.009  INFO 6564 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-17 20:50:38.641  INFO 6564 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-17 20:50:38.650  INFO 6564 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-17 20:50:38.900  INFO 6564 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-17 20:50:47.619  INFO 6564 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 26.438 seconds (JVM running for 27.811)
+2017-06-17 20:55:48.654  INFO 3084 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 3084 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-17 20:55:48.662  INFO 3084 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-17 20:55:52.848  INFO 3084 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-17 20:55:52.850  INFO 3084 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-17 20:55:53.449  INFO 3084 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-17 20:55:53.459  INFO 3084 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-17 20:55:53.795  INFO 3084 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-18 09:52:35.118  INFO 7640 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on TSNnote with PID 7640 (C:\Users\User\Developers-Managers\target\classes started by User in C:\Users\User\Developers-Managers)
+2017-06-18 09:52:35.140  INFO 7640 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-18 09:52:54.562  INFO 7640 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-18 09:52:54.588  INFO 7640 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-18 09:52:56.016  INFO 7640 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-18 09:52:56.065  INFO 7640 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-18 09:52:56.523  INFO 7640 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-18 09:53:21.945  INFO 7640 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 50.28 seconds (JVM running for 52.297)
