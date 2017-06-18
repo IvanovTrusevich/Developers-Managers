@@ -93,18 +93,20 @@
 <script src="<s:url value="/res/libs/jqcloud/jqcloud-1.0.4.js"/>"></script>
 <script src="<s:url value="/res/js/script.js"/> "></script>
 <script type="text/javascript">
-    $(function () {
-        $('#elfinder').elfinder({
-            url: '/connector/${projectName}',
-            lang: '${pageContext.response.locale}'
-        });
-
+    $(function() {
         $currentPage.displayRepo('ITransitionProjects', 'repo', '${repoName}');
         //displayOrganisation('IvanovTrusevich', 'org');
 
         $tagCloud.init("#tag-cloud", ${tags});
 
         $currentPage.initializeMDE();
+
+        $(function () {
+            $('#elfinder').elfinder({
+                url: '/connector/${projectName}',
+                lang: '${pageContext.response.locale}'
+            });
+        });
     });
 </script>
 </body>

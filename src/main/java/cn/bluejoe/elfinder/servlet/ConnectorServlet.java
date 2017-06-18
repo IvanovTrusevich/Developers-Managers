@@ -64,14 +64,12 @@ public class ConnectorServlet{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		fsService.addVolume("B", volA);
 
 		return fsService;
 	}
 
 	private LocalFsVolume addFiles(DefaultFsService fsService, String repoName) throws IOException {
-
 		LocalFsVolume volA = createLocalFsVolume(repoName , new File("/B"));
 
 		List<Pair<String, String>> files = githubService.getFiles(repoName);
@@ -79,16 +77,14 @@ public class ConnectorServlet{
 		mountAllFolders(fsService, repoName, folders);
 
 		for (int i = 0; i < files.size(); i++) {
-			File f = new File("B/" + files.get(i).getKey());
+			File f = new File("/B/" + files.get(i).getKey());
 			try {
 				BufferedWriter out = new BufferedWriter(new FileWriter(f));
 				out.write(files.get(i).getValue());
 				out.close();
 			} catch (IOException e) {
 				e.printStackTrace();
-
 			}
-
 			FsItem it = new LocalFsItem(volA, f);
 			try {
 				volA.createFile(it);
@@ -115,7 +111,6 @@ public class ConnectorServlet{
 		for(String folder : folders){
 			fsService.addVolume("B", createLocalFsVolume(repoName, new File("/B/" + folder)));
 		}
-
 	}
 
 	private LocalFsVolume createLocalFsVolume(String name, File rootDir) {
