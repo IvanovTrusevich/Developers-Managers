@@ -57,10 +57,14 @@
     <div class="main-content">
         <div class="wrapper">
             <div class="col-md-2 col-xs-12">
-                <div class="settings-list">
-                    <a href="#" class="list-group-item active">Personal</a>
-                    <a href="#" class="list-group-item">Account</a>
-                </div>
+                <ul class="nav settings-list" role="tablist">
+                    <li role="presentation">
+                        <a class="list-group-item active" href="#personal" aria-controls="personal" role="tab" data-toggle="tab">Profile</a>
+                    </li>
+                    <li role="presentation">
+                        <a class="list-group-item" href="#account" aria-controls="account" role="tab" data-toggle="tab">Account</a>
+                    </li>
+                </ul>
             </div>
             <div class="col-md-10 col-xs-12">
                 <div class="panel-heading">
@@ -70,60 +74,105 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
-                    <form id="personal-settings-form" class="form-horizontal" enctype="multipart/form-data" method="post">
-                        <fieldset>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                            <div class="form-group">
-                                <label for="firstName" class="col-sm-3 control-label">First name:</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group col-xs-12">
-                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                        <input type="text" class="form-control" id="firstName" name="firstName" autofocus>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="personal">
+                            <form id="personal-settings-form" class="form-horizontal" method="post">
+                                <fieldset>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    <div class="form-group">
+                                        <label for="firstName" class="col-sm-3 control-label">First name:</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group col-xs-12">
+                                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                                <input type="text" class="form-control" id="firstName" name="firstName" autofocus>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="lastName" class="col-sm-3 control-label">Last name:</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group col-xs-12">
+                                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                                <input type="text" class="form-control" id="lastName" name="lastName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="middleName" class="col-sm-3 control-label">Middle name:</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group col-xs-12">
+                                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                                <input type="text" class="form-control" id="middleName" name="middleName" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Gender:</label>
+                                        <div class="col-sm-9">
+                                            <div class="radio">
+                                                <label><input type="radio" name="gender" value="male" />Male</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" name="gender" value="female" /> Female</label>
+                                            </div>
+                                            <div class="radio">
+                                                <label><input type="radio" name="gender" value="other" checked/> Other</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-error-container">
+                                    <span id="credentials.errors">User with this credentials is already exists</span>
+                                    <span id="user.errors">Ololo</span>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastName" class="col-sm-3 control-label">Last name:</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group col-xs-12">
-                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                        <input type="text" class="form-control" id="lastName" name="lastName">
-                                    </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Update</button>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="middleName" class="col-sm-3 control-label">Middle name:</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group col-xs-12">
-                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                        <input type="text" class="form-control" id="middleName" name="middleName" value="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">Gender:</label>
-                                <div class="col-sm-9">
-                                    <div class="radio">
-                                        <label><input type="radio" name="gender" value="male" />Male</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="gender" value="female" /> Female</label>
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="gender" value="other" checked/> Other</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <div class="form-error-container">
-                            <span id="credentials.errors">User with this credentials is already exists</span>
-                            <span id="user.errors">Ololo</span>
+                            </form>
                         </div>
-                        <div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Update</button>
+                        <div role="tabpanel" class="tab-pane fade" id="account">
+                            <form id="account-settings-form" class="form-horizontal" method="post">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="old-password" class="col-sm-3 control-label">Old password:</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group col-xs-12">
+                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                <input type="password" class="form-control" id="old-password" name="password" placeholder="********" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="account-setting-password" class="col-sm-3 control-label">New password:</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group col-xs-12">
+                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                <input type="password" class="form-control" id="account-setting-password" name="password" placeholder="********" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="matchingPassword" class="col-sm-3 control-label">New password:</label>
+                                        <div class="col-sm-9">
+                                            <div class="input-group col-xs-12">
+                                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                                <input type="password" class="form-control" id="matchingPassword" name="matchingPassword" placeholder="********" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-error-container">
+                                    <span id="credentials.errors">User with this credentials is already exists</span>
+                                    <span id="user.errors">Ololo</span>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Update</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
+
                 <div class="col-md-4 col-xs-12">
                     <img src="pics/user-icon.png" class="img-thumbnail img-responsive center-block" alt="User piture">
                     <div class="popover-static">
@@ -132,7 +181,7 @@
                             <h3 class="popover-title title lead text-center text-uppercase">Update your profile</h3>
                             <div class="popover-content">
                                 <div class="form-group">
-                                    <form id="personal-settings-form" method="post">
+                                    <form id="update-photo-form" enctype="multipart/form-data" method="post">
                                         <input type="file" class="filestyle" id="profileImage" name="profileImage" accept=".png,.jpg,.jpeg,.gif" data-iconName="glyphicon glyphicon-inbox">
                                         <p if="file-error" class="help-block">Max size is 2MB.</p>
                                     </form>
@@ -184,11 +233,6 @@
     <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
 
     <script src="js/script.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="popover"]').popover();
-        });
-    </script>
 </body>
 
 </html>
