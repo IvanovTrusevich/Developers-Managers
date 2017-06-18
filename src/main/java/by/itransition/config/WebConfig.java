@@ -1,5 +1,8 @@
 package by.itransition.config;
 
+import by.itransition.data.model.User;
+import by.itransition.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -9,18 +12,16 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.CacheControl;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
-import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ThemeResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
-import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
-import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
+import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -28,7 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,6 +39,8 @@ import java.util.concurrent.TimeUnit;
 @ComponentScan("by.itransition.web")
 @ImportResource("classpath:elfinder-servlet.xml")
 public class WebConfig extends WebMvcConfigurerAdapter {
+    private UserService userService;
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -69,7 +71,21 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public CookieLocaleResolver localeResolver(){
-        CookieLocaleResolver localeResolver = new CookieLocaleResolver();
+        CookieLocaleResolver localeResolver = new CookieLocaleResolver() {
+            @Override
+            public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+                super.setLocale(request, response, locale);
+                final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if (principal != null && principal instanceof User) {
+                    User user = (User) principal;
+                    if (!user.getLocale().equals(locale.toString())) {
+                        final User oneWithCredentials = userService.findOneWithCredentials(user.getEmail());
+                        oneWithCredentials.setLocale(locale.toString());
+                        userService.saveRegisteredUser(oneWithCredentials);
+                    }
+                }
+            }
+        };
         localeResolver.setDefaultLocale(Locale.ENGLISH);
         localeResolver.setCookieName("locale-cookie");
         localeResolver.setCookieMaxAge(3600);
@@ -80,8 +96,22 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public LocaleChangeInterceptor localeInterceptor(){
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("lang");
+        interceptor.setIgnoreInvalidLocale(true);
         return interceptor;
     }
+
+//    @Bean
+//    public ThemeResolver themeResolver() {
+//        final ThemeResolver themeResolver = new ThemeResolver();
+//
+//        return themeResolver;
+//    }
+//
+//    @Bean
+//    public ThemeChangeInterceptor themeInterceptor() {
+//        final ThemeChangeInterceptor interceptor = new ThemeChangeInterceptor();
+//        return interceptor;
+//    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -147,5 +177,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addRedirectViewController("/lost", "/login?lost=true");
         registry.addViewController("/recovery").setViewName("recovery");
         registry.addViewController("/project").setViewName("project");
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

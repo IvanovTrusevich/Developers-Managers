@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
  * properties.file (In conjunction with Spring's {@link PropertySource}).
  */
 @Component
-@Configurable
-@Scope("prototype")
 public class PropertiesFileCredentialsPolicy implements CredentialsPolicy {
 	@Value("${by.itransition.service.user.credential.alwaysGenerateOnRegistration}")
 	private boolean alwaysGenerateOnRegistration;

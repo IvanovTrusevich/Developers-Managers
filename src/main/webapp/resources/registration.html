@@ -13,7 +13,7 @@
     <title>Registration</title>
 </head>
 
-<body class="registration-page">
+<body class="registration-page default-theme">
     <header class="main-navigation">
         <nav class="container">
             <div class="navbar-header">
@@ -23,13 +23,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                <a class="navbar-brand" href="#">Devman</a>
+                <a class="navbar-brand text-uppercase" href="#">Devman</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="text-uppercase" href="#"><strong>News</strong></a></li>
-                    <li><a class="text-uppercase" href="login.html"><strong>Login/registrate</strong></a></li>
-                    <li class="dropdowm-menu" id="user-dropdown">
+                    <li class="nav-item active"><a class="text-uppercase" href="#"><strong>News</strong></a></li>
+                    <li class="nav-item"><a class="text-uppercase" href="login.html"><strong>Login/registrate</strong></a></li>
+                    <li class="nav-item dropdowm-menu" id="user-dropdown">
                         <a class="text-uppercase dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="">
                             <strong>Profile</strong>
                             <span class="caret"></span>
@@ -182,7 +182,26 @@
     <footer class="main-footer">
         <div class="container">
             <div class="col-sm-5 col-xs-12 footer-content">
-                <span class="text-muted">Place sticky footer content here.</span>
+                <ul class="nav navbar-nav">
+                    <li class="dropup" id="locale-dropup">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Locale <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">ru</a></li>
+                            <li><a href="#">en</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropup" id="theme-dropup">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Theme <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Default</a></li>
+                            <li><a href="#">Purple</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
             <div class="col-sm-7 col-xs-12">
                 <div id="tag-cloud"></div>

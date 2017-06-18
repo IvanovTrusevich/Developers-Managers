@@ -38,6 +38,7 @@ by.itransition:
             defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_USER
           expirationTime: 1440
+          defaultUserLocale: en
         photo:
           defaultUserIconUrl: /res/pics/user-icon.png
           thumbnail:

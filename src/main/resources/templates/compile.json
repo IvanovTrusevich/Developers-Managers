@@ -1,6 +1,0 @@
-{
-    "less": ["less/main.less"],
-    "compress": true,
-    "autoprefixer": true,
-    "cleancss": true
-}

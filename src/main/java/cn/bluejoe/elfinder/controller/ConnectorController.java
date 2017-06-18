@@ -54,18 +54,11 @@ public class ConnectorController {
     @Autowired
     private ConnectorServlet connectorServlet;
 
-    @GetMapping("/")
-    public void connectTest(HttpServletRequest request, HttpServletResponse response, @RequestBody String body) {
-        System.out.println(request);
-        System.out.println(response);
-        System.out.println(body);
-    }
-
-    @RequestMapping(value = "/{projectName}")
+    @GetMapping(value = "/{projectName}")
     public void connector(HttpServletRequest request, HttpServletResponse response, @PathVariable("projectName") String projectName) throws IOException {
         String repoName = projectRepository.findGitRepoNameByProjectName(projectName);
         setCommandExecutorFactory(connectorServlet.createCommandExecutorFactory(null));
-        setFsServiceFactory((FsServiceFactory) connectorServlet.createServiceFactory(null, repoName));
+        setFsServiceFactory( connectorServlet.createServiceFactory(null, repoName));
         try {
             request = parseMultipartContent(request);
         } catch (Exception e) {

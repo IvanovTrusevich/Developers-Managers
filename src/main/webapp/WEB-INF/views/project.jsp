@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +10,6 @@
     <%@include file='components/head.jsp' %>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/git/dist/github.min.css"/>">
-    <!-- elfinder -->
-    <!-- jQuery and jQuery UI (REQUIRED) -->
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/elfinder.min.css"/>">
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/theme.css"/>">
     <title>Project</title>
@@ -27,8 +25,9 @@
                     <li role="presentation"><a href="#wiki" aria-controls="profile" role="tab" data-toggle="tab">Wiki</a></li>
                     <li role="presentation"><a href="#forum" aria-controls="messages" role="tab" data-toggle="tab">Forum</a></li>
                     <li role="presentation"><a href="#news" aria-controls="settings" role="tab" data-toggle="tab">News</a></li>
-                    <li role="presentation"><a href="#managment" aria-controls="settings" role="tab" data-toggle="tab">Management</a>
-                    </li>
+                    <security:authorize access="hasRole('ROLE_MANAGER')">
+                        <li role="presentation"><a href="#managment" aria-controls="settings" role="tab" data-toggle="tab">Management</a></li>
+                    </security:authorize>
                 </ul>
             </header>
             <div class="tab-content">
@@ -61,22 +60,26 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="news">
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="managment">...</div>
+                <security:authorize access="hasRole('ROLE_MANAGER')">
+                    <div role="tabpanel" class="tab-pane fade" id="managment">...</div>
+                </security:authorize>
             </div>
         </div>
     </div>
 </div>
 
 <%@include file='components/footer.jsp' %>
-<%--git--%>
-<%--<script src="<s:url value="/res/libs/git/git.js"/>"></script>--%>
 <script type="text/javascript" src="<s:url value="/res/libs/undercore/underscore-min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/git/dist/github.min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/git/src/github.js"/>"></script>
 <!-- elfinder -->
 <!-- jQuery and jQuery UI (REQUIRED) -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+
+<%--<script src="<s:url value="/res/js/jquery.min.js"/> "></script>--%>
+<%--<script src="<s:url value="/res/js/jquery-ui.min.js"/> "></script>--%>
+
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/elfinder.full.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/i18n/elfinder.ru.js"/>"></script>
 
@@ -86,7 +89,7 @@
 <script type="text/javascript">
     $(function () {
         $('#elfinder').elfinder({
-            url: '/connector',
+            url: '/connector/${projectName}',
             lang: '${pageContext.response.locale}'
         });
 

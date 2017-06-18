@@ -78,6 +78,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "wikiLastEditor")
     private Set<Project> editedProjects;
 
+    @Column(name = "locale")
+    private String locale;
+
     private User() {
     }
 
@@ -106,6 +109,7 @@ public class User implements UserDetails {
         this.middleName = middleName;
         this.username = username;
         this.photo = photo;
+        this.locale = "en";
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
             this.addAllAuthority(authorities);
@@ -292,5 +296,13 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 '}';
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
     }
 }

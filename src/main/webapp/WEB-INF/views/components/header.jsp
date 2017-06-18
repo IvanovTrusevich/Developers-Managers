@@ -21,23 +21,23 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item"><a class="text-uppercase" href="#"><strong>News</strong></a></li>
+                <li class="nav-item"><a class="text-uppercase" href="#"><strong><s:message code="header.news"/></strong></a></li>
                 <c:choose>
                     <c:when test="${not empty authenticated && authenticated == true}">
                         <li class="dropdowm-menu" id="user-dropdown">
                             <a class="text-uppercase dropdown-toggle" type="button" id="dropdownMenu1"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="">
-                                <strong>Profile</strong>
+                                <strong><s:message code="header.profile"/></strong>
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li class="dropdown-header">Signed in as <span id="user-dropdown-username"><security:authentication property="principal.username"/></span></li>
-                                <li><a href="#">My profile</a></li>
-                                <li><a href="#">My projects</a></li>
+                                <li class="dropdown-header"><s:message code="header.profile.singInAs"/> <span id="user-dropdown-username"><security:authentication property="principal.username"/></span></li>
+                                <li><a href="#"><s:message code="header.profile.myProfile"/></a></li>
+                                <li><a href="#"><s:message code="header.profile.myProjects"/></a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Settings</a></li>
+                                <li><a href="#"><s:message code="header.profile.settings"/></a></li>
                                 <li>
-                                    <a id="logout-trigger" type="submit" href="">Sign out</a>
+                                    <a id="logout-trigger" type="submit" href=""><s:message code="header.profile.signOut"/></a>
                                     <form id="logout-form" action="<s:url value="/logout"/>" method="POST">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                     </form>
@@ -52,7 +52,7 @@
                 </c:choose>
             </ul>
             <form class="navbar-form navbar-right">
-                <input class="form-control" placeholder="Search..." type="text">
+                <input class="form-control" placeholder="<s:message code="header.search"/>" type="text">
             </form>
         </div>
     </nav>

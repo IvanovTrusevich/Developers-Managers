@@ -10,10 +10,7 @@ import by.itransition.data.repository.RecoveryTokenRepository;
 import by.itransition.data.repository.UserRepository;
 import by.itransition.data.repository.VerificationTokenRepository;
 import by.itransition.service.photo.PhotoService;
-import by.itransition.service.user.AuthorityPolicy;
-import by.itransition.service.user.CredentialsPolicy;
-import by.itransition.service.user.PasswordGenerator;
-import by.itransition.service.user.UserService;
+import by.itransition.service.user.*;
 import by.itransition.service.user.exception.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -46,8 +43,10 @@ public class DefaultUserService implements UserService {
 
     private AuthorityPolicy authorityPolicy;
 
+    private LocalePolicy localePolicy;
+
     @Autowired
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService photoService, RecoveryTokenRepository recoveryTokenRepository, VerificationTokenRepository verificationTokenRepository, CredentialsPolicy credentialsPolicy, AuthorityPolicy authorityPolicy) {
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService photoService, RecoveryTokenRepository recoveryTokenRepository, VerificationTokenRepository verificationTokenRepository, CredentialsPolicy credentialsPolicy, AuthorityPolicy authorityPolicy, LocalePolicy localePolicy) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.photoService = photoService;
@@ -55,6 +54,7 @@ public class DefaultUserService implements UserService {
         this.verificationTokenRepository = verificationTokenRepository;
         this.credentialsPolicy = credentialsPolicy;
         this.authorityPolicy = authorityPolicy;
+        this.localePolicy = localePolicy;
     }
 
     @Override
@@ -74,6 +74,7 @@ public class DefaultUserService implements UserService {
         String encodedPassword = passwordEncoder.encode(password);
         final Photo photo = photoService.uploadFile(accountDto);
         User user = User.createUser(accountDto, encodedPassword, photo);
+        user.setLocale(localePolicy.getDefaultUserLocale());
         final GrantedAuthority defaultAuthority = authorityPolicy.getDefaultRegistrationAuthority();
         user.addAuthority(defaultAuthority);
         return userRepository.save(user);
@@ -152,5 +153,9 @@ public class DefaultUserService implements UserService {
 
     public void setAuthorityPolicy(AuthorityPolicy authorityPolicy) {
         this.authorityPolicy = authorityPolicy;
+    }
+
+    public void setLocalePolicy(LocalePolicy localePolicy) {
+        this.localePolicy = localePolicy;
     }
 }

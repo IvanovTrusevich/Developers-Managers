@@ -47,7 +47,7 @@
 
                                         <div class="input-group col-xs-12">
                                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                            <input type="text" class="form-control" id="login-credentials" name="credentials" placeholder="Username of credentials" required>
+                                            <input type="text" class="form-control" id="login-credentials" name="username" placeholder="Username of email" required>
                                         </div>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                     <div class="col-sm-9">
                                         <div class="input-group col-xs-12">
                                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                            <input type="text" class="form-control" id="lost-credentials" name="credentials" placeholder="Username or credentials" required="required"/>
+                                            <input type="text" class="form-control" id="lost-credentials" name="credentials" placeholder="Username or email" required="required"/>
                                         </div>
                                     </div>
                                 </div>

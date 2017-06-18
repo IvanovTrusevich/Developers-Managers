@@ -1,9 +1,8 @@
 package by.itransition.config;
 
-import by.itransition.data.repository.UserRepository;
+import by.itransition.data.model.User;
 import by.itransition.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,18 +14,20 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -36,16 +37,20 @@ import java.util.Locale;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final MessageSource messages;
 
     private final LocaleResolver localeResolver;
 
-    private UserService userService;
+    private final PasswordEncoder passwordEncoder;
+
+    private final UserService userService;
+
+    private MessageSource messages;
 
     @Autowired
-    public SecurityConfig(MessageSource messages, LocaleResolver localeResolver) {
-        this.messages = messages;
+    public SecurityConfig(LocaleResolver localeResolver, PasswordEncoder passwordEncoder, UserService userService) {
         this.localeResolver = localeResolver;
+        this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
     @Override
@@ -55,16 +60,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/res/**").permitAll()
                     .antMatchers("/index").permitAll()
                     .antMatchers("/registration", "/lost/**", "/login/**", "/activate/**", "/recovery/**").permitAll()
-                    .antMatchers("/projects", "/connector").permitAll()
+                    .antMatchers("/projects/**", "/connector/**").permitAll()
                     .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .usernameParameter("credentials")
+                    .usernameParameter("username")
                     .passwordParameter("password")
                     .failureHandler(authenticationFailureHandler())
-//                    .failureUrl("/login?error=true")
+                    .successHandler(authenticationSuccessHandler())
                     .permitAll()
                     .and()
                 .rememberMe()
@@ -84,17 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userService)
-                .passwordEncoder(passwordEncoder());
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+                .passwordEncoder(passwordEncoder);
     }
 
     @Bean
@@ -118,5 +113,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
             }
         };
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new SimpleUrlAuthenticationSuccessHandler() {
+            @Override
+            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if (principal != null && principal instanceof User) {
+                    User user = (User) principal;
+                    localeResolver.setLocale(request, response, new Locale( user.getLocale()));
+                }
+                super.onAuthenticationSuccess(request, response, authentication);
+            }
+        };
+    }
+
+    @Autowired
+    public void setMessages(MessageSource messages) {
+        this.messages = messages;
     }
 }
