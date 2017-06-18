@@ -34,7 +34,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="home">
                     <div class="page-header">
-                        <h1 class="text-center">Title</h1>
+                        <h1 class="text-center">${projectName}</h1>
                         <div id="elfinder"></div>
                     </div>
                     <h1 class="text-center">README</h1>
@@ -50,7 +50,6 @@
                     </div>
                     <div>
                         ${repoUrl}
-                        ${repoName}
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="wiki">
@@ -71,13 +70,14 @@
 </div>
 
 <%@include file='components/footer.jsp' %>
-<%@include file='components/footer.jsp' %>
 <%@include file='components/script.jsp' %>
 <script type="text/javascript" src="<s:url value="/res/libs/undercore/underscore-min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/git/dist/github.min.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/git/src/github.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/elfinder.full.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/i18n/elfinder.ru.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/simplemde/js/simplemde.min.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/jspdf/js/jspdf.min.js"/>"></script>
 <script type="text/javascript">
     $(function() {
         $currentPage.displayRepo('ITransitionProjects', 'repo', '${repoName}');
