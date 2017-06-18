@@ -70,7 +70,7 @@ spring:
   profiles: prod
   jpa:
       hibernate:
-        ddl-auto: create
+        ddl-auto: update
       database: MYSQL
   datasource:
     url: jdbc:mysql://localhost:3306/devman

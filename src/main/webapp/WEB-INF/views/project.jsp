@@ -90,7 +90,19 @@
         $(function () {
             $('#elfinder').elfinder({
                 url: '/connector/${projectName}',
-                lang: '${pageContext.response.locale}'
+                lang: '${pageContext.response.locale}',
+                commands : [
+                    'open', 'reload', 'home', 'up', 'back', 'forward', 'quicklook',
+                    'download','info', 'view'
+                ],
+                contextmenu : {
+                    // navbarfolder menu
+                    navbar : ['open'],
+                    // current directory menu
+                    cwd    : ['reload', 'back'],
+                    // current directory file menu
+                    files  : ['getfile', '|', 'custom', 'quicklook']
+                },
             });
         });
     });

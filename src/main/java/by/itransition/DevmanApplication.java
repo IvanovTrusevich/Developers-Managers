@@ -43,9 +43,9 @@ public class DevmanApplication {
                                   TagRepository tagRepository,
                                   SynchronizationService synchronizationService) {
         return (args) -> {
-            addAdmins(userRepository, passwordEncoder, cloudinaryService);
-            addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
-            addTags( projectRepository, tagRepository);
+//            addAdmins(userRepository, passwordEncoder, cloudinaryService);
+//            addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
+//            addTags( projectRepository, tagRepository);
 //            backendElasticSearchSynchronize(synchronizationService);
         };
 	}
