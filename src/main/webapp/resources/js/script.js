@@ -475,6 +475,40 @@ function RecoveryPage() {
 
 /////////////////////////////////////    PROJECT   //////////////////////////////////////////
 function ProjectPage() {
+    var simplemde;
+    var saveToPdf = function() {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        var source = simplemde.options.previewRender(simplemde.value());
+        var specialElementHandlers = {
+            '#bypassme' : function(element, renderer) {
+                return true
+            }
+        };
+        var margins = {
+            top : 80,
+            bottom : 60,
+            left : 40,
+            width : 522
+        };
+        pdf.fromHTML(source, margins.left, margins.top, {
+                'width' : margins.width,
+                'elementHandlers' : specialElementHandlers
+            },
+
+            function(dispose) {
+                pdf.save('Test.pdf');
+            }, margins);
+    };
+    $('#to-pdf-btn').click(function() {
+        saveToPdf();
+    });
+    $('#mde').change(function() {
+        $.ajax({
+            url: '/',
+            data: simplemde
+        });
+    });
+
     return {
         displayRepo: function (userName, divId, repoName) {
             Github.repoActivity({
@@ -487,6 +521,25 @@ function ProjectPage() {
             Github.userActivity({
                 username: orgName,
                 selector: '#' + divId
+            });
+        },
+        saveToPDF: saveToPdf,
+        initializeMDE: function() {
+            simplemde = new SimpleMDE({
+                element : document.getElementById("mde"),
+                autosave : {
+                    enabled : true,
+                    uniqueId : "MyUniqueID",
+                    delay : 1000
+                },
+                blockStyles : {
+                    bold : "__",
+                    italic : "_"
+                }
+            });
+            simplemde.codemirror.on("change", function() {
+                // saves after each action
+                // TODO: add saving to db (for other users)
             });
         }
     }

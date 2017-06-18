@@ -20936,3 +20936,81 @@ Caused by: java.lang.NullPointerException: null
 2017-06-18 18:45:15.835  INFO 15787 --- [main] by.itransition.DevmanApplication         : User{id=2, email='vtrusevich@gmail.com', password='$2a$10$dl/Ef.DXiEhZr//7rzAUD.W2wVcy3R.euEhyNTYsM3Ip4x0aOasJW', enabled=true, firstName='aa', lastName='aaa', username='aaa'}
 2017-06-18 18:45:15.920  INFO 15787 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 16.159 seconds (JVM running for 17.531)
 2017-06-18 18:45:20.127  INFO 15787 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-18 19:14:47.913  INFO 20130 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on ilya-laptop with PID 20130 (/media/Clouds/Dropbox/CSaN/Itransition/devman/target/classes started by ilya in /media/Clouds/Dropbox/CSaN/Itransition/devman)
+2017-06-18 19:14:47.959  INFO 20130 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-18 19:15:10.721  INFO 20130 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-18 19:15:10.725  INFO 20130 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-18 19:15:11.611  INFO 20130 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-18 19:15:11.636  INFO 20130 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-18 19:15:12.144  INFO 20130 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-18 19:15:17.337  INFO 20130 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-18 19:15:17.647  INFO 20130 --- [main] by.itransition.DevmanApplication         : User{id=1, email='com.ilya.ivanov@gmail.com', password='$2a$10$YGvub/sZKZ8.iOwLpRkBcuAU.Y8J/8tTSI3kJfDJpcvYu2H2Y2rTS', enabled=true, firstName='Ivanov', lastName='Ilya', username='Ilya'}
+2017-06-18 19:15:17.647  INFO 20130 --- [main] by.itransition.DevmanApplication         : User{id=2, email='vtrusevich@gmail.com', password='$2a$10$GBxgixVh.LzhMNwB8hQjYOK5by5LA7aLH5hBSasHxEjG82u6jowOK', enabled=true, firstName='aa', lastName='aaa', username='aaa'}
+2017-06-18 19:15:17.666  INFO 20130 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 31.885 seconds (JVM running for 40.847)
+2017-06-18 19:15:19.837  INFO 20130 --- [http-nio-8080-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [106] milliseconds.
+2017-06-18 19:17:22.405  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/.settings]
+2017-06-18 19:17:23.798  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/gui]
+2017-06-18 19:17:27.595  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/tools]
+2017-06-18 19:17:27.598  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server]
+2017-06-18 19:17:27.600  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools]
+2017-06-18 19:17:27.603  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml]
+2017-06-18 19:17:27.606  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml/parsers]
+2017-06-18 19:17:27.609  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/tools]
+2017-06-18 19:18:09.082  INFO 20130 --- [http-nio-8080-exec-7] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B]
+2017-06-18 19:18:15.147  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/.settings]
+2017-06-18 19:18:15.147  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/gui]
+2017-06-18 19:18:15.148  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/tools]
+2017-06-18 19:18:15.149  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server]
+2017-06-18 19:18:15.149  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools]
+2017-06-18 19:18:15.150  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml]
+2017-06-18 19:18:15.150  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml/parsers]
+2017-06-18 19:18:15.151  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/tools]
+2017-06-18 19:18:15.207  INFO 20130 --- [http-nio-8080-exec-2] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B]
+2017-06-18 19:18:55.309  INFO 20813 --- [main] by.itransition.DevmanApplication         : Starting DevmanApplication on ilya-laptop with PID 20813 (/media/Clouds/Dropbox/CSaN/Itransition/devman/target/classes started by ilya in /media/Clouds/Dropbox/CSaN/Itransition/devman)
+2017-06-18 19:18:55.333  INFO 20813 --- [main] by.itransition.DevmanApplication         : The following profiles are active: prod
+2017-06-18 19:19:17.109  INFO 20813 --- [main] o.apache.catalina.core.StandardService   : Starting service Tomcat
+2017-06-18 19:19:17.116  INFO 20813 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.14
+2017-06-18 19:19:17.996  INFO 20813 --- [localhost-startStop-1] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2017-06-18 19:19:18.010  INFO 20813 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-06-18 19:19:18.420  INFO 20813 --- [localhost-startStop-1] o.apache.catalina.core.StandardContext   : Suspicious url pattern: "/**" in context [] - see sections 12.1 and 12.2 of the Servlet specification
+2017-06-18 19:19:24.716  INFO 20813 --- [main] by.itransition.DevmanApplication         : User{id=1, email='com.ilya.ivanov@gmail.com', password='$2a$10$zbzoI/8UHB5agyHFGoTqLugvp380q/P2YsbHySgGDoM4hlVWIjlj.', enabled=true, firstName='Ivanov', lastName='Ilya', username='Ilya'}
+2017-06-18 19:19:24.717  INFO 20813 --- [main] by.itransition.DevmanApplication         : User{id=2, email='vtrusevich@gmail.com', password='$2a$10$WtPIrLGXMxXEgBjPjKIgD.gsYtJk.ngOZIMq61IDdXZnaDPaH7V.a', enabled=true, firstName='aa', lastName='aaa', username='aaa'}
+2017-06-18 19:19:24.751  INFO 20813 --- [main] by.itransition.DevmanApplication         : Started DevmanApplication in 32.334 seconds (JVM running for 35.96)
+2017-06-18 19:19:51.645  INFO 20813 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-06-18 19:19:54.292  INFO 20813 --- [http-nio-8080-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [110] milliseconds.
+2017-06-18 19:21:40.837  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/.settings]
+2017-06-18 19:21:40.840  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/gui]
+2017-06-18 19:21:40.843  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/tools]
+2017-06-18 19:21:40.845  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server]
+2017-06-18 19:21:40.848  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools]
+2017-06-18 19:21:40.853  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml]
+2017-06-18 19:21:40.857  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml/parsers]
+2017-06-18 19:21:40.860  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/tools]
+2017-06-18 19:22:03.031  INFO 20813 --- [http-nio-8080-exec-4] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B]
+2017-06-18 19:22:07.912  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/.settings]
+2017-06-18 19:22:07.913  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/gui]
+2017-06-18 19:22:07.914  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/tools]
+2017-06-18 19:22:07.915  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server]
+2017-06-18 19:22:07.916  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools]
+2017-06-18 19:22:07.917  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml]
+2017-06-18 19:22:07.918  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml/parsers]
+2017-06-18 19:22:07.918  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/tools]
+2017-06-18 19:22:07.976  INFO 20813 --- [http-nio-8080-exec-3] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B]
+2017-06-18 19:22:11.921  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/.settings]
+2017-06-18 19:22:11.921  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/gui]
+2017-06-18 19:22:11.922  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/tools]
+2017-06-18 19:22:11.939  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server]
+2017-06-18 19:22:11.940  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools]
+2017-06-18 19:22:11.940  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml]
+2017-06-18 19:22:11.941  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml/parsers]
+2017-06-18 19:22:11.941  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/tools]
+2017-06-18 19:22:11.993  INFO 20813 --- [http-nio-8080-exec-9] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B]
+2017-06-18 19:22:14.103  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/.settings]
+2017-06-18 19:22:14.104  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/gui]
+2017-06-18 19:22:14.104  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/client/tools]
+2017-06-18 19:22:14.105  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server]
+2017-06-18 19:22:14.106  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools]
+2017-06-18 19:22:14.107  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml]
+2017-06-18 19:22:14.109  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/server/tools/xml/parsers]
+2017-06-18 19:22:14.111  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B/src/tools]
+2017-06-18 19:22:14.192  INFO 20813 --- [http-nio-8080-exec-6] c.b.elfinder.impl.DefaultFsService       : mounted B: LocalFsVolume [/B]

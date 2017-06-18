@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/git/dist/github.min.css"/>">
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/elfinder.min.css"/>">
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/theme.css"/>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <title>Project</title>
 </head>
 <body class="project-page theme-<s:theme code="themeName"/>">
@@ -33,6 +34,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="home">
                     <div id="repo" class="component"></div>
+                    <h1 class="text-center">README</h1>
                     <div>
                         <c:forTokens items="${readme}" delims="\n" var="paragraph">
                             <p>${paragraph}</p>
@@ -51,10 +53,11 @@
                         <h1 class="text-center">Title</h1>
                         <div id="elfinder"></div>
                     </div>
+
+                    <textarea id='mde'></textarea>
+                    <button id="to-pdf-btn">To PDF</button>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="wiki">
-                    <h1 class="text-center">README</h1>
-
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="forum">
                 </div>
@@ -74,11 +77,14 @@
 <script type="text/javascript" src="<s:url value="/res/libs/git/src/github.js"/>"></script>
 <!-- elfinder -->
 <!-- jQuery and jQuery UI (REQUIRED) -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 
 <%--<script src="<s:url value="/res/js/jquery.min.js"/> "></script>--%>
 <%--<script src="<s:url value="/res/js/jquery-ui.min.js"/> "></script>--%>
+
+<script src="<s:url value="/res/libs/simplemde/js/simplemde.min.js"/>"></script>
+<script src="<s:url value="/res/libs/jspdf/js/jspdf.min.js"/>"></script>
 
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/elfinder.full.js"/>"></script>
 <script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/i18n/elfinder.ru.js"/>"></script>
@@ -97,6 +103,8 @@
         //displayOrganisation('IvanovTrusevich', 'org');
 
         $tagCloud.init("#tag-cloud", ${tags});
+
+        $currentPage.initializeMDE();
     });
 </script>
 </body>

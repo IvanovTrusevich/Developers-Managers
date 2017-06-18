@@ -79,7 +79,7 @@ public class ConnectorServlet{
 		mountAllFolders(fsService, repoName, folders);
 
 		for (int i = 0; i < files.size(); i++) {
-			File f = new File("/B/" + files.get(i).getKey());
+			File f = new File("B/" + files.get(i).getKey());
 			try {
 				BufferedWriter out = new BufferedWriter(new FileWriter(f));
 				out.write(files.get(i).getValue());
