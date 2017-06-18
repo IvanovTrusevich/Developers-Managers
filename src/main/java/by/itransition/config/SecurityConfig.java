@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ThemeResolver;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,8 +38,9 @@ import java.util.Locale;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final LocaleResolver localeResolver;
+
+    private final ThemeResolver themeResolver;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -47,8 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MessageSource messages;
 
     @Autowired
-    public SecurityConfig(LocaleResolver localeResolver, PasswordEncoder passwordEncoder, UserService userService) {
+    public SecurityConfig(LocaleResolver localeResolver, ThemeResolver themeResolver, PasswordEncoder passwordEncoder, UserService userService) {
         this.localeResolver = localeResolver;
+        this.themeResolver = themeResolver;
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
     }
@@ -58,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/res/**").permitAll()
-                    .antMatchers("/index").permitAll()
+                    .antMatchers("/index/**").permitAll()
                     .antMatchers("/registration", "/lost/**", "/login/**", "/activate/**", "/recovery/**").permitAll()
                     .antMatchers("/projects/**", "/connector/**").permitAll()
                     .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
@@ -123,7 +126,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 final Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
                 if (principal != null && principal instanceof User) {
                     User user = (User) principal;
-                    localeResolver.setLocale(request, response, new Locale( user.getLocale()));
+                    localeResolver.setLocale(request, response, new Locale(user.getLocale()));
+                    themeResolver.setThemeName(request, response, user.getTheme());
                 }
                 super.onAuthenticationSuccess(request, response, authentication);
             }

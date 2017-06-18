@@ -7,7 +7,7 @@
 <head>
     <%@include file='components/head.jsp' %>
 </head>
-<body>
+<body class="403-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">

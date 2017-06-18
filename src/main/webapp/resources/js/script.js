@@ -87,11 +87,11 @@ var $mainFooter = (function () {
                     var url = window.location.href;
                     var langParam = 'lang';
                     var sign = (url.indexOf('?') > -1) ? '&' : '?';
-                    var langParamValue = getQueryParameter(langParam);
-                    if (langParamValue === "null")
+                    var paramValue = getQueryParameter(langParam);
+                    if (paramValue === "null")
                         url += sign + langParam + '=' + $(this).text();
                     else {
-                        url = url.replace(langParamValue, $(this).text());
+                        url = url.replace(paramValue, $(this).text());
                     }
                     window.location.href = url;
                 });
@@ -101,9 +101,16 @@ var $mainFooter = (function () {
                     e.preventDefault();
                     var $body = $('body');
                     $body.removeClass(function (index, className) {
-                        return (className.match (/(^|\s)\S+-theme/g) || []).join(' ');
+                        return (className.match(/(^|\s)theme-\S+/g) || []).join(' ');
                     });
-                    $body.addClass($(this).text().toLowerCase() + '-theme');
+                    var theme = $(this).text().toLowerCase();
+                    $body.addClass('theme-' + theme);
+                    $.ajax({
+                        url: '/index?theme=' + theme,
+                        beforeSend: function(xhr) {
+                            xhr.getResponseHeader('Set-Cookie');
+                        }
+                    });
                 });
             })();
         }

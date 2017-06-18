@@ -102,7 +102,8 @@ public class DevmanApplication {
             final Photo defaultPhoto = cloudinaryService.getDefaultPhoto();
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_DEVELOPER"));
 
             String encodedPassword = passwordEncoder.encode("Ilyailya1");
             User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, authorities, "Ivanov",

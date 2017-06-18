@@ -10,7 +10,7 @@
     <%@include file='components/head.jsp' %>
     <title>Recovery</title>
 </head>
-<body class="recovery-page">
+<body class="recovery-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">

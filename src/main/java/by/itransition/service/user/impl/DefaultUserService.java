@@ -37,24 +37,21 @@ public class DefaultUserService implements UserService {
 
     private final VerificationTokenRepository verificationTokenRepository;
 
-    private CredentialsPolicy credentialsPolicy;
+    private SecurityPolicy securityPolicy;
 
     private PasswordGenerator passwordGenerator;
 
-    private AuthorityPolicy authorityPolicy;
-
-    private LocalePolicy localePolicy;
+    private PersonalizationPolicy personalizationPolicy;
 
     @Autowired
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService photoService, RecoveryTokenRepository recoveryTokenRepository, VerificationTokenRepository verificationTokenRepository, CredentialsPolicy credentialsPolicy, AuthorityPolicy authorityPolicy, LocalePolicy localePolicy) {
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService photoService, RecoveryTokenRepository recoveryTokenRepository, VerificationTokenRepository verificationTokenRepository, SecurityPolicy securityPolicy, PersonalizationPolicy personalizationPolicy) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.photoService = photoService;
         this.recoveryTokenRepository = recoveryTokenRepository;
         this.verificationTokenRepository = verificationTokenRepository;
-        this.credentialsPolicy = credentialsPolicy;
-        this.authorityPolicy = authorityPolicy;
-        this.localePolicy = localePolicy;
+        this.securityPolicy = securityPolicy;
+        this.personalizationPolicy = personalizationPolicy;
     }
 
     @Override
@@ -63,9 +60,9 @@ public class DefaultUserService implements UserService {
             throw new AlreadyExistsException("There is an account with that username: + accountDto.getCredentials()");
         }
         String password = accountDto.getPassword();
-        if(credentialsPolicy.alwaysGenerateOnRegistration()) {
+        if(securityPolicy.alwaysGenerateOnRegistration()) {
             if (passwordGenerator == null) {
-                Class<PasswordGenerator> passwordGeneratorType = credentialsPolicy.defaultPasswordGeneratorType();
+                Class<PasswordGenerator> passwordGeneratorType = securityPolicy.defaultPasswordGeneratorType();
                 passwordGenerator = passwordGeneratorType.newInstance();
             }
             password = passwordGenerator.generate();
@@ -74,8 +71,9 @@ public class DefaultUserService implements UserService {
         String encodedPassword = passwordEncoder.encode(password);
         final Photo photo = photoService.uploadFile(accountDto);
         User user = User.createUser(accountDto, encodedPassword, photo);
-        user.setLocale(localePolicy.getDefaultUserLocale());
-        final GrantedAuthority defaultAuthority = authorityPolicy.getDefaultRegistrationAuthority();
+        user.setLocale(personalizationPolicy.getDefaultUserLocale());
+        user.setTheme(personalizationPolicy.getDefaultUserTheme());
+        final GrantedAuthority defaultAuthority = securityPolicy.getDefaultRegistrationAuthority();
         user.addAuthority(defaultAuthority);
         return userRepository.save(user);
     }
@@ -143,19 +141,15 @@ public class DefaultUserService implements UserService {
         recoveryTokenRepository.deleteAllByToken(token);
     }
 
-    public void setCredentialsPolicy(CredentialsPolicy credentialsPolicy) {
-        this.credentialsPolicy = credentialsPolicy;
+    public void setCredentialsPolicy(SecurityPolicy securityPolicy) {
+        this.securityPolicy = securityPolicy;
     }
 
     public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
         this.passwordGenerator = passwordGenerator;
     }
 
-    public void setAuthorityPolicy(AuthorityPolicy authorityPolicy) {
-        this.authorityPolicy = authorityPolicy;
-    }
-
-    public void setLocalePolicy(LocalePolicy localePolicy) {
-        this.localePolicy = localePolicy;
+    public void setPersonalizationPolicy(PersonalizationPolicy personalizationPolicy) {
+        this.personalizationPolicy = personalizationPolicy;
     }
 }

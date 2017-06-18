@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/theme.css"/>">
     <title>Project</title>
 </head>
-<body class="project-page">
+<body class="project-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 <div class="main-content">
     <div class="wrapper">

@@ -81,6 +81,9 @@ public class User implements UserDetails {
     @Column(name = "locale")
     private String locale;
 
+    @Column(name = "theme")
+    private String theme;
+
     private User() {
     }
 
@@ -110,6 +113,7 @@ public class User implements UserDetails {
         this.username = username;
         this.photo = photo;
         this.locale = "en";
+        this.theme = "default";
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
             this.addAllAuthority(authorities);
@@ -304,5 +308,13 @@ public class User implements UserDetails {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 }

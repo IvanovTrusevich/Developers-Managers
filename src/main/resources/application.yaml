@@ -36,9 +36,10 @@ by.itransition:
           credential:
             alwaysGenerateOnRegistration: false
             defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
-          defaultAuthority: ROLE_USER
+          defaultAuthority: ROLE_DEVELOPER
           expirationTime: 1440
           defaultUserLocale: en
+          defaultUserTheme: default
         photo:
           defaultUserIconUrl: /res/pics/user-icon.png
           thumbnail:

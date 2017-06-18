@@ -15,7 +15,7 @@
 <head>
     <%@include file='components/head.jsp' %>
 </head>
-<body class="login-page">
+<body class="login-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">
