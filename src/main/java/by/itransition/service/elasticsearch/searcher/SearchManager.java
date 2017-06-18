@@ -1,9 +1,12 @@
 package by.itransition.service.elasticsearch.searcher;
 
 import okhttp3.*;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class SearchManager {
 
     private OkHttpClient okHttpClient;

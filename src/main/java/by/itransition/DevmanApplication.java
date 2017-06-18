@@ -5,6 +5,7 @@ import by.itransition.data.repository.GitFileRepository;
 import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.TagRepository;
 import by.itransition.data.repository.UserRepository;
+import by.itransition.service.Project.ProjectService;
 import by.itransition.service.elasticsearch.SynchronizationService;
 import by.itransition.service.github.GithubService;
 import by.itransition.service.photo.PhotoService;
@@ -44,12 +45,15 @@ public class DevmanApplication {
                                   PasswordEncoder passwordEncoder,
                                   PhotoService cloudinaryService,
                                   TagRepository tagRepository,
+                                  ProjectService projectService,
                                   SynchronizationService synchronizationService) {
         return (args) -> {
-           // addAdmins(userRepository, passwordEncoder, cloudinaryService);
+
+            //addAdmins(userRepository, passwordEncoder, cloudinaryService);
             //addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
-           // addTags( projectRepository, tagRepository);
-            backendElastickSerachSynchronizer(synchronizationService);
+            //addTags( projectRepository, tagRepository);
+            //projectService.addTagToProject("secondProject","data",4);
+           // backendElastickSerachSynchronizer(synchronizationService);
         };
 	}
 
@@ -60,10 +64,12 @@ public class DevmanApplication {
                                  UserRepository userRepository,
                                  PasswordEncoder passwordEncoder,
                                  PhotoService cloudinaryService,
+                                 TagRepository tagRepository,
                                  SynchronizationService synchronizationService) {
 		return (args) -> {
             //addAdmins(userRepository, passwordEncoder, cloudinaryService);
             addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
+            addTags(projectRepository,tagRepository);
 
 		};
 	}
@@ -81,9 +87,9 @@ public class DevmanApplication {
         Set<User> managers = new HashSet<>();
         managers.add(one);
 
-        Project project = new Project(managers, developers,"socket",
-                "Socket","https://github.com/ItransitionProjects/Socket.git",
-                "lasSSH","RM",null,null,null);
+        Project project = new Project(managers, developers,"secondProject",
+                "Notes","https://github.com/ItransitionProjects/Notes.git",
+                "lasSwefweSH","RMewff",null,null,true);
         projectRepository.save(project);
 
 //        final Project pOne = projectRepository.findOne(1L);
@@ -106,7 +112,7 @@ public class DevmanApplication {
             final Photo defaultPhoto = cloudinaryService.getDefaultPhoto();
             List<GrantedAuthority> authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_DEVELOPER"));
 
             String encodedPassword = passwordEncoder.encode("Ilyailya1");
             User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, authorities, "Ivanov",
@@ -129,10 +135,15 @@ public class DevmanApplication {
             return thread;
         }).scheduleAtFixedRate(() -> {
            synchronizationService.synchronizeWithSql();
-        }, 5, 30, TimeUnit.SECONDS);
+        }, 1, 10, TimeUnit.MINUTES);
     }
 
     private void addTags(ProjectRepository projectRepository, TagRepository tagRepository) {
-        //Tag tag = new Tag();
+	    Set<Project> projects = new HashSet<>();
+	    projects.add(projectRepository.findOne(1l));
+        tagRepository.save(new Tag("сокет", 7.4, projects));
+        tagRepository.save(new Tag("transport", 5.4, projects));
+        tagRepository.save(new Tag("labs", 13.4, projects));
+        tagRepository.save(new Tag("socket", 7.4, projects));
     }
 }

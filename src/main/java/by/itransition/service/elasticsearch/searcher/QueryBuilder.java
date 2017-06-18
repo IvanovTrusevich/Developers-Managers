@@ -1,7 +1,10 @@
 package by.itransition.service.elasticsearch.searcher;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 
+@Component
 public class QueryBuilder {
 
     public String build(String searchText) throws IOException {

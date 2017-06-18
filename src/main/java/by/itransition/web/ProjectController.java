@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.*;
 
 @Controller
-@RequestMapping(value = {"/"})
+@RequestMapping(value = {"/project"})
 public class ProjectController {
 
     private ProjectService projectService;
@@ -25,7 +25,7 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping(value = "/project/{projectName}")
+    @GetMapping(value = "/{projectName}")
     public ModelAndView getHome(@PathVariable("projectName") String projectName) {
         if (!projectService.exists(projectName))
             throw new RuntimeException("project not found");
@@ -37,7 +37,7 @@ public class ProjectController {
                "repoUrl", repoUrl,"repoName",repoName));
     }
 
-    @GetMapping(value = "/project/{projectName}/wiki")
+    @GetMapping(value = "/{projectName}/wiki")
     public ModelAndView getWiki(@PathVariable("projectName") String projectName){
         if (!projectService.exists(projectName))
             throw new RuntimeException("project not found");
@@ -47,7 +47,7 @@ public class ProjectController {
         return new ModelAndView("project", ImmutableMap.of("wiki", wiki, "tags", tags));
     }
 
-    @GetMapping(value = "/project/{projectName}/news")
+    @GetMapping(value = "/{projectName}/news")
     public ModelAndView getNewsContent(@PathVariable("projectName") String projectName){
         if (!projectService.exists(projectName))
             throw new RuntimeException("project not found");

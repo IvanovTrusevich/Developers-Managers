@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.ServletConfig;
 
-import cn.bluejoe.elfinder.controller.ConnectorController;
 import cn.bluejoe.elfinder.controller.executor.CommandExecutorFactory;
 import cn.bluejoe.elfinder.controller.executor.DefaultCommandExecutorFactory;
 import cn.bluejoe.elfinder.controller.executors.MissingCommandExecutor;
@@ -23,19 +22,8 @@ import cn.bluejoe.elfinder.service.FsItem;
 import by.itransition.service.github.GithubService;
 import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-/**
- * ConnectorServlet is an example servlet it creates a ConnectorController on
- * init() and use it to handle requests on doGet()/doPost()
- *
- * users should extend from this servlet and customize required protected
- * methods
- *
- * @author bluejoe
- *
- */
 @Service
 public class ConnectorServlet{
     private GithubService githubService;

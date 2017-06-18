@@ -46,7 +46,7 @@ public class User implements UserDetails {
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
-    @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name="user_id"))
+    @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "authorities")
     private List<String> authorities = new ArrayList<>();
 
@@ -79,6 +79,13 @@ public class User implements UserDetails {
     private Set<Project> editedProjects;
 
     private User() {
+    }
+
+    public void setAuthorities(List<? extends GrantedAuthority> authorities) {
+        if (authorities != null && !authorities.isEmpty()) {
+            this.authorities = new ArrayList<>();
+            this.addAllAuthority(authorities);
+        }
     }
 
     public static User createUser(UserDto userDto, String encodedPassword, Photo photo) {

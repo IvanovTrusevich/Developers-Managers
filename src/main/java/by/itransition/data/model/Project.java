@@ -46,6 +46,9 @@ public class Project {
     @Column(name = "git_last_SHA")
     private String gitLastSHA;
 
+    @Column(name = "enabled")
+    private Boolean enabled;
+
     @Column(name = "git_readme", length = 10000)
     private String gitReadme;
 
@@ -59,11 +62,7 @@ public class Project {
     @JoinColumn(name="wikiLastEditor")
     private User wikiLastEditor;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name="project_tag",
-            joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
-            inverseJoinColumns=@JoinColumn(name="tags", referencedColumnName="tag_id"))
+    @ManyToMany(mappedBy = "projects")
     private Set<Tag> tags;
     @OneToMany(mappedBy = "projectNews")
     private Set<News> news;
@@ -73,7 +72,7 @@ public class Project {
 
     public Project(Set<User> managers, Set<User> developers, String projectName,
                    String gitRepoName, String gitRepoUrl, String gitLastSHA, String gitReadme,
-                   Set<GitFile> gitFiles, Set<Tag> tags, String wikiContent) {
+                   Set<GitFile> gitFiles, String wikiContent, Boolean enabled) {
         this.developers = developers;
         this.managers = managers;
         this.projectName = projectName;
@@ -84,13 +83,14 @@ public class Project {
         this.gitFiles = gitFiles;
         this.managers = managers;
         this.wikiContent = wikiContent;
-        this.tags = tags;
+        this.enabled = enabled;
     }
 
-    public Project(String projectName, String gitRepoName, Set<User> managers) {
+    public Project(String projectName, String gitRepoName, Set<User> managers, boolean enabled) {
         this.projectName = projectName;
         this.gitRepoName = gitRepoName;
         this.managers = managers;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -191,6 +191,14 @@ public class Project {
 
     public void setWikiLastEditor(User wikiLastEditor) {
         this.wikiLastEditor = wikiLastEditor;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

@@ -107,7 +107,7 @@ public class GithubService {
         return lastCachedCommitSha.equals(lastCommitSha);
     }
 
-    private String getLastCommitSha(String repoName) throws IOException {
+    public String getLastCommitSha(String repoName) throws IOException {
         GHRepository repo = getRepo(repoName);
         return repo.getBranch(branchName).getSHA1();
     }

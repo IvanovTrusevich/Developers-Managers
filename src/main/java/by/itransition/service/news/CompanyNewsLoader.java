@@ -10,8 +10,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
 public class CompanyNewsLoader {
@@ -29,10 +28,8 @@ public class CompanyNewsLoader {
         this.newsRepository = newsRepository;
     }
 
-    public List<String> loadLastNews(Locale locale){
-        PageRequest pageRequest = new PageRequest(0,10);
-        Slice<News> news = newsRepository.findAll(pageRequest);
-        news.nextPageable();
+    public Map<Date,String> loadLastNews(Locale locale){
+        List<News> news = newsRepository.findAll();
         return newsParser.parseNews(news,locale);
     }
 }
