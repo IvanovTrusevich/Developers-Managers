@@ -16,5 +16,6 @@
 <link rel="stylesheet" href="<s:url value="/res/css/main.min.css"/> "/>
 <link rel="stylesheet" href="<s:url value="/res/css/bootstrap.min.css"/> "/>
 <link rel="stylesheet" href="<s:url value="/res/font-awesome/css/font-awesome.min.css"/> ">
-<link rel="stylesheet" type="text/css" href="<s:url value="/res/tooltipster/dist/css/tooltipster.bundle.min.css"/> "/>
+<link rel="stylesheet" href="<s:url value="/res/tooltipster/dist/css/tooltipster.bundle.min.css"/> "/>
 <link rel="stylesheet" href="<s:url value="/res/css/jquery-ui.min.css"/> "/>
+<link rel="stylesheet" href="<s:url value="/res/libs/jqcloud/jqcloud.css"/>" />

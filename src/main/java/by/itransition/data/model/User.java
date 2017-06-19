@@ -10,10 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -46,7 +43,7 @@ public class User implements UserDetails {
 
     @ElementCollection
     @LazyCollection(LazyCollectionOption.FALSE)
-    @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name="user_id"))
+    @CollectionTable(name = "authorities", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "authorities")
     private List<String> authorities = new ArrayList<>();
 
@@ -78,7 +75,20 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "wikiLastEditor")
     private Set<Project> editedProjects;
 
+    @Column(name = "locale")
+    private String locale;
+
+    @Column(name = "theme")
+    private String theme;
+
     private User() {
+    }
+
+    public void setAuthorities(List<? extends GrantedAuthority> authorities) {
+        if (authorities != null && !authorities.isEmpty()) {
+            this.authorities = new ArrayList<>();
+            this.addAllAuthority(authorities);
+        }
     }
 
     public static User createUser(UserDto userDto, String encodedPassword, Photo photo) {
@@ -106,6 +116,8 @@ public class User implements UserDetails {
         this.middleName = middleName;
         this.username = username;
         this.photo = photo;
+        this.locale = "en";
+        this.theme = "default";
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
             this.addAllAuthority(authorities);
@@ -292,5 +304,21 @@ public class User implements UserDetails {
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 '}';
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
+    public void setLocale(String locale) {
+        this.locale = locale;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 }

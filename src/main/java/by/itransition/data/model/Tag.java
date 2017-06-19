@@ -18,7 +18,11 @@ public class Tag {
     @Column(name = "tag_weight")
     private double weight;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "project_tag",
+            joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "project_id"))
     private Set<Project> projects;
 
     public Long getId() {
@@ -40,7 +44,18 @@ public class Tag {
     private Tag() {
     }
 
+    public Tag(String tagName, double weight, Set<Project> projects) {
+        this.tagName = tagName;
+        this.weight = weight;
+        this.projects = projects;
+    }
+
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + "text:" + "\"" + tagName + "\"" + ", weight:" + weight + ", link:" + "\"" + "/search?q=#" + tagName + "\"" + "}";
     }
 }

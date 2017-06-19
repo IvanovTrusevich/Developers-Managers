@@ -52,23 +52,8 @@ public class CloudinaryService implements PhotoService {
     public Photo uploadFile(byte[] bytes) throws IOException {
         if (bytes != null && bytes.length != 0) {
             final Map uploadResult = cloudinary.uploader().upload(bytes, Maps.newConcurrentMap());
-            final StoredFile storedFile = createStoredFile(uploadResult);
-            return photoRepository.save(new Photo(storedFile));
+            return photoRepository.save(new Photo(uploadResult));
         } else return defaultUserIcon;
     }
 
-    private StoredFile createStoredFile(Map uploadResult) {
-        final StoredFile storedFile = new StoredFile();
-        storedFile.setPublicId((String) uploadResult.get("public_id"));
-        Object version = uploadResult.get("version");
-        if (version instanceof Integer) {
-            storedFile.setVersion(new Long((Integer) version));
-        } else {
-            storedFile.setVersion((Long) version);
-        }
-        storedFile.setSignature((String) uploadResult.get("signature"));
-        storedFile.setFormat((String) uploadResult.get("format"));
-        storedFile.setResourceType((String) uploadResult.get("resource_type"));
-        return storedFile;
-    }
 }

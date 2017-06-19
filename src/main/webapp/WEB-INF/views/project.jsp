@@ -2,154 +2,112 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <%@include file='components/head.jsp'%>
-    <!-- git -->
+    <%@include file='components/head.jsp' %>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/git/dist/github.min.css"/>">
+    <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/elfinder.min.css"/>">
+    <link rel="stylesheet" type="text/css" href="<s:url value="/res/libs/elfinder/css/theme.css"/>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <title>Project</title>
-
-        <meta charset="utf-8">
-
-        <%--<!-- jQuery and jQuery UI (REQUIRED) -->--%>
-        <%--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css">--%>
-        <%--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>--%>
-        <%--<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>--%>
-
-        <%--<!-- elFinder CSS (REQUIRED) -->--%>
-        <%--<link rel="stylesheet" type="text/css" href="/res/libs/elfinder/css/elfinder.min.css">--%>
-        <%--<link rel="stylesheet" type="text/css" href="/res/libs/elfinder/css/theme.css">--%>
-
-        <%--<!-- elFinder JS (REQUIRED) -->--%>
-        <%--<script src="/res/libs/elfinder/js/elfinder.full.js"></script>--%>
-
-        <%--<!-- elFinder translation (OPTIONAL) -->--%>
-        <%--<script src="/res/libs/elfinder/js/i18n/elfinder.ru.js"></script>--%>
-
-        <%--<!-- elFinder initialization (REQUIRED) -->--%>
-        <%--<script type="text/javascript" charset="utf-8">--%>
-            <%--// Documentation for client options:--%>
-            <%--// https://github.com/Studio-42/elFinder/wiki/Client-configuration-options--%>
-            <%--$(document).ready(function() {--%>
-                <%--$('#elfinder').elfinder({--%>
-                    <%--url : 'connector',  			// connector URL (REQUIRED)--%>
-                    <%--lang: 'en'                  					// language (OPTIONAL)--%>
-                <%--});--%>
-            <%--});--%>
-        <%--</script>--%>
-
-    <script src="res/libs/git/git.js"></script>
-    <!-- gitapi -->
-    <link rel="stylesheet" type="text/css"
-          href="res/libs/git/dist/github.min.css">
-    <script type="text/javascript"
-            src="res/libs/undercore/underscore-min.js"></script>
-    <script type="text/javascript"
-            src="res/libs/git/dist/github.min.js"></script>
-    <script type="text/javascript" src="res/libs/git/src/github.js"></script>
-
-    <!-- elfinder -->
-    <!-- jQuery and jQuery UI (REQUIRED) -->
-    <link rel="stylesheet" type="text/css"
-          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css">
-    <script
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script
-            src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-
-    <!-- elFinder CSS (REQUIRED) -->
-    <link rel="stylesheet" type="text/css"
-          href="res/libs/elfinder/css/elfinder.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="res/libs/elfinder/css/theme.css">
-
-    <!-- elFinder JS (REQUIRED) -->
-    <script type="text/javascript"
-            src="res/libs/elfinder/js/elfinder.full.js"></script>
-
-    <!-- elFinder translation (OPTIONAL) -->
-    <script type="text/javascript"
-            src="res/libs/elfinder/js/i18n/elfinder.ru.js"></script>
-
-    <script type="text/javascript">
-        //Documentation for client options:
-        // https://github.com/Studio-42/elFinder/wiki/Client-configuration-options
-        $(document).ready(function() {
-            $('#elfinder').elfinder({
-                url : 'connector/${projectName}',  			// connector URL (REQUIRED)
-                lang: 'en'                  					// language (OPTIONAL)
-            });
-        });
-    </script>
-
-
-
-    </head>
-
-<body>
-<%--<%@include file='components/header.jsp'%>--%>
-
-
+</head>
+<body class="project-page theme-<s:theme code="themeName"/>">
+<%@include file='components/header.jsp' %>
 <div class="main-content">
     <div class="wrapper">
-        <header>
-            <ul class="nav nav-tabs nav-justified">
-                <li role="presentation" class="active"><a href="#">Home</a></li>
-                <li role="presentation"><a href="#">Profile</a></li>
-                <li role="presentation"><a href="#">Messages</a></li>
-            </ul>
-        </header>
-        <div>
-            <c:forEach items="${readme}" var="paragraph">
-                <p>${paragraph}</p>
-            </c:forEach>
+        <div class="content">
+            <header>
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                    <li role="presentation"><a href="#wiki" aria-controls="profile" role="tab" data-toggle="tab">Wiki</a></li>
+                    <li role="presentation"><a href="#forum" aria-controls="messages" role="tab" data-toggle="tab">Forum</a></li>
+                    <li role="presentation"><a href="#news" aria-controls="settings" role="tab" data-toggle="tab">News</a></li>
+                    <security:authorize access="hasRole('ROLE_MANAGER')">
+                        <li role="presentation"><a href="#managment" aria-controls="settings" role="tab" data-toggle="tab">Management</a></li>
+                    </security:authorize>
+                </ul>
+            </header>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="home">
+                    <div class="page-header">
+                        <h1 class="text-center">${projectName}</h1>
+                        <div id="elfinder"></div>
+                    </div>
+                    <h1 class="text-center">README</h1>
+                    <div>
+                        <c:forEach items="${readme}" var="paragraph">
+                            <p>${paragraph}</p>
+                        </c:forEach>
+                    </div>
+                    <div>
+                        <c:forEach items="${tags}" var="tag">
+                            <p>${tag.tagName}</p>
+                        </c:forEach>
+                    </div>
+                    <div>
+                        ${repoUrl}
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="wiki">
+                    <div>
+                        <p>wiki</p>
+                        <p>${wiki}</p>
+                    </div>
+                    <textarea id='mde'></textarea>
+                    <button id="to-pdf-btn" class="btn btn-default">To PDF</button>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="forum">
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="news">
+                    <div id="repo" class="component"></div>
+                </div>
+                <security:authorize access="hasRole('ROLE_MANAGER')">
+                    <div role="tabpanel" class="tab-pane fade" id="managment">...</div>
+                </security:authorize>
+            </div>
         </div>
-        <div>
-            <c:forEach items="${tags}" var="tag">
-                <p>${tag.tagName}</p>
-            </c:forEach>
-        </div>
-        <div>
-            ${repoUrl}
-            ${repoName}
-        </div>
-
-        <div class="page-header">
-            <h1 class="text-center">Title</h1>
-            <div id="elfinder"></div>
-        </div>
-        <div id="repo" class="border component"></div>
     </div>
 </div>
 
-
+<%@include file='components/footer.jsp' %>
+<%@include file='components/script.jsp' %>
+<script type="text/javascript" src="<s:url value="/res/libs/undercore/underscore-min.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/git/dist/github.min.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/git/src/github.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/elfinder.full.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/elfinder/js/i18n/elfinder.ru.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/simplemde/js/simplemde.min.js"/>"></script>
+<script type="text/javascript" src="<s:url value="/res/libs/jspdf/js/jspdf.min.js"/>"></script>
 <script type="text/javascript">
-    displayRepo('ITransitionProjects', 'repo', ${repoName});
-    //displayOrganisation('IvanovTrusevich', 'org');
+    $(function() {
+        $currentPage.displayRepo('ITransitionProjects', 'repo', '${repoName}');
+        //displayOrganisation('IvanovTrusevich', 'org');
+
+        $tagCloud.init("#tag-cloud", ${tags});
+
+        $currentPage.initializeMDE();
+
+        $(function () {
+            $('#elfinder').elfinder({
+                url: '/connector/${projectName}',
+                lang: '${pageContext.response.locale}',
+                commands : [
+                ],
+                contextmenu : {
+                    // navbarfolder menu
+                    navbar : [],
+                    // current directory menu
+                    cwd    : [],
+                    // current directory file menu
+                    files  : []
+                }
+            });
+        });
+    });
 </script>
-
-
-<%--<%@include file='components/footer.jsp'%>--%>
-<%--<script src="<s:url value="/res/js/jquery.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/js/jquery.form.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/js/jquery-ui.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/js/jquery.validate.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/js/bootstrap.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/js/bootstrap-filestyle.min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/tooltipster/dist/js/tooltipster.bundle.min.js"/> "></script>--%>
-<script src="<s:url value="/res/js/script.js"/> "></script>
-
-<%--&lt;%&ndash;<!-- git-->&ndash;%&gt;--%>
-<%--<script src="<s:url value="/res/libs/undercore/underscore-min.js"/> "></script>--%>
-<%--<script src="<s:url value="/res/libs/git/dist/github.min.js"/> "></script>--%>
-
-
-<%--<script type="text/javascript">--%>
-    <%--displayRepo('IvanovTrusevich', 'repo', 'Developers-Managers');--%>
-    <%--displayOrganisation('IvanovTrusevich', 'org');--%>
-<%--</script>--%>
-
 </body>
 </html>

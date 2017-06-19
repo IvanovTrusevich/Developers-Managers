@@ -15,10 +15,9 @@ import javax.validation.constraints.Size;
 /**
  * @author Ilya Ivanov
  */
-@PasswordMatches(message = "{password.matching}")
 //@Data
 //@AllArgsConstructor
-public class UserDto {
+public class UserDto extends PasswordDto {
     @NotNull
     @Size(min = 2, max = 30, message = "{firstName.size}")
     private String firstName;
@@ -27,7 +26,7 @@ public class UserDto {
     @Size(min = 2, max = 30, message = "{lastName.size}")
     private String lastName;
 
-    @Size(min = 0, max = 30, message = "{middleName.size}")
+    @Size(max = 30, message = "{middleName.size}")
     private String middleName;
 
     @NotNull
@@ -42,29 +41,21 @@ public class UserDto {
     @UniqueUsername(message = "{username.unique}")
     private String username;
 
-    @NotNull
-    @Size(min = 8, max = 25, message = "{password.size}")
-    private String password;
-
-    @NotNull
-    @Size(min = 8, max = 25, message = "{password.size}")
-    private String matchingPassword;
-
 
     private MultipartFile profileImage;
 
     private UserDto() {
+        super();
     }
 
     public UserDto(String firstName, String lastName, String middleName, String email, Gender gender, String username, String password, String matchingPassword) {
+        super(password, matchingPassword);
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.email = email;
         this.gender = gender;
         this.username = username;
-        this.password = password;
-        this.matchingPassword = matchingPassword;
     }
 
     public static UserDto getPlaceholder() {
@@ -117,22 +108,6 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
     }
 
     public MultipartFile getProfileImage() {

@@ -4,15 +4,13 @@ import by.itransition.data.model.Photo;
 import by.itransition.data.model.RecoveryToken;
 import by.itransition.data.model.User;
 import by.itransition.data.model.VerificationToken;
+import by.itransition.data.model.dto.PasswordDto;
 import by.itransition.data.model.dto.UserDto;
 import by.itransition.data.repository.RecoveryTokenRepository;
 import by.itransition.data.repository.UserRepository;
 import by.itransition.data.repository.VerificationTokenRepository;
 import by.itransition.service.photo.PhotoService;
-import by.itransition.service.user.AuthorityPolicy;
-import by.itransition.service.user.CredentialsPolicy;
-import by.itransition.service.user.PasswordGenerator;
-import by.itransition.service.user.UserService;
+import by.itransition.service.user.*;
 import by.itransition.service.user.exception.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,21 +37,21 @@ public class DefaultUserService implements UserService {
 
     private final VerificationTokenRepository verificationTokenRepository;
 
-    private CredentialsPolicy credentialsPolicy;
+    private SecurityPolicy securityPolicy;
 
     private PasswordGenerator passwordGenerator;
 
-    private AuthorityPolicy authorityPolicy;
+    private PersonalizationPolicy personalizationPolicy;
 
     @Autowired
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService photoService, RecoveryTokenRepository recoveryTokenRepository, VerificationTokenRepository verificationTokenRepository, CredentialsPolicy credentialsPolicy, AuthorityPolicy authorityPolicy) {
+    public DefaultUserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PhotoService photoService, RecoveryTokenRepository recoveryTokenRepository, VerificationTokenRepository verificationTokenRepository, SecurityPolicy securityPolicy, PersonalizationPolicy personalizationPolicy) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.photoService = photoService;
         this.recoveryTokenRepository = recoveryTokenRepository;
         this.verificationTokenRepository = verificationTokenRepository;
-        this.credentialsPolicy = credentialsPolicy;
-        this.authorityPolicy = authorityPolicy;
+        this.securityPolicy = securityPolicy;
+        this.personalizationPolicy = personalizationPolicy;
     }
 
     @Override
@@ -62,9 +60,9 @@ public class DefaultUserService implements UserService {
             throw new AlreadyExistsException("There is an account with that username: + accountDto.getCredentials()");
         }
         String password = accountDto.getPassword();
-        if(credentialsPolicy.alwaysGenerateOnRegistration()) {
+        if(securityPolicy.alwaysGenerateOnRegistration()) {
             if (passwordGenerator == null) {
-                Class<PasswordGenerator> passwordGeneratorType = credentialsPolicy.defaultPasswordGeneratorType();
+                Class<PasswordGenerator> passwordGeneratorType = securityPolicy.defaultPasswordGeneratorType();
                 passwordGenerator = passwordGeneratorType.newInstance();
             }
             password = passwordGenerator.generate();
@@ -73,7 +71,9 @@ public class DefaultUserService implements UserService {
         String encodedPassword = passwordEncoder.encode(password);
         final Photo photo = photoService.uploadFile(accountDto);
         User user = User.createUser(accountDto, encodedPassword, photo);
-        final GrantedAuthority defaultAuthority = authorityPolicy.getDefaultRegistrationAuthority();
+        user.setLocale(personalizationPolicy.getDefaultUserLocale());
+        user.setTheme(personalizationPolicy.getDefaultUserTheme());
+        final GrantedAuthority defaultAuthority = securityPolicy.getDefaultRegistrationAuthority();
         user.addAuthority(defaultAuthority);
         return userRepository.save(user);
     }
@@ -111,24 +111,45 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public void deleteUsedVerificationToken(String token) {
+        verificationTokenRepository.deleteAllByToken(token);
+    }
+
+    @Override
+    public void activateUser(User user, String token) {
+        user.setEnabled(true);
+        this.saveRegisteredUser(user);
+        this.deleteUsedVerificationToken(token);
+    }
+
+    @Override
     public void createRecoveryToken(User user, String token) {
         recoveryTokenRepository.save(new RecoveryToken(user, token));
     }
 
     @Override
-    public Optional<RecoveryToken> getUserByRecoveryToken(String token) {
+    public Optional<RecoveryToken> findByRecoveryToken(String token) {
         return Optional.ofNullable(recoveryTokenRepository.findByToken(token));
     }
 
-    public void setCredentialsPolicy(CredentialsPolicy credentialsPolicy) {
-        this.credentialsPolicy = credentialsPolicy;
+    @Override
+    public void changeUserPassword(User user, PasswordDto passwordDto, String token) {
+        user.unlock();
+        final String encodedPassword = passwordEncoder.encode(passwordDto.getPassword());
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+        recoveryTokenRepository.deleteAllByToken(token);
+    }
+
+    public void setCredentialsPolicy(SecurityPolicy securityPolicy) {
+        this.securityPolicy = securityPolicy;
     }
 
     public void setPasswordGenerator(PasswordGenerator passwordGenerator) {
         this.passwordGenerator = passwordGenerator;
     }
 
-    public void setAuthorityPolicy(AuthorityPolicy authorityPolicy) {
-        this.authorityPolicy = authorityPolicy;
+    public void setPersonalizationPolicy(PersonalizationPolicy personalizationPolicy) {
+        this.personalizationPolicy = personalizationPolicy;
     }
 }

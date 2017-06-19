@@ -246,7 +246,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'webfm'           : 'Web-filbehandler',
 			'ver'             : 'Versjon',
 			'protocolver'     : 'protokol versjon',
-			'homepage'        : 'Project home',
+			'homepage'        : 'project home',
 			'docs'            : 'dokumentasjon',
 			'github'          : 'Fork us on Github',
 			'twitter'         : 'Follow us on twitter',

@@ -1,4 +1,3 @@
-
 function displayRepo(userName, divId, repoName){
 	Github.repoActivity({
 			username: userName,

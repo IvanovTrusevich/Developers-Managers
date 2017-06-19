@@ -21,6 +21,8 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     Project findByProjectName(String projectname);
 
+    Set<Project> findByEnabled(Boolean enabled);
+
     @Query("SELECT p.gitLastSHA FROM Project p WHERE p.gitRepoName = :gitRepoName")
     String findGitLastSHAByGitRepoName(@Param("gitRepoName") String gitRepoName);
 

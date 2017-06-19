@@ -10,8 +10,20 @@
     <%@include file='components/head.jsp'%>
     <title><s:message code="index.title"/> </title>
 </head>
-    <body>
+    <body class="index-page theme-<s:theme code="themeName"/>">
     <%@include file='components/header.jsp'%>
+
+    <div>
+        <c:forEach items="${projects}" var="project">
+            <p>${project.projectName}</p>
+        </c:forEach>
+
+        <c:forEach items="${news}" var="pieceOfNews">
+            <p>${pieceOfNews.key}</p>
+            <p>${pieceOfNews.value}</p>
+        </c:forEach>
+    </div>
+
 
     <%@include file="components/footer.jsp"%>
     <%@include file="components/script.jsp"%>
