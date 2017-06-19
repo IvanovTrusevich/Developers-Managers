@@ -21,19 +21,13 @@ import java.util.*;
 @Controller
 @RequestMapping(value = {"/"})
 public class ProfileController {
-
-    private CloudinaryService cloudinaryService;
     private UserRepository userRepository;
+
     private NewsLoader newsLoader;
 
     @Autowired
     public void setNewsLoader(NewsLoader newsLoader) {
         this.newsLoader = newsLoader;
-    }
-
-    @Autowired
-    public void setCloudinaryService(CloudinaryService cloudinaryService) {
-        this.cloudinaryService = cloudinaryService;
     }
 
     @Autowired
@@ -44,7 +38,7 @@ public class ProfileController {
     @GetMapping(value = "/profile/{username}")
     public ModelAndView getUser(@PathVariable("username") String username, Locale locale){
         User user = userRepository.findByUsername(username);
-        Map<Date,String> news  = newsLoader.loadUserNews(locale, username);
+        Map<Date,String> news = newsLoader.loadUserNews(locale, username);
 
         Map<Project,Integer> projects = new HashMap<>();
         for(Project project : user.getProjects()) {
@@ -56,39 +50,8 @@ public class ProfileController {
                 "projects", projects, "role", role));
     }
 
-    @GetMapping(value = "/profile/{username}/edit")
-    public ModelAndView getUserEditPage(String username){
-        User user = userRepository.findByUsername(username);
-        return new ModelAndView("userEdit","user", user);
-    }
-
-    @PostMapping(value = "/profile/changePicture/")
-    @ResponseBody
-    public void changePicture(byte[] bytes, long userId) throws IOException {
-        Photo photo = cloudinaryService.uploadFile(bytes);
-        User user = userRepository.findOne(userId);
-        user.setPhoto(photo);
-        userRepository.save(user);
-    }
-
-    public void changeFirstName(String newName, long userId){
-        userRepository.updateFirstNameById(newName,userId);
-    }
-
-    public void changeMiddleName(String newName, long userId){
-        userRepository.updateMiddleNameById(newName,userId);
-    }
-
-    public void changeLastName(String newName, long userId){
-        userRepository.updateLastNameById(newName,userId);
-    }
-
-    public void changeUserName(String newName, long userId){
-        userRepository.updateUserNameById(newName,userId);
-    }
-
     private String getUserRole(User user) {
-        String role = null;
+        String role;
         switch (user.getAuthorities().size()) {
             case 1:
                 role = "developer";

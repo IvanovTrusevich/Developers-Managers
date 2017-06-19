@@ -42,7 +42,7 @@ public class UserDto extends PasswordDto {
     @UniqueUsername(message = "{username.unique}")
     private String username;
 
-
+    @NotNull
     private MultipartFile profileImage;
 
     private UserDto() {

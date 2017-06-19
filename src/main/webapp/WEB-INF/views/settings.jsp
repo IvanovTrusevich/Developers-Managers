@@ -24,10 +24,10 @@
         <div class="col-md-2 col-xs-12">
             <ul class="nav settings-list" role="tablist">
                 <li role="presentation">
-                    <a class="list-group-item active" href="#personal" aria-controls="personal" role="tab" data-toggle="tab" aria-expanded="true">Personal</a>
+                    <a class="list-group-item active" href="#personal" aria-controls="personal" role="tab" data-toggle="tab" aria-expanded="true"><s:message code="profile.personal"/></a>
                 </li>
                 <li role="presentation">
-                    <a class="list-group-item" href="#account" aria-controls="account" role="tab" data-toggle="tab">Account</a>
+                    <a class="list-group-item" href="#account" aria-controls="account" role="tab" data-toggle="tab"><s:message code="profile.account"/></a>
                 </li>
             </ul>
         </div>
@@ -100,7 +100,7 @@
                         </sf:form>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="account">
-                        <sf:form id="account-settings-form" class="form-horizontal" method="post">
+                        <sf:form id="account-settings-form" class="form-horizontal" modelAttribute="accountForm" action="/settings/account" method="post">
                             <fieldset>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                 <div class="form-group">
@@ -168,5 +168,12 @@
 
 <%@include file='components/footer.jsp' %>
 <%@include file='components/script.jsp' %>
+
+<c:if test="${not empty success}">
+    <script>
+        changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "success", "glyphicon-ok", "<s:message code="settings.updated"/>");
+    </script>
+</c:if>
+</body>
 </body>
 </html>

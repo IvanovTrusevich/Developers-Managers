@@ -36,6 +36,15 @@
         </div>
         <div class="col-md-9 col-sm-8 col-xs-12">
             <div class="wrapper">
+                <div class="panel-heading">
+                    <div class="panel-title text-center">
+                        <h1 class="title text-uppercase"><s:message code="profile.projects"/></h1>
+                        <hr/>
+                    </div>
+                </div>
+                <c:if test="${empty projects}">
+                    <h3 class="text-center"><s:message code="profile.noProjects"/></h3>
+                </c:if>
                 <c:forEach items="${projects}" var="project">
                     <article class="project col-md-6 col-sm-12">
                         <div class="project-wrapper">

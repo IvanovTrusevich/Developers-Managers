@@ -93,7 +93,8 @@ public class UserController {
     }
 
     private void unlockUser(User user, PasswordDto passwordDto, String token) {
-        userService.changeUserPassword(user, passwordDto, token);
+        userService.changeUserPassword(user, passwordDto);
+        userService.deleteUserRecoveryToken(token);
     }
 
     @GetMapping(value = "/registration")

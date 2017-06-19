@@ -14,6 +14,10 @@ public class AccountDto extends PasswordDto {
     private AccountDto() {
     }
 
+    public static AccountDto getPlaceholder() {
+        return new AccountDto("", "", "");
+    }
+
     public AccountDto(String password, String matchingPassword, String oldPassword) {
         super(password, matchingPassword);
         this.oldPassword = oldPassword;

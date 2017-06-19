@@ -17,5 +17,7 @@ public interface RecoveryService {
 
     Optional<RecoveryToken> findByRecoveryToken(String token);
 
-    void changeUserPassword(User user, PasswordDto passwordDto, String token);
+    void changeUserPassword(User user, PasswordDto passwordDto);
+
+    void deleteUserRecoveryToken(String token);
 }

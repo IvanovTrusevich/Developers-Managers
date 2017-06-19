@@ -1,6 +1,7 @@
 package by.itransition.data.model.dto;
 
 import by.itransition.data.model.Gender;
+import by.itransition.data.model.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +24,10 @@ public class ProfileDto {
 
     @NotNull
     private Gender gender;
+
+    public static ProfileDto createProfileDto(User user) {
+        return new ProfileDto(user.getFirstName(), user.getLastName(), user.getMiddleName(), user.getGender());
+    }
 
     private ProfileDto() {
     }

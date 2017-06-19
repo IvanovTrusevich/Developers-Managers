@@ -101,6 +101,14 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    public User changeProfileImage(User user, byte[] bytes) throws IOException {
+        final Photo photo = photoService.uploadFile(bytes);
+        user.setPhoto(photo);
+        saveRegisteredUser(user);
+        return null;
+    }
+
+    @Override
     public void createVerificationToken(User user, String token) {
         verificationTokenRepository.save(new VerificationToken(user, token));
     }
@@ -133,11 +141,15 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public void changeUserPassword(User user, PasswordDto passwordDto, String token) {
+    public void changeUserPassword(User user, PasswordDto passwordDto) {
         user.unlock();
         final String encodedPassword = passwordEncoder.encode(passwordDto.getPassword());
         user.setPassword(encodedPassword);
         userRepository.save(user);
+    }
+
+    @Override
+    public void deleteUserRecoveryToken(String token) {
         recoveryTokenRepository.deleteAllByToken(token);
     }
 

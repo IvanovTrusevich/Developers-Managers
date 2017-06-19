@@ -2,7 +2,6 @@ package by.itransition.data.model;
 
 import by.itransition.data.model.dto.UserDto;
 import com.google.common.collect.Lists;
-import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
@@ -56,6 +55,10 @@ public class User implements UserDetails {
     @Column(name = "middle_name")
     private String middleName;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+
     @Column(name = "username", unique = true)
     private String username;
 
@@ -92,21 +95,21 @@ public class User implements UserDetails {
     }
 
     public static User createUser(UserDto userDto, String encodedPassword, Photo photo) {
-        return new User(userDto, encodedPassword, photo);
+        return new User(userDto, encodedPassword, photo, Gender.OTHER);
     }
 
-    public User(UserDto userDto, String encodedPassword, Photo photo) {
+    public User(UserDto userDto, String encodedPassword, Photo photo, Gender gender) {
         this(userDto.getEmail(), encodedPassword, Lists.newArrayList(), userDto.getFirstName(),
-                userDto.getLastName(), userDto.getMiddleName(), userDto.getUsername(), photo);
+                userDto.getLastName(), userDto.getMiddleName(), userDto.getUsername(), photo, gender);
     }
 
     public User(String email, String password, GrantedAuthority authority, String firstName,
-                String lastName, String middleName, String username, Photo photo) {
-        this(email, password, Lists.newArrayList(authority), firstName, lastName, middleName, username, photo);
+                String lastName, String middleName, String username, Photo photo, Gender gender) {
+        this(email, password, Lists.newArrayList(authority), firstName, lastName, middleName, username, photo, gender);
     }
 
     public User(String email, String password, List<? extends GrantedAuthority> authorities, String firstName,
-                String lastName, String middleName, String username, Photo photo) {
+                String lastName, String middleName, String username, Photo photo, Gender gender) {
         this.email = email;
         this.password = password;
         this.enabled = false;
@@ -118,6 +121,7 @@ public class User implements UserDetails {
         this.photo = photo;
         this.locale = "en";
         this.theme = "default";
+        this.gender = gender;
         this.authorities = new ArrayList<>();
         if (authorities != null && !authorities.isEmpty())
             this.addAllAuthority(authorities);
@@ -320,5 +324,13 @@ public class User implements UserDetails {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
