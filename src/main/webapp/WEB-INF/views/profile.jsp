@@ -66,14 +66,19 @@
             </div>
         </div>
     </div>
-</div>
-
-
-<div>
-    <c:forEach items="${news}" var="pieceOfNews">
-        <p> News: ${pieceOfNews.value}</p>
-        <p> Date: ${pieceOfNews.key}</p>
-    </c:forEach>
+    <div class="wrapper">
+        <div>
+            <c:forEach items="${news}" var="n">
+                <article class="news col-md-6 col-sm-12">
+                    <div class="news-wrapper">
+                        <h4><a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a></h4>
+                        <div class="description">${n.value}</div>
+                        <div class="date">${n.key}</div>
+                    </div>
+                </article>
+            </c:forEach>
+        </div>
+    </div>
 </div>
 
 <%@include file='components/footer.jsp' %>

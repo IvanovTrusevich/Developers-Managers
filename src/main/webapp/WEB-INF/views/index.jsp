@@ -18,9 +18,14 @@
             <p>${project.projectName}</p>
         </c:forEach>
 
-        <c:forEach items="${news}" var="pieceOfNews">
-            <p>${pieceOfNews.key}</p>
-            <p>${pieceOfNews.value}</p>
+        <c:forEach items="${news}" var="n">
+            <article class="news col-md-6 col-sm-12">
+                <div class="news-wrapper">
+                    <h4><a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a></h4>
+                    <div class="description">${n.value}</div>
+                    <div class="date">${n.key}</div>
+                </div>
+            </article>
         </c:forEach>
     </div>
 

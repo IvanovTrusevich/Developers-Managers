@@ -62,13 +62,21 @@
                 <div role="tabpanel" class="tab-pane fade" id="news">
                     <div id="repo" class="component"></div>
                     <div>
-                        <p>${project.enabled}</p>
+                        <c:forEach items="${news}" var="n">
+                            <article class="news col-md-6 col-sm-12">
+                                <div class="news-wrapper">
+                                    <h4><a href="#"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a></h4>
+                                    <div class="description">${n.value}</div>
+                                    <div class="date">${n.key}</div>
+                                </div>
+                            </article>
+                        </c:forEach>
                     </div>
                 </div>
                 <security:authorize access="hasRole('ROLE_MANAGER')">
                     <div role="tabpanel" class="tab-pane fade" id="managment">
                         <div>
-                            
+
                         </div>
                     </div>
                 </security:authorize>
