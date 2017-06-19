@@ -28,14 +28,6 @@ public class ManageProjectController {
         return new ModelAndView("project", ImmutableMap.of("projects", projects));
     }
 
-    @GetMapping(value = "/projectManagement")
-    public ModelAndView newProject (){
-
-        List<Project> projects = manageProjectService.getAllProjects();
-
-        return new ModelAndView("projectManagement", ImmutableMap.of("projects", projects));
-    }
-
     @GetMapping(value = "/newProject/create")
     public void createNewProject (String projectName, String gitRepoName, long managerId, boolean isRepoCreated){
         if(!isRepoCreated){

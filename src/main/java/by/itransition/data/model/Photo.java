@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by ilya on 6/14/17.
@@ -43,8 +44,9 @@ public class Photo {
     private Photo() {
     }
 
-    public Photo(StoredFile file) {
-        this.setUpload(file);
+    public Photo(Map uploadResult) {
+        this.image = uploadResult.get("url").toString();
+        this.createdAt = new Date();
     }
 
     public Long getId() {
