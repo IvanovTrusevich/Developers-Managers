@@ -24,16 +24,6 @@ import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * ConnectorServlet is an example servlet it creates a ConnectorController on
- * init() and use it to handle requests on doGet()/doPost()
- *
- * users should extend from this servlet and customize required protected
- * methods
- *
- * @author bluejoe
- *
- */
 @Service
 public class ConnectorServlet{
     private GithubService githubService;

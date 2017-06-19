@@ -31,20 +31,20 @@
             <div class="text-center">
                 <h3>${user.username} </h3>
                 <h4>${user.firstName} ${user.middleName} ${user.lastName}</h4>
-                <i class="fa fa-circle" type="button" data-toggle="tooltip" data-placement="top" title="online" aria-hidden="true"></i> <span class="text-muted">admin</span>
+                <i class="fa fa-circle" type="button" data-toggle="tooltip" data-placement="top" title="online" aria-hidden="true"></i> <span class="text-muted">${role}</span>
             </div>
         </div>
         <div class="col-md-9 col-sm-8 col-xs-12">
             <div class="wrapper">
-                <c:forEach items="${user.projects}" var="project">
+                <c:forEach items="${projects}" var="project">
                     <article class="project col-md-6 col-sm-12">
                         <div class="project-wrapper">
-                            <h3><i class="fa fa-bars" aria-hidden="true"></i> <a href="/projects/${project.projectName}">${project.projectName}</a></h3>
-                            <div class="description text-muted">${project.gitReadme}</div>
+                            <h3><i class="fa fa-bars" aria-hidden="true"></i> <a href="/projects/${project.key.projectName}">${project.key.projectName}</a></h3>
+                            <div class="description text-muted">${project.key.gitReadme}</div>
                             <div class="nav">
                                 <ul class="project-attributes nav navbar-nav">
-                                    <li class="nav-item">Developers: <span class="badge">${project.developers.size}</span></li>
-                                    <c:if test="${project.enabled}">
+                                    <li class="nav-item">Developers: <span class="badge">${project.value}</span></li>
+                                    <c:if test="${not project.key.enabled}">
                                         <li class="nav-item">
                                             <i class="fa fa-archive" type="button" data-toggle="tooltip" data-placement="top" title="Project was archived" aria-hidden="true"></i>
                                         </li>
@@ -57,6 +57,14 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div>
+    <c:forEach items="${news}" var="pieceOfNews">
+        <p> News: ${pieceOfNews.value}</p>
+        <p> Date: ${pieceOfNews.key}</p>
+    </c:forEach>
 </div>
 
 <%@include file='components/footer.jsp' %>

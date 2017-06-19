@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.*;
 
 @Controller
@@ -36,18 +37,19 @@ public class ProjectController {
     @GetMapping(value = "/projects/{projectName}")
     public String getHome(Model model, @PathVariable("projectName") String projectName) {
         if (!projectService.exists(projectName))
-            throw new ResourceNotFoundException("Project not found");
-       model.addAttribute("readme", Lists.newArrayList(projectService.getReadme(projectName).split("\n")));
-       model.addAttribute("tags", projectService.getCurrentProjectTags(projectName));
-       model.addAttribute("repoUrl", projectService.getRepoUrl(projectName));
-       model.addAttribute("repoName", projectService.getRepoName(projectName));
-       model.addAttribute("wiki", projectService.getWikiContent(projectName));
-       model.addAttribute("news", projectService.getNews(projectName));
-       return "project";
+            throw new ResourceNotFoundException("project not found");
+        model.addAttribute("readme", Lists.newArrayList(projectService.getReadme(projectName).split("\n")));
+        model.addAttribute("tags", projectService.getCurrentProjectTags(projectName));
+        model.addAttribute("repoUrl", projectService.getRepoUrl(projectName));
+        model.addAttribute("repoName", projectService.getRepoName(projectName));
+        model.addAttribute("wiki", projectService.getWikiContent(projectName));
+        model.addAttribute("news", projectService.getNews(projectName));
+        model.addAttribute("wikiLastEditor", projectService.getWikiLastEditor(projectName));
+        return "project";
     }
 
-    @GetMapping(value = "/projects/{projectName}/wiki")
-    public String getWiki() {
-        return "project";
+    @GetMapping(value = "/newProject")
+    public ModelAndView newProject() {
+        return new ModelAndView("newProject");
     }
 }

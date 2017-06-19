@@ -6,11 +6,17 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.nio.entity.NStringEntity;
+import org.apache.http.util.EntityUtils;
+import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ElasticSearch {
@@ -40,18 +46,18 @@ public class ElasticSearch {
 //        //es.deleteDocument("blog","post",3);
 //    }
 
-    private ElasticSearch(){
+    public ElasticSearch() {
     }
 
-    private void openClient(){
-        if(restClient == null) {
+    private void openClient() {
+        if (restClient == null) {
             restClient = RestClient.builder(
                     new HttpHost("localhost", 9200, "http"),
                     new HttpHost("localhost", 9205, "http")).build();
         }
     }
 
-    <T extends ElasticModelInterface> void createDocument(String type, T t){
+    public <T extends ElasticModelInterface> void createDocument(String type, T t) {
         openClient();
         String endpoint = "/" + index + "/" + type + "/" + t.getId();
         HttpEntity entity = new NStringEntity(new Json().objectToJson(t), ContentType.APPLICATION_JSON);
@@ -61,35 +67,9 @@ public class ElasticSearch {
             e.printStackTrace();
         }
     }
+    public <T extends ElasticModelInterface> T getObject(String searchResult){
 
-
-
-
-
-    //    public void findDocuments(Map<String, String> objects) {
-//        Response response = null;
-//        try {
-//            response = restClient.performRequest("GET", "/blog/_search",
-//                    objects);
-//            System.out.println(EntityUtils.toString(response.getEntity()));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("Host -" + (response != null ? response.getHost() : null));
-//        System.out.println("RequestLine -" + (response != null ? response.getRequestLine() : null));
-//    }
-
-//    public void deleteDocument( String index, String type, long id){
-//        String endpoint = "/" + index + "/" + type + "/" + id +"?pretty";
-//        Response response = null;
-//        try {
-//            response = restClient.performRequest(
-//                    "DELETE",
-//                    endpoint,
-//                    Collections.<String, String>emptyMap()
-//            );
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+        List<T> result = new Json().jsonToObject(searchResult);
+        return null;
+    }
 }

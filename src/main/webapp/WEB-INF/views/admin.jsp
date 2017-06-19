@@ -17,6 +17,19 @@
                 <div class="panel-title text-center">
                     <h1 class="title text-uppercase">devman</h1>
                     <hr/>
+
+                    <div>
+                        <c:forEach items="${users}" var="user">
+                            <p>${user.username}</p>
+                            <p>${user.firstName}</p>
+                            <p>${user.lastName}</p>
+                            <p>${user.middleName}</p>
+                            <p></p>
+                            <p></p>
+                        </c:forEach>
+                    </div>
+
+
                 </div>
             </div>
             <h2 class="text-uppercase">You are on admin page</h2>

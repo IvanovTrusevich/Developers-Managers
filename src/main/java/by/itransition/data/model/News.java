@@ -17,11 +17,11 @@ public class News {
     @Column(name = "news_type")
     private NewsType newsType;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User userNews;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="project_id")
     private Project projectNews;
 
@@ -53,6 +53,22 @@ public class News {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setNewsType(NewsType newsType) {
+        this.newsType = newsType;
+    }
+
+    public void setUserNews(User userNews) {
+        this.userNews = userNews;
+    }
+
+    public void setProjectNews(Project projectNews) {
+        this.projectNews = projectNews;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     private News() {
