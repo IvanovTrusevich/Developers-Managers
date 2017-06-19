@@ -51,19 +51,6 @@ public class GithubService {
         return true;
     }
 
-    public boolean deleteRepo(String repoName) {
-        GitHub github;
-        try {
-            github = GitHub.connectUsingOAuth(oAuth);
-            GHOrganization organisation = github.getOrganization(orgName);
-            organisation.getRepository(repoName).delete();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
-
     public List<Pair<String,String>> getFiles(String repoName) throws IOException {
         if(isLastCommitCashed(repoName)){
             return getFilesFromCache(repoName);
@@ -75,10 +62,6 @@ public class GithubService {
 
     public String getGitUrl(String repoName) throws IOException {
         return getRepo(repoName).getGitTransportUrl();
-    }
-
-    public String getHtmlUrl(String repoName) throws IOException {
-        return getRepo(repoName).getHtmlUrl().toString();
     }
 
     @SuppressWarnings("deprecation")

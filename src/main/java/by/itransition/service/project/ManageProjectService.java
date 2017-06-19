@@ -56,10 +56,6 @@ public class ManageProjectService {
         projectRepository.save(project);
     }
 
-    public boolean isProjectActive (String projectName) {
-        return projectRepository.findByProjectName(projectName).getEnabled();
-    }
-
     public List<Project> getAllProjects(){
         return projectRepository.findAll();
     }

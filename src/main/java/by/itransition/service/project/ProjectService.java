@@ -56,8 +56,12 @@ public class ProjectService {
         return projectRepository.findGitRepoNameByProjectName(projectName);
     }
 
-    public User getWikiLastEditor(String projectName) {
-        return projectRepository.findWikiLastEditorByProjectName(projectName);
+    public String getWikiLastEditor(String projectName) {
+        User user =  projectRepository.findWikiLastEditorByProjectName(projectName);
+        if (user == null){
+            return "";
+        }
+        return user.getUsername();
     }
 
     public void addTagToProject(String projectName, String tagName, double weight) {

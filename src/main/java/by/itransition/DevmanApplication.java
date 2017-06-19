@@ -47,6 +47,7 @@ public class DevmanApplication {
 //            addNews(newsRepository, userRepository, projectRepository);
 //            projectService.addTagToProject("secondProject","data",4);
             // backendElastickSerachSynchronizer(synchronizationService);
+
         };
     }
 

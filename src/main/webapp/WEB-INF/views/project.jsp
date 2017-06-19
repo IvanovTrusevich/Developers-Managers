@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <title>Project</title>
 </head>
-<body class="project-page theme-<s:theme code="themeName"/>">
+< class="project-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 <div class="main-content">
     <div class="wrapper">
@@ -69,6 +69,13 @@
     </div>
 </div>
 
+<div>
+    <p>wiki</p>
+    <p>${wiki}</p>
+    <p>wikiLastEditor</p>
+    <p><a href=//profile/${wikiLastEditor}">${wikiLastEditor}</a></p>
+</div>
+
 <%@include file='components/footer.jsp' %>
 <%@include file='components/script.jsp' %>
 <script type="text/javascript" src="<s:url value="/res/libs/undercore/underscore-min.js"/>"></script>
@@ -90,19 +97,7 @@
         $(function () {
             $('#elfinder').elfinder({
                 url: '/connector/${projectName}',
-                lang: '${pageContext.response.locale}',
-                commands : [
-                    'open', 'reload', 'home', 'up', 'back', 'forward', 'quicklook',
-                    'download','info', 'view'
-                ],
-                contextmenu : {
-                    // navbarfolder menu
-                    navbar : ['open'],
-                    // current directory menu
-                    cwd    : ['reload', 'back'],
-                    // current directory file menu
-                    files  : ['getfile', '|', 'custom', 'quicklook']
-                },
+                lang: '${pageContext.response.locale}'
             });
         });
     });

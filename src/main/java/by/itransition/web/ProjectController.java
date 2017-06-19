@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.*;
 
 @Controller
@@ -37,31 +38,18 @@ public class ProjectController {
     public String getHome(Model model, @PathVariable("projectName") String projectName) {
         if (!projectService.exists(projectName))
             throw new ResourceNotFoundException("project not found");
-       model.addAttribute("readme", Lists.newArrayList(projectService.getReadme(projectName).split("\n")));
-       model.addAttribute("tags", projectService.getCurrentProjectTags(projectName));
-       model.addAttribute("repoUrl", projectService.getRepoUrl(projectName));
-       model.addAttribute("repoName", projectService.getRepoName(projectName));
-       model.addAttribute("wiki", projectService.getWikiContent(projectName));
-       model.addAttribute("news", projectService.getNews(projectName));
-       return "project";
+        model.addAttribute("readme", Lists.newArrayList(projectService.getReadme(projectName).split("\n")));
+        model.addAttribute("tags", projectService.getCurrentProjectTags(projectName));
+        model.addAttribute("repoUrl", projectService.getRepoUrl(projectName));
+        model.addAttribute("repoName", projectService.getRepoName(projectName));
+        model.addAttribute("wiki", projectService.getWikiContent(projectName));
+        model.addAttribute("news", projectService.getNews(projectName));
+        model.addAttribute("wikiLastEditor", projectService.getWikiLastEditor(projectName));
+        return "project";
     }
 
-    @GetMapping(value = "/{projectName}/wiki")
-    public ModelAndView getWiki(@PathVariable("projectName") String projectName){
-        if (!projectService.exists(projectName))
-            throw new RuntimeException("project not found");
-        String wiki = projectService.getWikiContent(projectName);
-        Set<Tag> tags = projectService.getCurrentProjectTags(projectName);
-        User wikiLastEditor = projectService.getWikiLastEditor(projectName);
-        return new ModelAndView("project", ImmutableMap.of("wiki", wiki, "tags", tags));
-    }
-
-    @GetMapping(value = "/{projectName}/news")
-    public ModelAndView getNewsContent(@PathVariable("projectName") String projectName){
-        if (!projectService.exists(projectName))
-            throw new RuntimeException("project not found");
-        Set<News> news = projectService.getNews(projectName);
-        Set<Tag> tags = projectService.getCurrentProjectTags(projectName);
-        return new ModelAndView("project", ImmutableMap.of("news", news, "tags", tags));
+    @GetMapping(value = "/newProject")
+    public ModelAndView newProject() {
+        return new ModelAndView("newProject");
     }
 }
