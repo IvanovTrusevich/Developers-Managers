@@ -65,6 +65,7 @@ public class Project {
             joinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"),
             inverseJoinColumns=@JoinColumn(name="tags", referencedColumnName="tag_id"))
     private Set<Tag> tags;
+
     @OneToMany(mappedBy = "projectNews")
     private Set<News> news;
 
