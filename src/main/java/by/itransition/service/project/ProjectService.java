@@ -85,4 +85,8 @@ public class ProjectService {
     public Set<Project> getActiveProjects(){
         return projectRepository.findByEnabled(true);
     }
+
+    public Object getProject(String projectName) {
+        return projectRepository.findByProjectName(projectName);
+    }
 }

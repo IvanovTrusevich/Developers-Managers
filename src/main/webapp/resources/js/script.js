@@ -183,8 +183,8 @@ var $ajaxSubmitting = function (successHandler, errorHandler, beforeSubmit) {
                     if (errorHandler) errorHandler($form, error);
                     changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", error['responseText']);
                     $btn.button('reset');
-                },
-                timeout: 10000
+                }
+                // timeout: 30000
             });
             return false;
         }
@@ -631,7 +631,7 @@ function SettingsPage() {
         shadow: false,
         hwaccel: false,
         position: 'absolute'
-    }
+    };
     var spinner;
     var $updatePhotoFormValidator = Object.assign({
         rules: {

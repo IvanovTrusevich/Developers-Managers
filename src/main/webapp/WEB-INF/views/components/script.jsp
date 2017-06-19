@@ -7,4 +7,5 @@
 <script src="<s:url value="/res/responsive-toolkit/dist/bootstrap-toolkit.min.js"/>"></script>
 <script src="<s:url value="/res/tooltipster/dist/js/tooltipster.bundle.min.js"/> "></script>
 <script src="<s:url value="/res/libs/jqcloud/jqcloud-1.0.4.js"/>"></script>
+<script src="<s:url value="/res/js/spin.min.js"/>"></script>
 <script src="<s:url value="/res/js/script.js"/> "></script>

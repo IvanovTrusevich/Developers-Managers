@@ -91,8 +91,13 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
-    public User findOneWithCredentials(String credentials) {
-        return userRepository.findByEmailOrUsername(credentials, credentials);
+    public User findOne(Long id) {
+        return (userRepository.findOne(id));
+    }
+
+    @Override
+    public Optional<User> findOneWithCredentials(String credentials) {
+        return Optional.ofNullable(userRepository.findByEmailOrUsername(credentials, credentials));
     }
 
     @Override

@@ -31,9 +31,14 @@ public class AdminController {
         adminService.changeUserRole(userId,newAuthority);
     }
 
-    @GetMapping(value = "/admin/{users}")
+    @GetMapping(value = "/admin/")
     public ModelAndView showAllUsers() {
         return new ModelAndView("admin", "users", adminService.getAllUsers());
+    }
+
+    @GetMapping(value = "/admin/fire/{userId}")
+    public void fireUser(@PathVariable("userId") Long userId) {
+        adminService.fireUser(userId);
     }
 
 }

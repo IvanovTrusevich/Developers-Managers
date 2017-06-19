@@ -22,12 +22,11 @@
         <div class="content">
             <header>
                 <ul class="nav nav-tabs nav-justified" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-                    <li role="presentation"><a href="#wiki" aria-controls="profile" role="tab" data-toggle="tab">Wiki</a></li>
-                    <li role="presentation"><a href="#forum" aria-controls="messages" role="tab" data-toggle="tab">Forum</a></li>
-                    <li role="presentation"><a href="#news" aria-controls="settings" role="tab" data-toggle="tab">News</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><s:message code="project.menu.home"/></a></li>
+                    <li role="presentation"><a href="#wiki" aria-controls="profile" role="tab" data-toggle="tab"><s:message code="project.menu.wiki"/></a></li>
+                    <li role="presentation"><a href="#news" aria-controls="settings" role="tab" data-toggle="tab"><s:message code="project.menu.news"/></a></li>
                     <security:authorize access="hasRole('ROLE_MANAGER')">
-                        <li role="presentation"><a href="#managment" aria-controls="settings" role="tab" data-toggle="tab">Management</a></li>
+                        <li role="presentation"><a href="#managment" aria-controls="settings" role="tab" data-toggle="tab"><s:message code="project.menu.managment"/></a></li>
                     </security:authorize>
                 </ul>
             </header>
@@ -35,6 +34,10 @@
                 <div role="tabpanel" class="tab-pane fade in active" id="home">
                     <div class="page-header">
                         <h1 class="text-center">${projectName}</h1>
+                        <div>
+                            <h3 class = 'text'><s:message code="project.clone"/></h3>
+                            ${repoUrl}
+                        </div>
                         <div id="elfinder"></div>
                     </div>
                     <h1 class="text-center">README</h1>
@@ -56,13 +59,18 @@
                     <textarea id='mde'></textarea>
                     <button id="to-pdf-btn" class="btn btn-default">To PDF</button>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="forum">
-                </div>
                 <div role="tabpanel" class="tab-pane fade" id="news">
                     <div id="repo" class="component"></div>
+                    <div>
+                        <p>${project.enabled}</p>
+                    </div>
                 </div>
                 <security:authorize access="hasRole('ROLE_MANAGER')">
-                    <div role="tabpanel" class="tab-pane fade" id="managment">...</div>
+                    <div role="tabpanel" class="tab-pane fade" id="managment">
+                        <div>
+                            
+                        </div>
+                    </div>
                 </security:authorize>
             </div>
         </div>
@@ -97,7 +105,17 @@
         $(function () {
             $('#elfinder').elfinder({
                 url: '/connector/${projectName}',
-                lang: '${pageContext.response.locale}'
+                lang: '${pageContext.response.locale}',
+                commands : [
+                ],
+                contextmenu : {
+                    // navbarfolder menu
+                    navbar : [],
+                    // current directory menu
+                    cwd    : [],
+                    // current directory file menu
+                    files  : []
+                }
             });
         });
     });

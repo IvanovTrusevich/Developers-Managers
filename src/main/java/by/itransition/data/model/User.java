@@ -55,7 +55,7 @@ public class User implements UserDetails {
     @Column(name = "middle_name")
     private String middleName;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     @Column(name = "gender")
     private Gender gender;
 

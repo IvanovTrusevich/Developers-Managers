@@ -121,13 +121,13 @@ public class DevmanApplication {
 
             String encodedPassword = passwordEncoder.encode("Ilyailya1");
             User user = new User("com.ilya.ivanov@gmail.com", encodedPassword, authorities1, "Ivanov",
-                    "Ilya", "Petrovich", "Ilya", defaultPhoto);
+                    "Ilya", "Petrovich", "Ilya", defaultPhoto, Gender.MALE);
             user.setEnabled(true);
             userRepository.save(user);
 
             String encodedPassword2 = passwordEncoder.encode("Valikvalik1");
             User user2 = new User("vtrusevich@gmail.com", encodedPassword2, authorities2, "aa",
-                    "aaa", "aaa", "aaa", defaultPhoto);
+                    "aaa", "aaa", "aaa", defaultPhoto, Gender.MALE);
             user2.setEnabled(true);
             userRepository.save(user2);
         }
@@ -138,9 +138,7 @@ public class DevmanApplication {
             Thread thread = Executors.defaultThreadFactory().newThread(r);
             thread.setDaemon(true);
             return thread;
-        }).scheduleAtFixedRate(() -> {
-            synchronizationService.synchronizeWithSql();
-        }, 1, 10, TimeUnit.MINUTES);
+        }).scheduleAtFixedRate(synchronizationService::synchronizeWithSql, 1, 10, TimeUnit.MINUTES);
     }
 
     private void addTags(ProjectRepository projectRepository, TagRepository tagRepository) {

@@ -87,7 +87,7 @@
                                             <label><sf:radiobutton path="gender" value="FEMALE"/><s:message code="registration.gender.female"/></label>
                                         </div>
                                         <div class="radio">
-                                            <label><sf:radiobutton path="gender" value="OTHER" checked="checked"/><s:message code="registration.gender.other"/></label>
+                                            <label><sf:radiobutton path="gender" value="OTHER"/><s:message code="registration.gender.other"/></label>
                                         </div>
                                     </div>
                                 </div>

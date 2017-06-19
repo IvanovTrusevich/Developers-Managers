@@ -32,10 +32,10 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li class="dropdown-header"><s:message code="header.profile.singInAs"/> <span id="user-dropdown-username"><security:authentication property="principal.username"/></span></li>
-                                <li><a href="#"><s:message code="header.profile.myProfile"/></a></li>
-                                <li><a href="#"><s:message code="header.profile.myProjects"/></a></li>
+                                <li><a href="/profile/<security:authentication property="principal.username"/>}"><s:message code="header.profile.myProfile"/></a></li>
+                                <%--<li><a href="#"><s:message code="header.profile.myProjects"/></a></li>--%>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><s:message code="header.profile.settings"/></a></li>
+                                <li><a href="<s:url value="/settings"/>"><s:message code="header.profile.settings"/></a></li>
                                 <li>
                                     <a id="logout-trigger" type="submit" href=""><s:message code="header.profile.signOut"/></a>
                                     <form id="logout-form" action="<s:url value="/logout"/>" method="POST">

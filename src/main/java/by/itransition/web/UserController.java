@@ -53,15 +53,15 @@ public class UserController {
     @PostMapping(value = "/lost")
     @ResponseBody
     public ResponseEntity<String> lostPassword(Locale locale, HttpServletRequest request, @RequestParam("credentials") String credentials) {
-        final User oneWithCredentials = userService.findOneWithCredentials(credentials);
-        if (oneWithCredentials == null)
+        final Optional<User> oneWithCredentials = userService.findOneWithCredentials(credentials);
+        if (!oneWithCredentials.isPresent())
             return ResponseEntity.badRequest().body(messageSource.getMessage("lost.error.exists", null, locale));
         try {
-            eventPublisher.publishEvent(new OnPasswordRecoveryRequestEvent(oneWithCredentials, locale, request.getContextPath()));
+            eventPublisher.publishEvent(new OnPasswordRecoveryRequestEvent(oneWithCredentials.get(), locale, request.getContextPath()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(messageSource.getMessage("lost.error.email", null, locale));
         }
-        this.lockUser(oneWithCredentials);
+        this.lockUser(oneWithCredentials.get());
         return ResponseEntity.ok(messageSource.getMessage("lost.success", null, locale));
     }
 

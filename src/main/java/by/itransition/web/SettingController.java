@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by ilya on 6/19/17.
@@ -35,22 +36,24 @@ public class SettingController {
     @GetMapping("/settings")
     public String getSettings(Model model, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        model.addAttribute("personalForm", ProfileDto.createProfileDto(user));
+        final User one = userService.findOne(user.getId());
+        model.addAttribute("personalForm", ProfileDto.createProfileDto(one));
         model.addAttribute("accountForm", AccountDto.getPlaceholder());
         return "settings";
     }
 
     @PostMapping("/settings/personal")
-    public ModelAndView processPersonalSettings(
+    public ModelAndView processPersonalSettings(Model model,
             @ModelAttribute("personalForm") ProfileDto profileDto, BindingResult result, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         final ModelAndView modelAndView = new ModelAndView("settings", "accountForm", AccountDto.getPlaceholder());
-        modelAndView.addObject("user", user);
-        if (result.hasErrors()) {
-            updateUserPersonal(user, profileDto);
-            userService.saveRegisteredUser(user);
-            modelAndView.addObject("success", "true");
-        }
+        final User one = userService.findOne(user.getId());
+            modelAndView.addObject("user", one);
+            if (!result.hasErrors()) {
+                    updateUserPersonal(one, profileDto);
+                    userService.saveRegisteredUser(one);
+                    modelAndView.addObject("success", "true");
+            }
         return modelAndView;
     }
 
@@ -70,13 +73,14 @@ public class SettingController {
     }
 
     @PostMapping("/settings/account")
-    public ModelAndView processAccountSettings(
+    public ModelAndView processAccountSettings(Model model,
             @ModelAttribute("accountForm") AccountDto accountDto, BindingResult result, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        final ModelAndView modelAndView = new ModelAndView("settings", "accountForm", AccountDto.getPlaceholder());
-        modelAndView.addObject("user", user);
-        if (result.hasErrors()) {
-            userService.changeUserPassword(user, accountDto);
+        final User one = userService.findOne(user.getId());
+        final ModelAndView modelAndView = new ModelAndView("settings", "personalForm", ProfileDto.createProfileDto(one));
+        modelAndView.addObject("user", one);
+        if (!result.hasErrors()) {
+            userService.changeUserPassword(one, accountDto);
             modelAndView.addObject("success", "true");
         }
         return modelAndView;
@@ -85,9 +89,10 @@ public class SettingController {
     @PostMapping("/settings/photo")
     @ResponseBody
     public ResponseEntity<String> processPhotoUpdate(@Valid PhotoDto photoDto, BindingResult result, Authentication authentication) throws IOException {
+        User user = (User) authentication.getPrincipal();
         if (!result.hasErrors()) {
-            User user = (User) authentication.getPrincipal();
-            userService.changeProfileImage(user, photoDto.getProfileImage().getBytes());
+            final User one = userService.findOne(user.getId());
+            userService.changeProfileImage(one, photoDto.getProfileImage().getBytes());
             return ResponseEntity.ok(user.getPhoto().getImage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

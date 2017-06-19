@@ -15,7 +15,7 @@
         <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12">
             <div class="panel-heading">
                 <div class="panel-title text-center">
-                    <h1 class="title text-uppercase">devman</h1>
+                    <h1 class="title text-uppercase"><s:message code="header.company"/></h1>
                     <hr/>
 
                     <div>
