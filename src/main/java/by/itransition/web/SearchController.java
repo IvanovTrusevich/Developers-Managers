@@ -1,7 +1,6 @@
 package by.itransition.web;
 
 import by.itransition.data.model.Project;
-import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.TagRepository;
 import by.itransition.service.elasticsearch.searcher.QueryBuilder;
 import by.itransition.service.elasticsearch.searcher.ResultParser;
@@ -53,7 +52,6 @@ public class SearchController {
     @GetMapping(value = "/")
     public ModelAndView findProjectByTag(String tag) {
         Set<Project> projects = tagRepository.findProjectsByTagName(tag);
-
         return new ModelAndView("searchResult", "projects", projects);
     }
 }

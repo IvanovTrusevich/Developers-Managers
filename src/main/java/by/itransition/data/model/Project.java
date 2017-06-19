@@ -223,7 +223,7 @@ public class Project {
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "project{" +
                 "id=" + id +
                 ", projectName='" + projectName + '\'' +
                 ", gitRepoName='" + gitRepoName + '\'' +

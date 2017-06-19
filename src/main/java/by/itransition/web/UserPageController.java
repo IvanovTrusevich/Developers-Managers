@@ -8,8 +8,7 @@ import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -32,19 +31,20 @@ public class UserPageController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping(value = "/user/{username}")
+    @GetMapping(value = "/users/{username}")
     public ModelAndView getUser(String username){
         User user = userRepository.findByUsername(username);
         return new ModelAndView("user","user", user);
     }
 
-    @GetMapping(value = "/user/{username}/edit")
+    @GetMapping(value = "/users/{username}/edit")
     public ModelAndView getUserEditPage(String username){
         User user = userRepository.findByUsername(username);
         return new ModelAndView("userEdit","user", user);
     }
 
-    //@GetMapping(value = "/user/{username}/e")
+    @PostMapping(value = "/users/changePicture/")
+    @ResponseBody
     public void changePicture(byte[] bytes, long userId) throws IOException {
         Photo photo = cloudinaryService.uploadFile(bytes);
         User user = userRepository.findOne(userId);

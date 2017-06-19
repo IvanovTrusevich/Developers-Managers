@@ -53,4 +53,9 @@ public class Tag {
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
+    @Override
+    public String toString() {
+        return "{" + "text:" + "\"" + tagName + "\"" + ", weight:" + weight + ", link:" + "\"" + "/search?q=#" + tagName + "\"" + "}";
+    }
 }

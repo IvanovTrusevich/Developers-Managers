@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping(value = {"/admin"})
+@RequestMapping(value = {"/"})
 public class AdminController {
 
     private AdminService adminService;
@@ -26,12 +26,12 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping(value = "/change/")
-    public void changeUserRole(long userId, String newAuthority) {
+    @GetMapping(value = "/admin/{userId}")
+    public void changeUserRole(@PathVariable("userId") Long userId, @PathVariable("newAuthority") String newAuthority) {
         adminService.changeUserRole(userId,newAuthority);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/admin/{users}")
     public ModelAndView showAllUsers() {
         return new ModelAndView("admin", "users", adminService.getAllUsers());
     }

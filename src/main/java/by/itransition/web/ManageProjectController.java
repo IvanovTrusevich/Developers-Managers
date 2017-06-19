@@ -1,7 +1,7 @@
 package by.itransition.web;
 
 import by.itransition.data.model.Project;
-import by.itransition.service.Project.ManageProjectService;
+import by.itransition.service.project.ManageProjectService;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

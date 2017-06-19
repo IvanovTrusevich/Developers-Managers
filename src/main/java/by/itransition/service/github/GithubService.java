@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GithubService {
-	private static final String orgName = "ItransitionProjects";
+    private static final String orgName = "ItransitionProjects";
     private static final String oAuth = System.getenv("githubToken");
     private static final String branchName = "master";
     private ProjectRepository projectRepository;
@@ -37,44 +37,44 @@ public class GithubService {
     }
 
     public boolean createRepo(String repoName) {
-		GitHub github;
-		try {
-			github = GitHub.connectUsingOAuth(oAuth);
-			GHOrganization organisation = github.getOrganization(orgName);
-			GHCreateRepositoryBuilder builder = organisation.createRepository(repoName);
-			builder.downloads(true);
-			builder.create();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+        GitHub github;
+        try {
+            github = GitHub.connectUsingOAuth(oAuth);
+            GHOrganization organisation = github.getOrganization(orgName);
+            GHCreateRepositoryBuilder builder = organisation.createRepository(repoName);
+            builder.downloads(true);
+            builder.create();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
-	public boolean deleteRepo(String repoName) {
-		GitHub github;
-		try {
-			github = GitHub.connectUsingOAuth(oAuth);
-			GHOrganization organisation = github.getOrganization(orgName);
-			organisation.getRepository(repoName).delete();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
+    public boolean deleteRepo(String repoName) {
+        GitHub github;
+        try {
+            github = GitHub.connectUsingOAuth(oAuth);
+            GHOrganization organisation = github.getOrganization(orgName);
+            organisation.getRepository(repoName).delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
-	public List<Pair<String,String>> getFiles(String repoName) throws IOException {
+    public List<Pair<String,String>> getFiles(String repoName) throws IOException {
         if(isLastCommitCashed(repoName)){
             return getFilesFromCache(repoName);
         }
         List<Pair<String,String>> files = loadFilesFromGithub(repoName);
         cacheFiles(files, repoName);
         return files;
-	}
+    }
 
     public String getGitUrl(String repoName) throws IOException {
-            return getRepo(repoName).getGitTransportUrl();
+        return getRepo(repoName).getGitTransportUrl();
     }
 
     public String getHtmlUrl(String repoName) throws IOException {
@@ -82,11 +82,11 @@ public class GithubService {
     }
 
     @SuppressWarnings("deprecation")
-	public String getReadMe(String repoName) throws IOException {
-            return getRepo(repoName).getReadme().getContent();
+    public String getReadMe(String repoName) throws IOException {
+        return getRepo(repoName).getReadme().getContent();
     }
 
-	private GHRepository getRepo(String repoName) throws IOException {
+    private GHRepository getRepo(String repoName) throws IOException {
         if(github == null)
             github = GitHub.connectUsingOAuth(oAuth);
         GHOrganization organisation = github.getOrganization(orgName);
@@ -96,7 +96,7 @@ public class GithubService {
     private boolean isLastCommitCashed(String repoName) throws IOException {
         String lastCachedCommitSha = null;
         try {
-             lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
+            lastCachedCommitSha = projectRepository.findGitLastSHAByGitRepoName(repoName);
         } catch (Exception e){
             log.warn("Error in checking last commit. May be there are unique constraint failture. Error: " + e.getMessage());
         }
@@ -128,7 +128,7 @@ public class GithubService {
     }
 
     private List<Pair<String,String>> getFilesFromCache(String repoName) {
-	    Project project = projectRepository.findByGitRepoName(repoName);
+        Project project = projectRepository.findByGitRepoName(repoName);
         List<GitFile> files = gitFileRepository.findByProject(project);
         List<Pair<String,String>> formattedFiles = new ArrayList<>();
         for(GitFile file : files)
@@ -137,8 +137,8 @@ public class GithubService {
     }
 
     private void cacheFiles(List<Pair<String, String>> files, String repoName) throws IOException {
-	    Project project = projectRepository.findByGitRepoName(repoName);
-	    if(project != null) {
+        Project project = projectRepository.findByGitRepoName(repoName);
+        if(project != null) {
             gitFileRepository.deleteByProject(project);
             for (Pair<String, String> file : files) {
                 GitFile gitFile = new GitFile(file.getKey(), file.getValue(), project);

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/main.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="tooltipster/dist/css/tooltipster.bundle.min.css" />
+    <title>Ilya1Ivanov</title>
+</head>
+
+<body class="profile-page">
+    <header class="main-navigation">
+        <nav class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                <a class="navbar-brand" href="#">Devman</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="text-uppercase" href="#"><strong>News</strong></a></li>
+                    <li><a class="text-uppercase" href="login.html"><strong>Login/registrate</strong></a></li>
+                    <li class="dropdowm-menu" id="user-dropdown">
+                        <a class="text-uppercase dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="">
+                            <strong>Profile</strong>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li class="dropdown-header">Signed in as <span id="user-dropdown-username"></span></li>
+                            <li><a href="#"><i class="fa fa-user-circle" aria-hidden="true"></i> My profile</a></li>
+                            <li><a href="#"><i class="fa fa-folder" aria-hidden="true"></i> My projects</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
+                            <li>
+                                <a id="logout-trigger" type="submit" href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a>
+                                <form id="logout-form" action="/logout" method="POST">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input class="form-control" placeholder="Search..." type="text">
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="wrapper">
+            <div class="col-md-2 col-xs-12">
+                <div class="settings-list">
+                    <a href="#" class="list-group-item active">Personal</a>
+                    <a href="#" class="list-group-item">Account</a>
+                </div>
+            </div>
+            <div class="col-md-10 col-xs-12">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h2 class="title">Public profile</h2>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <form id="personal-settings-form" class="form-horizontal" enctype="multipart/form-data" method="post">
+                        <fieldset>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                            <div class="form-group">
+                                <label for="firstName" class="col-sm-3 control-label">First name:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" autofocus>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" class="col-sm-3 control-label">Last name:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="lastName" name="lastName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName" class="col-sm-3 control-label">Middle name:</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group col-xs-12">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" id="middleName" name="middleName" value="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Gender:</label>
+                                <div class="col-sm-9">
+                                    <div class="radio">
+                                        <label><input type="radio" name="gender" value="male" />Male</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" name="gender" value="female" /> Female</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" name="gender" value="other" checked/> Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-error-container">
+                            <span id="credentials.errors">User with this credentials is already exists</span>
+                            <span id="user.errors">Ololo</span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Update</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <img src="pics/user-icon.png" class="img-thumbnail img-responsive center-block" alt="User piture">
+                    <div class="popover-static">
+                        <div class="popover bottom">
+                            <div class="arrow"></div>
+                            <h3 class="popover-title title lead text-center text-uppercase">Update your profile</h3>
+                            <div class="popover-content">
+                                <div class="form-group">
+                                    <form id="personal-settings-form" method="post">
+                                        <input type="file" class="filestyle" id="profileImage" name="profileImage" accept=".png,.jpg,.jpeg,.gif" data-iconName="glyphicon glyphicon-inbox">
+                                        <p if="file-error" class="help-block">Max size is 2MB.</p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="col-sm-5 col-xs-12 footer-content">
+                <ul class="nav navbar-nav">
+                    <li class="dropup" id="locale-dropup">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Locale <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">ru</a></li>
+                            <li><a href="#">en</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropup" id="theme-dropup">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Theme <span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Default</a></li>
+                            <li><a href="#">Purple</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-7 col-xs-12">
+                <div id="tag-cloud"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-filestyle.min.js"></script>
+
+    <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
+
+    <script src="js/script.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+</body>
+
+</html>

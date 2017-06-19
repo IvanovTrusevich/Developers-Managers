@@ -10,13 +10,12 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
-<c:set var="page" value="login"/>
 <!DOCTYPE html>
 <html>
 <head>
     <%@include file='components/head.jsp' %>
 </head>
-<body>
+<body class="login-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 
 <div class="main-content">
@@ -48,7 +47,7 @@
 
                                         <div class="input-group col-xs-12">
                                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                            <input type="text" class="form-control" id="login-credentials" name="credentials" placeholder="Username of credentials" required>
+                                            <input type="text" class="form-control" id="login-credentials" name="username" placeholder="Username of email" required>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +97,7 @@
                                     <div class="col-sm-9">
                                         <div class="input-group col-xs-12">
                                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                                            <input type="text" class="form-control" id="lost-credentials" name="credentials" placeholder="Username or credentials" required="required"/>
+                                            <input type="text" class="form-control" id="lost-credentials" name="credentials" placeholder="Username or email" required="required"/>
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +120,7 @@
 </div>
 <%@include file="components/footer.jsp"%>
 <%@include file="components/script.jsp"%>
+
 <c:set var="lost" value='<%= request.getParameter("lost") %>'/>
 <c:if test="${not empty lost && lost eq 'true'}">
     <script>
@@ -130,7 +130,7 @@
     </script>
 </c:if>
 <c:set var="hasError" value='<%= request.getParameter("error") %>'/>
-<c:if test="${not empty hasError && hasError eq 'true' && not empty param.error}">
+<c:if test="${not empty hasError && hasError eq 'true' && not empty SPRING_SECURITY_LAST_EXCEPTION}">
     <script>
         $(function () {
             changeMessage($('#modal-message-block'), $('#modal-message-icon'), $('#modal-message-text'), "error", "glyphicon-remove", "${SPRING_SECURITY_LAST_EXCEPTION}");

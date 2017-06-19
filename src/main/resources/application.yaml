@@ -29,6 +29,7 @@ spring:
       batch_size: 10
 logging:
   file: logs/devman.log
+server.error.whitelabel.enabled: false
 by.itransition:
       service:
         user:
@@ -37,6 +38,8 @@ by.itransition:
             defaultPasswordGeneratorName: by.itransition.service.user.impl.RandomPasswordGenerator
           defaultAuthority: ROLE_DEVELOPER
           expirationTime: 1440
+          defaultUserLocale: en
+          defaultUserTheme: default
         photo:
           defaultUserIconUrl: /res/pics/user-icon.png
           thumbnail:

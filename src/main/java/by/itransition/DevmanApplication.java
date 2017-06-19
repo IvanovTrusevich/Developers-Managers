@@ -5,11 +5,9 @@ import by.itransition.data.repository.GitFileRepository;
 import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.TagRepository;
 import by.itransition.data.repository.UserRepository;
-import by.itransition.service.Project.ProjectService;
+import by.itransition.service.project.ProjectService;
 import by.itransition.service.elasticsearch.SynchronizationService;
-import by.itransition.service.github.GithubService;
 import by.itransition.service.photo.PhotoService;
-import by.itransition.service.photo.impl.CloudinaryService;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
@@ -87,17 +84,22 @@ public class DevmanApplication {
         Set<User> managers = new HashSet<>();
         managers.add(one);
 
-        Project project = new Project(managers, developers,"secondProject",
-                "Notes","https://github.com/ItransitionProjects/Notes.git",
-                "lasSwefweSH","RMewff",null,null,true);
+        Project project = new Project(managers, developers,"socket",
+                "Socket","https://github.com/ItransitionProjects/Socket.git",
+                "lasSSH","RMewff",null,null,true);
         projectRepository.save(project);
 
-//        final Project pOne = projectRepository.findOne(1L);
+        Project project1 = new Project(managers, developers,"secondProject",
+                "Notes","https://github.com/ItransitionProjects/Notes.git",
+                "lasSwefweSH","RMewff",null,null,true);
+        projectRepository.save(project1);
+
+//        final project pOne = projectRepository.findOne(1L);
 //        List<GitFile> files = new ArrayList<>();
 //        files.add(new GitFile("main.txt","hello",pOne));
 //        gitFileRepository.save(files);
 //
-//        final Project pr = projectRepository.findOne(1L);
+//        final project pr = projectRepository.findOne(1L);
 //        log.info(pr.getGitLastSHA());
 //
 //        log.info("lastSha " + projectRepository.findGitLastSHAByGitRepoName("Socket"));

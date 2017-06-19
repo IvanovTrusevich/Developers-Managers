@@ -10,7 +10,7 @@
     <%@include file='components/head.jsp'%>
     <title><s:message code="index.title"/> </title>
 </head>
-    <body>
+    <body class="index-page theme-<s:theme code="themeName"/>">
     <%@include file='components/header.jsp'%>
 
     <div>

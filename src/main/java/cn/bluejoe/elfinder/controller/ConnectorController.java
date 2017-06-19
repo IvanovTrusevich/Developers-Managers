@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.bluejoe.elfinder.controller.executor.CommandExecutionContext;
@@ -35,12 +36,12 @@ import cn.bluejoe.elfinder.controller.executor.CommandExecutorFactory;
 import cn.bluejoe.elfinder.service.FsServiceFactory;
 
 @Controller
-@RequestMapping("connector")
+@RequestMapping("/connector")
 public class ConnectorController {
     //@Resource(name = "commandExecutorFactory")
     private CommandExecutorFactory _commandExecutorFactory;
 
-   //@Resource(name = "fsServiceFactory")
+    //@Resource(name = "fsServiceFactory")
     private FsServiceFactory _fsServiceFactory;
 
     private ProjectRepository projectRepository;
@@ -53,14 +54,11 @@ public class ConnectorController {
     @Autowired
     private ConnectorServlet connectorServlet;
 
-    //@RequestMapping
     @GetMapping(value = "/{projectName}")
-    public void connector(HttpServletRequest request,
-                          final HttpServletResponse response, @PathVariable("projectName") String projectName) throws IOException {
+    public void connector(HttpServletRequest request, HttpServletResponse response, @PathVariable("projectName") String projectName) throws IOException {
         String repoName = projectRepository.findGitRepoNameByProjectName(projectName);
-        //String repoName = "Socket";
         setCommandExecutorFactory(connectorServlet.createCommandExecutorFactory(null));
-        setFsServiceFactory((FsServiceFactory) connectorServlet.createServiceFactory(null,repoName));
+        setFsServiceFactory( connectorServlet.createServiceFactory(null, repoName));
         try {
             request = parseMultipartContent(request);
         } catch (Exception e) {
