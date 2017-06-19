@@ -75,6 +75,14 @@ var $mainNavigation = (function () {
                 var pathname = window.location.pathname;
                 $('.nav > li > a[href="' + pathname + '"]').parent().addClass('active');
             })();
+            (function initSearch() {
+                $('#search-form').find('input').keypress(function(event) {
+                    if (event.which === 13) {
+                        event.preventDefault();
+                        $("form").submit();
+                    }
+                });
+            })();
         }
     }
 })();

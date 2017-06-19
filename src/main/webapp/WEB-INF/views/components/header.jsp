@@ -17,11 +17,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><s:message code="header.company"/></a>
+            <a class="navbar-brand" href="<s:url value="/index"/>"><s:message code="header.company"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item"><a class="text-uppercase" href="#"><strong><s:message code="header.news"/></strong></a></li>
+                <li class="nav-item"><a class="text-uppercase" href="<s:url value="/index"/>"><strong><s:message code="header.news"/></strong></a></li>
                 <c:choose>
                     <c:when test="${not empty authenticated && authenticated == true}">
                         <li class="dropdowm-menu" id="user-dropdown">
@@ -51,7 +51,7 @@
                     </c:otherwise>
                 </c:choose>
             </ul>
-            <form class="navbar-form navbar-right">
+            <form id="search-form" class="navbar-form navbar-right" action="<s:url value="/search"/>" method="post">
                 <input class="form-control" placeholder="<s:message code="header.search"/>" type="text">
             </form>
         </div>
