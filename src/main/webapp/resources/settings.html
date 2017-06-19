@@ -12,7 +12,7 @@
     <title>Ilya1Ivanov</title>
 </head>
 
-<body class="profile-page">
+<body class="settings-page">
     <header class="main-navigation">
         <nav class="container">
             <div class="navbar-header">
@@ -59,7 +59,7 @@
             <div class="col-md-2 col-xs-12">
                 <ul class="nav settings-list" role="tablist">
                     <li role="presentation">
-                        <a class="list-group-item active" href="#personal" aria-controls="personal" role="tab" data-toggle="tab">Profile</a>
+                        <a class="list-group-item active" href="#personal" aria-controls="personal" role="tab" data-toggle="tab" aria-expanded="true">Personal</a>
                     </li>
                     <li role="presentation">
                         <a class="list-group-item" href="#account" aria-controls="account" role="tab" data-toggle="tab">Account</a>
@@ -74,6 +74,12 @@
                     </div>
                 </div>
                 <div class="col-md-8 col-xs-12">
+                    <div class="form-state-line" id="modal-message-block">
+                        <div class="input-group col-xs-12">
+                            <span id="modal-message-icon" class="input-group-addon glyphicon glyphicon-chevron-right"></span>
+                            <input type="text" class="form-control" id="modal-message-text" readonly value="Update your profile.">
+                        </div>
+                    </div>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="personal">
                             <form id="personal-settings-form" class="form-horizontal" method="post">
@@ -122,8 +128,6 @@
                                     </div>
                                 </fieldset>
                                 <div class="form-error-container">
-                                    <span id="credentials.errors">User with this credentials is already exists</span>
-                                    <span id="user.errors">Ololo</span>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Update</button>
@@ -138,7 +142,7 @@
                                         <div class="col-sm-9">
                                             <div class="input-group col-xs-12">
                                                 <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                                <input type="password" class="form-control" id="old-password" name="password" placeholder="********" required>
+                                                <input type="password" class="form-control" id="old-password" name="oldPassword" placeholder="********" required>
                                             </div>
                                         </div>
                                     </div>
@@ -162,8 +166,7 @@
                                     </div>
                                 </fieldset>
                                 <div class="form-error-container">
-                                    <span id="credentials.errors">User with this credentials is already exists</span>
-                                    <span id="user.errors">Ololo</span>
+                                    <span id="oldPassword.errors">User with this credentials is already exists</span>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-primary btn-lg btn-block" data-loading-text="Submiting...">Update</button>
@@ -174,7 +177,9 @@
                 </div>
 
                 <div class="col-md-4 col-xs-12">
-                    <img src="pics/user-icon.png" class="img-thumbnail img-responsive center-block" alt="User piture">
+                    <div id="profile-image-spinner">
+                        <img id="profile-image" src="pics/user-icon.png" class="img-thumbnail img-responsive center-block" alt="User piture">
+                    </div>
                     <div class="popover-static">
                         <div class="popover bottom">
                             <div class="arrow"></div>
@@ -193,6 +198,7 @@
             </div>
         </div>
     </div>
+
     <footer class="main-footer">
         <div class="container">
             <div class="col-sm-5 col-xs-12 footer-content">
@@ -224,8 +230,9 @@
     </footer>
 
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
+    <script src="js/jquery.form.min.js"></script>
+    <script src="js/spin.min.js"></script>
 
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-filestyle.min.js"></script>
@@ -233,6 +240,12 @@
     <script type="text/javascript" src="tooltipster/dist/js/tooltipster.bundle.min.js"></script>
 
     <script src="js/script.js"></script>
+    <script>
+        $(function() {
+            console.log($('.settings-list').find('li a[aria-controls="account"]'));
+            $('.settings-list').find('li a[aria-controls="account"]')[0].click();
+        });
+    </script>
 </body>
 
 </html>

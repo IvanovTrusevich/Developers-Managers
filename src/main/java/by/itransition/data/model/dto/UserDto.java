@@ -34,6 +34,7 @@ public class UserDto extends PasswordDto {
     @UniqueEmail(message = "{email.unique}")
     private String email;
 
+    @NotNull
     private Gender gender;
 
     @NotNull
@@ -45,7 +46,6 @@ public class UserDto extends PasswordDto {
     private MultipartFile profileImage;
 
     private UserDto() {
-        super();
     }
 
     public UserDto(String firstName, String lastName, String middleName, String email, Gender gender, String username, String password, String matchingPassword) {
