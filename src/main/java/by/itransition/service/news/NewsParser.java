@@ -23,7 +23,8 @@ public class NewsParser {
         for (News pieceOfNews : news) {
             String format = messageSource.getMessage(pieceOfNews.getNewsType().getFormatStringAddress(), null, locale);
             String result;
-            if (pieceOfNews.getNewsType() == NewsType.DEVELOPER_TO_PROJECT || pieceOfNews.getNewsType() == NewsType.NEW_PROJECT) {
+            if (pieceOfNews.getNewsType() == NewsType.DEVELOPER_TO_PROJECT || pieceOfNews.getNewsType() == NewsType.NEW_PROJECT ||
+                    pieceOfNews.getNewsType() == NewsType.PROJECT_ARCHIVED) {
                 result = String.format(format, pieceOfNews.getUserNews().getFirstName() + " " + pieceOfNews.getUserNews().getLastName(), pieceOfNews.getProjectNews().getProjectName());
             } else if (pieceOfNews.getProjectNews() == null) {
                 result = String.format(format, pieceOfNews.getUserNews().getFirstName() + " " + pieceOfNews.getUserNews().getLastName());

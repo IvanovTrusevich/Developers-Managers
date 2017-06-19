@@ -3,7 +3,7 @@ package by.itransition.web;
 import by.itransition.data.model.Project;
 import by.itransition.data.repository.UserRepository;
 import by.itransition.service.project.ProjectService;
-import by.itransition.service.news.CompanyNewsLoader;
+import by.itransition.service.news.NewsLoader;
 import by.itransition.service.news.NewsSaver;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.*;
 public class MainPageController {
 
     private ProjectService projectService;
-    private CompanyNewsLoader companyNewsLoader;
+    private NewsLoader newsLoader;
     private NewsSaver newsSaver;
     private UserRepository userRepository;
 
@@ -39,14 +39,14 @@ public class MainPageController {
     }
 
     @Autowired
-    public void setCompanyNewsLoader(CompanyNewsLoader companyNewsLoader) {
-        this.companyNewsLoader = companyNewsLoader;
+    public void setNewsLoader(NewsLoader newsLoader) {
+        this.newsLoader = newsLoader;
     }
 
     @GetMapping(value = "/index")
     public ModelAndView getHome(Locale locale) {
         Set<Project> projects = projectService.getActiveProjects();
-        Map<Date,String> news = companyNewsLoader.loadLastNews(locale);
+        Map<Date,String> news = newsLoader.loadLastNews(locale);
         return new ModelAndView("index", ImmutableMap.of("news", news, "projects", projects));
     }
 
