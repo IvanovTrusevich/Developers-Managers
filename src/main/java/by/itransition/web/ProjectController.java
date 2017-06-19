@@ -38,18 +38,13 @@ public class ProjectController {
     public String getHome(Model model, @PathVariable("projectName") String projectName) {
         if (!projectService.exists(projectName))
             throw new ResourceNotFoundException("project not found");
+
         model.addAttribute("readme", Lists.newArrayList(projectService.getReadme(projectName).split("\n")));
         model.addAttribute("tags", projectService.getCurrentProjectTags(projectName));
         model.addAttribute("repoUrl", projectService.getRepoUrl(projectName));
         model.addAttribute("repoName", projectService.getRepoName(projectName));
         model.addAttribute("wiki", projectService.getWikiContent(projectName));
         model.addAttribute("news", projectService.getNews(projectName));
-        model.addAttribute("wikiLastEditor", projectService.getWikiLastEditor(projectName));
         return "project";
-    }
-
-    @GetMapping(value = "/newProject")
-    public ModelAndView newProject() {
-        return new ModelAndView("newProject");
     }
 }

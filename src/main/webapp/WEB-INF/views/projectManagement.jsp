@@ -16,12 +16,9 @@
 <div>
     <c:forEach items="${projects}" var="project">
         <p>${project.projectName}</p>
+        <p>${project.enabled}</p>
     </c:forEach>
 
-    <c:forEach items="${news}" var="pieceOfNews">
-        <p>${pieceOfNews.key}</p>
-        <p>${pieceOfNews.value}</p>
-    </c:forEach>
 </div>
 
 

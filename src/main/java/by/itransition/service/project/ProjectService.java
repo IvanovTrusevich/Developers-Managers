@@ -6,6 +6,7 @@ import by.itransition.data.model.Tag;
 import by.itransition.data.model.User;
 import by.itransition.data.repository.ProjectRepository;
 import by.itransition.data.repository.TagRepository;
+import by.itransition.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,12 @@ public class ProjectService {
 
     private ProjectRepository projectRepository;
     private TagRepository tagRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     public void setTagRepository(TagRepository tagRepository) {
@@ -54,6 +61,13 @@ public class ProjectService {
 
     public String getRepoName(String projectName) {
         return projectRepository.findGitRepoNameByProjectName(projectName);
+    }
+
+    public void setWikiLastEditor(String projectName, Long userId){
+        Project project = projectRepository.findByProjectName(projectName);
+        User user  = userRepository.findOne(userId);
+        project.setWikiLastEditor(user);
+        projectRepository.save(project);
     }
 
     public String getWikiLastEditor(String projectName) {

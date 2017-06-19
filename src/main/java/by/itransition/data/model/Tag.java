@@ -18,11 +18,11 @@ public class Tag {
     @Column(name = "tag_weight")
     private double weight;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="project_tag",
-            joinColumns=@JoinColumn(name="tag_id", referencedColumnName="tag_id"),
-            inverseJoinColumns=@JoinColumn(name="project_id", referencedColumnName="project_id"))
+            name = "project_tag",
+            joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "tag_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id", referencedColumnName = "project_id"))
     private Set<Project> projects;
 
     public Long getId() {

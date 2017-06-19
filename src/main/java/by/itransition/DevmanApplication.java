@@ -2,6 +2,7 @@ package by.itransition;
 
 import by.itransition.data.model.*;
 import by.itransition.data.repository.*;
+import by.itransition.service.news.NewsSaver;
 import by.itransition.service.project.ProjectService;
 import by.itransition.service.elasticsearch.SynchronizationService;
 import by.itransition.service.photo.PhotoService;
@@ -38,16 +39,17 @@ public class DevmanApplication {
                                   TagRepository tagRepository,
                                   ProjectService projectService,
                                   NewsRepository newsRepository,
+                                  NewsSaver newsSaver,
                                   SynchronizationService synchronizationService) {
         return (args) -> {
 
+  //          newsSaver.save(1l,1l,NewsType.DEVELOPER_TO_PROJECT);
 //            addAdmins(userRepository, passwordEncoder, cloudinaryService);
 //            addProject(userRepository, projectRepository, gitFileRepository, synchronizationService);
 //            addTags( projectRepository, tagRepository);
 //            addNews(newsRepository, userRepository, projectRepository);
 //            projectService.addTagToProject("secondProject","data",4);
             // backendElastickSerachSynchronizer(synchronizationService);
-
         };
     }
 

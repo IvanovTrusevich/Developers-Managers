@@ -44,12 +44,11 @@ public class SearchController {
 
         String jsonRequest = queryBuilder.build(searchText);
         String searchResult = searchManager.find(jsonRequest);
-        System.out.println(searchResult);
         Map<String,String> result = new ResultParser().parse(searchResult);
         return new ModelAndView("searchResult", "search", result);
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/tagsearch")
     public ModelAndView findProjectByTag(String tag) {
         Set<Project> projects = tagRepository.findProjectsByTagName(tag);
         return new ModelAndView("searchResult", "projects", projects);

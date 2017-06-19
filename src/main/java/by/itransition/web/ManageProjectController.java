@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = {"/projectManagement"})
+@RequestMapping(value = {"/"})
 public class ManageProjectController {
 
     private ManageProjectService manageProjectService;
@@ -22,13 +22,21 @@ public class ManageProjectController {
         this.manageProjectService = manageProjectService;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/projectManagement")
     public ModelAndView showAllProjects (){
         List<Project> projects = manageProjectService.getAllProjects();
-        return new ModelAndView("project", ImmutableMap.of("wiki", projects));
+        return new ModelAndView("project", ImmutableMap.of("projects", projects));
     }
 
-    @GetMapping(value = "/create")
+    @GetMapping(value = "/projectManagement")
+    public ModelAndView newProject (){
+
+        List<Project> projects = manageProjectService.getAllProjects();
+
+        return new ModelAndView("projectManagement", ImmutableMap.of("projects", projects));
+    }
+
+    @GetMapping(value = "/newProject/create")
     public void createNewProject (String projectName, String gitRepoName, long managerId, boolean isRepoCreated){
         if(!isRepoCreated){
             manageProjectService.createGitRepo(gitRepoName);
@@ -41,7 +49,7 @@ public class ManageProjectController {
         manageProjectService.archivateProject(projectName);
     }
 
-    @GetMapping(value = "/{projectName}/dearchivate")
+    @GetMapping(value = "/dearchivate/{projectName}")
     public void dearchivate (String projectName){
         manageProjectService.dearchivateProject(projectName);
     }

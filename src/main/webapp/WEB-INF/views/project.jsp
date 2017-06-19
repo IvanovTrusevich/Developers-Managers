@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <title>Project</title>
 </head>
-< class="project-page theme-<s:theme code="themeName"/>">
+<body class="project-page theme-<s:theme code="themeName"/>">
 <%@include file='components/header.jsp' %>
 <div class="main-content">
     <div class="wrapper">
@@ -53,6 +53,10 @@
                     </div>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="wiki">
+                    <div>
+                        <p>wiki</p>
+                        <p>${wiki}</p>
+                    </div>
                     <textarea id='mde'></textarea>
                     <button id="to-pdf-btn" class="btn btn-default">To PDF</button>
                 </div>
@@ -67,13 +71,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div>
-    <p>wiki</p>
-    <p>${wiki}</p>
-    <p>wikiLastEditor</p>
-    <p><a href=//profile/${wikiLastEditor}">${wikiLastEditor}</a></p>
 </div>
 
 <%@include file='components/footer.jsp' %>
@@ -97,7 +94,17 @@
         $(function () {
             $('#elfinder').elfinder({
                 url: '/connector/${projectName}',
-                lang: '${pageContext.response.locale}'
+                lang: '${pageContext.response.locale}',
+                commands : [
+                ],
+                contextmenu : {
+                    // navbarfolder menu
+                    navbar : [],
+                    // current directory menu
+                    cwd    : [],
+                    // current directory file menu
+                    files  : []
+                }
             });
         });
     });
